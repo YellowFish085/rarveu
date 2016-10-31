@@ -6,6 +6,8 @@
  */
 'use strict';
 
+import * as THREE from 'three';
+
 class TemplateScenes {
 	constructor() {
 		this._scene = new THREE.Scene();
@@ -14,8 +16,9 @@ class TemplateScenes {
 	/**
 	 * Will be called when ScenesManager is initialized.
 	 * Init what's necessary here.
+	 * loadingManager is the three.js loading manager used to track assets loading
 	 */
-	init() {
+	init(loadingManager) {
 
 	}
 

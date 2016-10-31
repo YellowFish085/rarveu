@@ -12,18 +12,33 @@ class SceneController extends EventEmitter {
 	constructor() {
 		super();
 
-		this._modulesList  = Modules;
-		this._modules      = [];
+		this._modulesList    = Modules;
+		this._modules        = [];
 		
-		this._currentScene = null;
+		this._currentScene   = null;
 
+		this._loadingManager = null;
+
+		this.initLoadingManager();
 		this.init();
+	}
+
+	initLoadingManager() {
+		this._loadingManager = new THREE.LoadingManager();
+
+		this._loadingManager.onProgress = function(item, loaded, total) {
+			Log.trace( item, loaded, total );
+		};
+
+		this._loadingManager.onLoad = function() {
+			Log.trace('loadingManager ends');
+		};
 	}
 
 	init() {
 		this._modulesList.forEach(function(Module, index) {
 			this._modules.push(new Module());
-			this._modules[this._modules.length - 1].init();
+			this._modules[this._modules.length - 1].init(this._loadingManager);
 		}.bind(this));
 
 		if (this._modulesList.length > 0) {

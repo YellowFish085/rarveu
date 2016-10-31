@@ -2,8 +2,11 @@
 
 import * as THREE from 'three';
 
-class SceneTest {
+import EventEmitter from '../../classes/EventEmitter';
+
+class SceneTest extends EventEmitter {
 	constructor() {
+		super();
 		this._scene = new THREE.Scene();
 	}
 
@@ -11,7 +14,7 @@ class SceneTest {
 	 * Will be called when ScenesManager is initialized.
 	 * Init what's necessary here.
 	 */
-	init() {
+	init(loadingManager) {
 
 	}
 
