@@ -2,7 +2,7 @@
 
 import Log from '../../utils/log';
 
-import EventEmitter from '../extends/eventEmitter';
+import EventEmitter from '../../classes/EventEmitter';
 
 class MouseEvents extends EventEmitter {
 	constructor() {

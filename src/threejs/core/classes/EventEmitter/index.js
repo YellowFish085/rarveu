@@ -1,6 +1,6 @@
 'use strict';
 
-import ExtendedEventEmitter from '../extendedEventEmitter';
+import ExtendedEventEmitter from './extendedEventEmitter';
 
 /**
  * Default Event class with an ExtendedEventEmitter
