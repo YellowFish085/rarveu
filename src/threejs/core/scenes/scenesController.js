@@ -27,7 +27,7 @@ class SceneController extends EventEmitter {
 		this._loadingManager = new THREE.LoadingManager();
 
 		this._loadingManager.onProgress = function(item, loaded, total) {
-			Log.trace( item, loaded, total );
+			Log.trace(item + '\nloaded: ' + loaded + '\ntotal: ' + total );
 		};
 
 		this._loadingManager.onLoad = function() {
@@ -41,6 +41,10 @@ class SceneController extends EventEmitter {
 			this._modules[this._modules.length - 1].init(this._loadingManager);
 		}.bind(this));
 
+		this._modules.forEach(function(Scene, index) {
+			Scene.load();
+		}.bind(this))
+
 		if (this._modulesList.length > 0) {
 			this._currentScene = this._modules[0];
 		}
@@ -50,6 +54,10 @@ class SceneController extends EventEmitter {
 
 	addEventListener() {
 		
+	}
+
+	update() {
+		this._currentScene.update();
 	}
 
 	get currentScene() {

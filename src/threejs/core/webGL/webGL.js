@@ -92,7 +92,8 @@ class WebGL extends EventEmitter {
 	 * Update the scene
 	 * Called each frame
 	 */
-	update() {		
+	update() {	
+		this._scenesController.update();
 		this._renderer.render(this._scenesController.currentScene.scene, this._camera);
 	}
 }
