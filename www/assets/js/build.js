@@ -61992,10 +61992,8 @@ var App = function (_EventEmitter) {
 		_this._webGL = null; // WebGL
 		_this._hud = null; // VueJS HUD
 
-		_this.initHUD();
-
-		_this.initWebGL();
-
+		_this.createHUD();
+		_this.createWebGL();
 		_this.createGUI();
 		_this.createStats();
 
@@ -62010,8 +62008,8 @@ var App = function (_EventEmitter) {
   */
 
 	_createClass(App, [{
-		key: 'initHUD',
-		value: function initHUD() {
+		key: 'createHUD',
+		value: function createHUD() {
 			this._hud = new _hud2.default({
 				el: '#hud'
 			});
@@ -62022,8 +62020,8 @@ var App = function (_EventEmitter) {
    */
 
 	}, {
-		key: 'initWebGL',
-		value: function initWebGL() {
+		key: 'createWebGL',
+		value: function createWebGL() {
 			this._webGL = new _webGL2.default();
 		}
 
@@ -62064,7 +62062,7 @@ var App = function (_EventEmitter) {
 		}
 
 		/**
-   *
+   * Add events listeners
    */
 
 	}, {
@@ -62090,6 +62088,11 @@ var App = function (_EventEmitter) {
 				this._hud.sceneId = id;
 			}.bind(this));
 		}
+
+		/**
+   * Display three.js container
+   */
+
 	}, {
 		key: 'displayThreeJS',
 		value: function displayThreeJS() {
@@ -62444,12 +62447,12 @@ var EventsController = function () {
 		this._modulesList = _modules2.default;
 		this._modules = [];
 
-		this.initEvents();
+		this.init();
 	}
 
 	_createClass(EventsController, [{
-		key: 'initEvents',
-		value: function initEvents() {
+		key: 'init',
+		value: function init() {
 			this._modulesList.forEach(function (Module, index) {
 				this._modules.push(new Module());
 				this._modules[this._modules.length - 1].init();
@@ -62694,7 +62697,6 @@ require('./transition');
 
 var template = eval("`" + require('./template.html') + "`");
 
-// App
 var Loader = _vue2.default.extend({
 	template: template,
 
@@ -62703,27 +62705,7 @@ var Loader = _vue2.default.extend({
 			type: Number,
 			required: true
 		}
-	},
-
-	data: function data() {
-		return {};
-	},
-
-	components: {},
-
-	created: function created() {
-		console.log('HUD Loader created');
-	},
-
-	mounted: function mounted() {
-		console.log('HUD Loader mounted');
-	},
-
-	update: function update() {
-		console.log('HUD Loader update');
-	},
-
-	methods: {}
+	}
 });
 
 exports.default = Loader;
@@ -62805,7 +62787,6 @@ require('./transition');
 
 var template = eval("`" + require('./template.html') + "`");
 
-// App
 var Loader = _vue2.default.extend({
 	template: template,
 
@@ -62814,27 +62795,7 @@ var Loader = _vue2.default.extend({
 			type: Number,
 			required: true
 		}
-	},
-
-	data: function data() {
-		return {};
-	},
-
-	components: {},
-
-	created: function created() {
-		console.log('HUD Loader created');
-	},
-
-	mounted: function mounted() {
-		console.log('HUD Loader mounted');
-	},
-
-	update: function update() {
-		console.log('HUD Loader update');
-	},
-
-	methods: {}
+	}
 });
 
 exports.default = Loader;
@@ -62922,7 +62883,6 @@ function _interopRequireDefault(obj) {
 
 var template = eval("`" + require('./template.html') + "`");
 
-// App
 var App = _vue2.default.extend({
 	template: template,
 
@@ -62937,17 +62897,7 @@ var App = _vue2.default.extend({
 	components: {
 		'loader': _loader2.default,
 		'scene': _scene2.default
-	},
-
-	created: function created() {
-		console.log('HUD created');
-	},
-
-	mounted: function mounted() {
-		console.log('HUD mounted');
-	},
-
-	methods: {}
+	}
 });
 
 exports.default = App;
@@ -63213,37 +63163,61 @@ var SceneController = function (_EventEmitter) {
 
 		_this._scenesList = _modules2.default;
 		_this._scenes = [];
-
 		_this._currentSceneIndex = null;
-
 		_this._loadingManager = null;
 
-		_this.initLoadingManager();
 		_this.init();
 		return _this;
 	}
 
 	_createClass(SceneController, [{
+		key: 'init',
+		value: function init() {
+			this.bind();
+
+			this.initLoadingManager();
+			this.initScenes();
+
+			this.addEventListener();
+		}
+	}, {
+		key: 'bind',
+		value: function bind() {
+			this.onLoadProgress = this.onLoadProgress.bind(this);
+			this.onLoadEnd = this.onLoadEnd.bind(this);
+		}
+
+		/**
+   * Initialize three.js LoadingManager
+   */
+
+	}, {
 		key: 'initLoadingManager',
 		value: function initLoadingManager() {
 			this._loadingManager = new THREE.LoadingManager();
 
-			this._loadingManager.onProgress = function (item, loaded, total) {
-				_log2.default.trace(item + '\nloaded: ' + loaded + '\ntotal: ' + total);
-
-				var percentage = parseInt(loaded * 100 / total);
-				this.eeEmit('loading-progress', percentage);
-			}.bind(this);
-
-			this._loadingManager.onLoad = function () {
-				_log2.default.trace('loadingManager ends');
-
-				this.eeEmit('loading-end');
-			}.bind(this);
+			this._loadingManager.onProgress = this.onLoadProgress;
+			this._loadingManager.onLoad = this.onLoadEnd;
 		}
 	}, {
-		key: 'init',
-		value: function init() {
+		key: 'onLoadProgress',
+		value: function onLoadProgress(item, loaded, total) {
+			var percentage = parseInt(loaded * 100 / total);
+			this.eeEmit('loading-progress', percentage);
+		}
+	}, {
+		key: 'onLoadEnd',
+		value: function onLoadEnd() {
+			this.eeEmit('loading-end');
+		}
+
+		/**
+   * Initialize scenes
+   */
+
+	}, {
+		key: 'initScenes',
+		value: function initScenes() {
 			this._scenesList.forEach(function (Module, index) {
 				this._scenes.push(new Module());
 				this._scenes[this._scenes.length - 1].init(this._loadingManager);
@@ -63259,13 +63233,16 @@ var SceneController = function (_EventEmitter) {
 			}
 
 			this.eeEmit('scene-changed', this._currentSceneIndex);
-			this.addEventListener();
 		}
+
+		/**
+   * Add events listeners
+   */
+
 	}, {
 		key: 'addEventListener',
 		value: function addEventListener() {
 			this.eeListen('scenes-next', function () {
-				// Deactivate current scene
 				this.currentScene.deactivate();
 
 				this._currentSceneIndex += 1;
@@ -63273,19 +63250,26 @@ var SceneController = function (_EventEmitter) {
 					this._currentSceneIndex = 0;
 				}
 
-				// Activate new scene
 				this.currentScene.activate();
-
-				_log2.default.trace('new scene ' + this._currentSceneIndex);
 
 				this.eeEmit('scene-changed', this._currentSceneIndex);
 			}.bind(this));
 		}
+
+		/**
+   * Update current scene
+   */
+
 	}, {
 		key: 'update',
 		value: function update() {
 			this._scenes[this._currentSceneIndex].update();
 		}
+
+		/**
+   * Get current three.js scene
+   */
+
 	}, {
 		key: 'currentScene',
 		get: function get() {
@@ -63450,6 +63434,7 @@ var WebGL = function (_EventEmitter) {
 		_this._scenesController = null; // Scene controller
 		_this._camera = null; // Three Camera
 		_this._renderer = null; // Three Renderer
+		_this._events = null; // EventController
 
 		_this.init();
 		return _this;
@@ -63468,26 +63453,13 @@ var WebGL = function (_EventEmitter) {
 
 			this._events = new _eventsController2.default();
 
+			// Add renderer in DOM
 			document.getElementById(this._containerId).appendChild(this._renderer.domElement);
 		}
 	}, {
 		key: 'bind',
 		value: function bind() {
 			this.onResize = this.onResize.bind(this);
-		}
-	}, {
-		key: 'addEventListener',
-		value: function addEventListener() {
-			window.addEventListener('resize', this.onResize);
-		}
-	}, {
-		key: 'onResize',
-		value: function onResize(e) {
-			this._camera.aspect = window.innerWidth / window.innerHeight;
-			this._camera.updateProjectionMatrix();
-			this._renderer.setSize(window.innerWidth, window.innerHeight);
-
-			this.eeEmit('resize');
 		}
 
 		/**
@@ -63525,6 +63497,30 @@ var WebGL = function (_EventEmitter) {
 		value: function createRenderer() {
 			this._renderer = new THREE.WebGLRenderer();
 			this._renderer.setSize(CONFIG.WEBGL.WEBGL_WIDTH, CONFIG.WEBGL.WEBGL_HEIGHT);
+		}
+
+		/**
+   * Add events listeners
+   */
+
+	}, {
+		key: 'addEventListener',
+		value: function addEventListener() {
+			window.addEventListener('resize', this.onResize);
+		}
+
+		/**
+   * Resize three.js canvas on window resize
+   */
+
+	}, {
+		key: 'onResize',
+		value: function onResize(e) {
+			this._camera.aspect = window.innerWidth / window.innerHeight;
+			this._camera.updateProjectionMatrix();
+			this._renderer.setSize(window.innerWidth, window.innerHeight);
+
+			this.eeEmit('resize');
 		}
 
 		/**

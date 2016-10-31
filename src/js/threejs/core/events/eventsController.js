@@ -13,10 +13,10 @@ class EventsController {
 		this._modulesList = Modules;
 		this._modules     = [];
 
-		this.initEvents();
+		this.init();
 	}
 
-	initEvents() {
+	init() {
 		this._modulesList.forEach(function(Module, index) {
 			this._modules.push(new Module());
 			this._modules[this._modules.length - 1].init();

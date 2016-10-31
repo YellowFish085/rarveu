@@ -21,6 +21,7 @@ class WebGL extends EventEmitter {
 		this._scenesController = null;                      // Scene controller
 		this._camera           = null;                      // Three Camera
 		this._renderer         = null;                      // Three Renderer
+		this._events           = null;                      // EventController
 		
 		this.init();
 	}
@@ -36,23 +37,12 @@ class WebGL extends EventEmitter {
 
 		this._events = new EventsController();
 
+		// Add renderer in DOM
 		document.getElementById(this._containerId).appendChild(this._renderer.domElement);
 	}
 
 	bind() {
 		this.onResize = this.onResize.bind(this);
-	}
-
-	addEventListener() {
-		window.addEventListener('resize', this.onResize);
-	}
-
-	onResize(e) {
-		this._camera.aspect = window.innerWidth / window.innerHeight;
-		this._camera.updateProjectionMatrix();
-		this._renderer.setSize(window.innerWidth, window.innerHeight);
-
-		this.eeEmit('resize');
 	}
 
 	/**
@@ -86,6 +76,24 @@ class WebGL extends EventEmitter {
 	createRenderer() {
 		this._renderer = new THREE.WebGLRenderer();
 		this._renderer.setSize(CONFIG.WEBGL.WEBGL_WIDTH, CONFIG.WEBGL.WEBGL_HEIGHT);
+	}
+
+	/**
+	 * Add events listeners
+	 */
+	addEventListener() {
+		window.addEventListener('resize', this.onResize);
+	}
+
+	/**
+	 * Resize three.js canvas on window resize
+	 */
+	onResize(e) {
+		this._camera.aspect = window.innerWidth / window.innerHeight;
+		this._camera.updateProjectionMatrix();
+		this._renderer.setSize(window.innerWidth, window.innerHeight);
+
+		this.eeEmit('resize');
 	}
 
 	/**

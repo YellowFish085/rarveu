@@ -7,7 +7,6 @@ import Scene from './components/scene';
 
 let template = eval("`" + require('./template.html') + "`");
 
-// App
 var App = Vue.extend({
 	template: template,
 
@@ -22,18 +21,6 @@ var App = Vue.extend({
 	components: {
 		'loader': Loader,
 		'scene': Scene
-	},
-
-	created: function created() {
-		console.log('HUD created');
-	},
-
-	mounted: function mounted() {
-		console.log('HUD mounted');
-	},
-
-	methods: {
-		
 	}
 });
 

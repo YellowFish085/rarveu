@@ -24,10 +24,8 @@ class App extends EventEmitter {
 		this._webGL = null; // WebGL
 		this._hud   = null; // VueJS HUD
 		
-		this.initHUD();
-
-		this.initWebGL();
-
+		this.createHUD();
+		this.createWebGL();
 		this.createGUI();
 		this.createStats();
 
@@ -39,7 +37,7 @@ class App extends EventEmitter {
 	/**
 	 * Initialize VueJS HUD
 	 */
-	initHUD() {
+	createHUD() {
 		this._hud = new Hud({
 			el: '#hud'
 		});
@@ -48,7 +46,7 @@ class App extends EventEmitter {
 	/**
 	 * Initialize WebGL
 	 */
-	initWebGL() {
+	createWebGL() {
 		this._webGL = new WebGL();
 	}
 
@@ -84,7 +82,7 @@ class App extends EventEmitter {
 	}
 
 	/**
-	 *
+	 * Add events listeners
 	 */
 	addEventListener() {
 		// Temp event
@@ -108,6 +106,9 @@ class App extends EventEmitter {
 		}.bind(this))
 	}
 
+	/**
+	 * Display three.js container
+	 */
 	displayThreeJS() {
 		var el = document.getElementById('main');
 		

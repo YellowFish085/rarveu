@@ -12,35 +12,51 @@ class SceneController extends EventEmitter {
 	constructor() {
 		super();
 
-		this._scenesList    = Modules;
-		this._scenes        = [];
-		
-		this._currentSceneIndex   = null;
+		this._scenesList        = Modules;
+		this._scenes            = [];
+		this._currentSceneIndex = null;
+		this._loadingManager    = null;
 
-		this._loadingManager = null;
-
-		this.initLoadingManager();
 		this.init();
 	}
 
-	initLoadingManager() {
-		this._loadingManager = new THREE.LoadingManager();
+	init() {
+		this.bind();
 
-		this._loadingManager.onProgress = function(item, loaded, total) {
-			Log.trace(item + '\nloaded: ' + loaded + '\ntotal: ' + total );
+		this.initLoadingManager();
+		this.initScenes();
 
-			var percentage = parseInt((loaded*100) / total);
-			this.eeEmit('loading-progress', percentage);
-		}.bind(this);
-
-		this._loadingManager.onLoad = function() {
-			Log.trace('loadingManager ends');
-			
-			this.eeEmit('loading-end');
-		}.bind(this);
+		this.addEventListener();
 	}
 
-	init() {
+	bind() {
+		this.onLoadProgress = this.onLoadProgress.bind(this);
+		this.onLoadEnd      = this.onLoadEnd.bind(this);
+	}
+
+	/**
+	 * Initialize three.js LoadingManager
+	 */
+	initLoadingManager() {
+		this._loadingManager            = new THREE.LoadingManager();
+		
+		this._loadingManager.onProgress = this.onLoadProgress;
+		this._loadingManager.onLoad     = this.onLoadEnd;
+	}
+
+	onLoadProgress(item, loaded, total) {
+		var percentage = parseInt((loaded*100) / total);
+		this.eeEmit('loading-progress', percentage);
+	}
+
+	onLoadEnd() {
+		this.eeEmit('loading-end');
+	}
+
+	/**
+	 * Initialize scenes
+	 */
+	initScenes() {
 		this._scenesList.forEach(function(Module, index) {
 			this._scenes.push(new Module());
 			this._scenes[this._scenes.length - 1].init(this._loadingManager);
@@ -56,12 +72,13 @@ class SceneController extends EventEmitter {
 		}
 
 		this.eeEmit('scene-changed', this._currentSceneIndex);
-		this.addEventListener();
 	}
 
+	/**
+	 * Add events listeners
+	 */
 	addEventListener() {
 		this.eeListen('scenes-next', function() {
-			// Deactivate current scene
 			this.currentScene.deactivate();
 
 			this._currentSceneIndex += 1;
@@ -69,19 +86,22 @@ class SceneController extends EventEmitter {
 				this._currentSceneIndex = 0;
 			}
 
-			// Activate new scene
 			this.currentScene.activate();
-
-			Log.trace('new scene ' + this._currentSceneIndex);
 
 			this.eeEmit('scene-changed', this._currentSceneIndex);
 		}.bind(this))
 	}
 
+	/**
+	 * Update current scene
+	 */
 	update() {
 		this._scenes[this._currentSceneIndex].update();
 	}
 
+	/**
+	 * Get current three.js scene
+	 */
 	get currentScene() {
 		return this._scenes[this._currentSceneIndex];
 	}
