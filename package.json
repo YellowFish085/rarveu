@@ -1,0 +1,47 @@
+{
+  "name": "threejs-sandbox",
+  "version": "1.0.0",
+  "description": "Packages for three.js sandbox.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://YellowFish085@github.com/YellowFish085/threejs-sandbox.git"
+  },
+  "author": "theo.costantini@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YellowFish085/threejs-sandbox/issues"
+  },
+  "homepage": "https://github.com/YellowFish085/threejs-sandbox#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.16.0",
+    "babelify": "^7.3.0",
+    "browserify": "^13.1.0",
+    "chalk": "^1.1.3",
+    "core-js": "^2.4.1",
+    "dat-gui": "^0.5.0",
+    "domready": "^1.0.8",
+    "es6-promise": "^4.0.5",
+    "glob": "^7.1.1",
+    "gulp": "^3.9.1",
+    "gulp-duration": "0.0.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
+    "isomorphic-fetch": "^2.2.1",
+    "preload-js": "^0.6.3",
+    "stats.js": "^0.16.0",
+    "stringify": "^5.1.0",
+    "utils-merge": "^1.0.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
+  },
+  "dependencies": {
+    "three": "^0.81.2"
+  }
+}
