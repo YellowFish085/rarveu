@@ -15,7 +15,7 @@ var watchify       = require('watchify');             // Watchify for source cha
 var mapError       = require('../error');
 
 var config = {
-  src: 'src/main.js',
+  src: 'src/js/main.js',
   outputDir: './www/assets/js',
   outputFile: 'build.js',
 };
