@@ -6,8 +6,10 @@
  */
 'use strict';
 
-var modules = [
+import SceneTest from './modules/sceneTest';
 
+var modules = [
+	SceneTest
 ];
 
 export default modules;

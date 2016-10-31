@@ -8,6 +8,7 @@ import Log from '../utils/log';
 import EventEmitter from '../classes/EventEmitter';
 
 import EventsController from '../events/eventsController';
+import ScenesController from '../scenes/scenesController';
 
 /**
  * WebGL with three.js
@@ -16,10 +17,10 @@ class WebGL extends EventEmitter {
 	constructor() {
 		super(); // EventEmitter constructor. See 'core/events/extends/eventEmitter.js'
 
-		this._containerId = CONFIG.WEBGL.CONTAINER_ID; // DOM container id
-		this._scene       = null;                      // Three Scene
-		this._camera      = null;                      // Three Camera
-		this._renderer    = null;                      // Three Renderer
+		this._containerId      = CONFIG.WEBGL.CONTAINER_ID; // DOM container id
+		this._scenesController = null;                      // Scene controller
+		this._camera           = null;                      // Three Camera
+		this._renderer         = null;                      // Three Renderer
 		
 		this.init();
 	}
@@ -27,7 +28,7 @@ class WebGL extends EventEmitter {
 	init() {
 		this.bind();
 
-		this.createScene();
+		this.createScenesController();
 		this.createCamera();
 		this.createRenderer();
 
@@ -57,8 +58,8 @@ class WebGL extends EventEmitter {
 	/**
 	 * Create three.js Scene
 	 */
-	createScene() {
-		this._scene = new THREE.Scene();
+	createScenesController() {
+		this._scenesController = new ScenesController();
 	}
 
 	/**
@@ -92,7 +93,7 @@ class WebGL extends EventEmitter {
 	 * Called each frame
 	 */
 	update() {		
-		this._renderer.render(this._scene, this._camera);
+		this._renderer.render(this._scenesController.currentScene.scene, this._camera);
 	}
 }
 
