@@ -9,7 +9,7 @@ import * as THREE from 'three';
 
 class TemplateScenes {
 	constructor() {
-		this._scene = new THREE.Scene();
+		this._scene = null;
 	}
 
 	/**
@@ -18,7 +18,7 @@ class TemplateScenes {
 	 * loadingManager is the three.js loading manager used to track assets loading
 	 */
 	init(loadingManager) {
-
+		this._scene = new THREE.Scene();
 	}
 
 	/**
