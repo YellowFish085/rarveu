@@ -2,27 +2,47 @@
 
 import dat from 'dat-gui';
 import Stats from 'stats.js';
+import Vue from 'vue/dist/vue';
 
 import * as CONFIG from './core/config/config';
 import Log from './core/utils/log';
 
+import EventEmitter from './core/classes/EventEmitter';
+
 import WebGL from './core/webGL/webGL';
+import Hud from './core/hud';
 
 /**
  * Main App
  */
-class App {
+class App extends EventEmitter {
 	constructor(args) {
+		super();
+
 		this._gui   = null; // GUI
 		this._stats = null; // Stats
 		this._webGL = null; // WebGL
+		this._hud   = null; // VueJS HUD
 		
+		this.initHUD();
+
 		this.initWebGL();
 
 		this.createGUI();
 		this.createStats();
 
+		this.addEventListener();
+
 		this.render();
+	}
+
+	/**
+	 * Initialize VueJS HUD
+	 */
+	initHUD() {
+		this._hud = new Hud({
+			el: '#hud'
+		});
 	}
 
 	/**
@@ -61,6 +81,42 @@ class App {
 		this._stats.domElement.style.left     = CONFIG.STATS.STATS_STYLE.left;
 
 		document.body.appendChild(this._stats.domElement);
+	}
+
+	/**
+	 *
+	 */
+	addEventListener() {
+		// Temp event
+		this.eeListen('loading-progress', function(percentage) {
+			this._hud.loadingPercentage = percentage;
+		}.bind(this));
+
+		// Temp event
+		this.eeListen('loading-end', function() {
+			this._hud.loadingPercentage = 100;
+			setTimeout(function() {
+				this._hud.isLoading = false;
+
+				setTimeout(this.displayThreeJS, 500);
+			}.bind(this), 500)
+		}.bind(this));
+
+		// Temp event
+		this.eeListen('scene-changed', function(id) {
+			this._hud.sceneId = id;
+		}.bind(this))
+	}
+
+	displayThreeJS() {
+		var el = document.getElementById('main');
+		
+		let tl = new TimelineMax({
+			paused: true
+		});
+
+		tl.fromTo(el, 1, { 'opacity': 0	}, { 'opacity': 1 }, '-=0');
+		tl.play();
 	}
 
 	/**

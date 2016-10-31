@@ -15,8 +15,8 @@ class EventEmitter {
 	 * Emit an event
 	 * @param {string} e - Event name
 	 */
-	eeEmit(e) {
-		this._ee.emit(e);
+	eeEmit(e, params) {
+		this._ee.emit(e, params);
 	}
 
 	/**

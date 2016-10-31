@@ -28,11 +28,16 @@ class SceneController extends EventEmitter {
 
 		this._loadingManager.onProgress = function(item, loaded, total) {
 			Log.trace(item + '\nloaded: ' + loaded + '\ntotal: ' + total );
-		};
+
+			var percentage = parseInt((loaded*100) / total);
+			this.eeEmit('loading-progress', percentage);
+		}.bind(this);
 
 		this._loadingManager.onLoad = function() {
 			Log.trace('loadingManager ends');
-		};
+			
+			this.eeEmit('loading-end');
+		}.bind(this);
 	}
 
 	init() {
@@ -50,6 +55,7 @@ class SceneController extends EventEmitter {
 			this.currentScene.activate();
 		}
 
+		this.eeEmit('scene-changed', this._currentSceneIndex);
 		this.addEventListener();
 	}
 
@@ -67,6 +73,8 @@ class SceneController extends EventEmitter {
 			this.currentScene.activate();
 
 			Log.trace('new scene ' + this._currentSceneIndex);
+
+			this.eeEmit('scene-changed', this._currentSceneIndex);
 		}.bind(this))
 	}
 
