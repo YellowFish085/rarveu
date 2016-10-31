@@ -29,10 +29,24 @@ class TemplateScenes {
 	}
 
 	/**
-	 * Update scene
+	 * Update scene each frame
 	 */
 	update() {
 
+	}
+
+	/**
+	 * Actions to do before this scene is renderer
+	 */
+	activate() {
+		
+	}
+
+	/**
+	 * Actions to do before scene is removed
+	 */
+	deactivate() {
+		
 	}
 
 	/**
