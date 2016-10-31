@@ -7,6 +7,7 @@ import EventEmitter from '../../classes/EventEmitter';
 class SceneTest extends EventEmitter {
 	constructor() {
 		super();
+
 		this._scene         = null;
 		this._loader        = null;
 		
@@ -20,9 +21,30 @@ class SceneTest extends EventEmitter {
 	 * Init what's necessary here.
 	 */
 	init(loadingManager) {
+		this.bind();
+
 		this._clock  = new THREE.Clock();
 		this._scene  = new THREE.Scene()
 		this._loader = new THREE.ObjectLoader(loadingManager);
+	}
+
+	bind() {
+		this.emitScenesNextEvent = this.emitScenesNextEvent.bind(this);
+	}
+
+	addEventListener() {
+		document.addEventListener('click', this.emitScenesNextEvent);
+	}
+
+	removeEventListener() {
+		document.removeEventListener('click', this.emitScenesNextEvent);
+	}
+
+	emitScenesNextEvent(e) {
+		e.preventDefault();
+		e.stopPropagation();
+
+		this.eeEmit('scenes-next');
 	}
 
 	load() {
@@ -42,6 +64,14 @@ class SceneTest extends EventEmitter {
 			//console.log( "updating mixer by " + delta );
 			this._mixer.update( delta );
 		}
+	}
+
+	activate() {
+		this.addEventListener();
+	}
+
+	deactivate() {
+		this.removeEventListener();
 	}
 
 	get scene() {

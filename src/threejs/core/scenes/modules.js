@@ -9,6 +9,12 @@
 import SceneTest from './modules/sceneTest';
 
 var modules = [
+	SceneTest,
+	SceneTest,
+	SceneTest,
+	SceneTest,
+	SceneTest,
+	SceneTest,
 	SceneTest
 ];
 

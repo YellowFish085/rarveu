@@ -12,10 +12,10 @@ class SceneController extends EventEmitter {
 	constructor() {
 		super();
 
-		this._modulesList    = Modules;
-		this._modules        = [];
+		this._scenesList    = Modules;
+		this._scenes        = [];
 		
-		this._currentScene   = null;
+		this._currentSceneIndex   = null;
 
 		this._loadingManager = null;
 
@@ -36,32 +36,46 @@ class SceneController extends EventEmitter {
 	}
 
 	init() {
-		this._modulesList.forEach(function(Module, index) {
-			this._modules.push(new Module());
-			this._modules[this._modules.length - 1].init(this._loadingManager);
+		this._scenesList.forEach(function(Module, index) {
+			this._scenes.push(new Module());
+			this._scenes[this._scenes.length - 1].init(this._loadingManager);
 		}.bind(this));
 
-		this._modules.forEach(function(Scene, index) {
+		this._scenes.forEach(function(Scene, index) {
 			Scene.load();
 		}.bind(this))
 
-		if (this._modulesList.length > 0) {
-			this._currentScene = this._modules[0];
+		if (this._scenesList.length > 0) {
+			this._currentSceneIndex = 0;
+			this.currentScene.activate();
 		}
 
 		this.addEventListener();
 	}
 
 	addEventListener() {
-		
+		this.eeListen('scenes-next', function() {
+			// Deactivate current scene
+			this.currentScene.deactivate();
+
+			this._currentSceneIndex += 1;
+			if (this._currentSceneIndex >= this._scenes.length) {
+				this._currentSceneIndex = 0;
+			}
+
+			// Activate new scene
+			this.currentScene.activate();
+
+			Log.trace('new scene ' + this._currentSceneIndex);
+		}.bind(this))
 	}
 
 	update() {
-		this._currentScene.update();
+		this._scenes[this._currentSceneIndex].update();
 	}
 
 	get currentScene() {
-		return this._currentScene;
+		return this._scenes[this._currentSceneIndex];
 	}
 }
 
