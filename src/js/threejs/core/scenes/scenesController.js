@@ -4,7 +4,7 @@ import * as THREE from 'three';
 
 import Log from '../utils/log';
 
-import EventEmitter from '../classes/EventEmitter';
+import EventEmitter from '../../classes/EventEmitter';
 
 import Modules from './modules';
 

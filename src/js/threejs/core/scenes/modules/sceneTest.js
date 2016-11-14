@@ -2,7 +2,7 @@
 
 import * as THREE from 'three';
 
-import EventEmitter from '../../classes/EventEmitter';
+import EventEmitter from '../../../classes/EventEmitter';
 
 class SceneTest extends EventEmitter {
 	constructor() {

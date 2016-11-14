@@ -7,7 +7,7 @@ import Vue from 'vue/dist/vue';
 import * as CONFIG from './core/config/config';
 import Log from './core/utils/log';
 
-import EventEmitter from './core/classes/EventEmitter';
+import EventEmitter from './classes/EventEmitter';
 
 import WebGL from './core/webGL/webGL';
 import Hud from './core/hud';

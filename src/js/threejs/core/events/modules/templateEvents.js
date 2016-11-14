@@ -28,7 +28,7 @@ export default TemplateEvents;
 
 'use strict';
 
-import Event from '../../classes/EventEmitter';
+import Event from '../../../classes/EventEmitter';
 
 class KeyboardEvent extends Event {
 	constructor() {
