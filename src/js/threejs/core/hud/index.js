@@ -1,9 +1,9 @@
 'use strict';
 
-import Vue from 'vue/dist/vue';
+import Vue    from 'vue/dist/vue';
 
 import Loader from './components/loader';
-import Scene from './components/scene';
+import Scene  from './components/scene';
 
 let template = eval("`" + require('./template.html') + "`");
 

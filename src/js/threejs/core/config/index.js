@@ -1,14 +1,14 @@
 'use strict';
 
-import * as PATH from './_paths';
+import * as PATH   from './_paths';
 
-import * as LOCAL from './_locals';
+import * as LOCAL  from './_locals';
 
 import * as ROUTES from './_routes';
 
-import * as STATS from './_stats';
+import * as STATS  from './_stats';
 
-import * as WEBGL from './_webGL';
+import * as WEBGL  from './_webGL';
 
 const DEBUG = true;
 

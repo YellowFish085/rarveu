@@ -1,11 +1,11 @@
 'use strict';
 
-import * as THREE from 'three';
+import * as THREE       from 'three';
 
-import * as CONFIG from '../config';
-import Log from '../../utils/log';
+import * as CONFIG      from '../config';
+import Log              from '../../utils/log';
 
-import EventEmitter from '../../classes/EventEmitter';
+import EventEmitter     from '../../classes/EventEmitter';
 
 import EventsController from '../events/eventsController';
 import ScenesController from '../scenes/scenesController';

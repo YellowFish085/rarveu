@@ -1,12 +1,12 @@
 'use strict';
 
-import * as THREE from 'three';
+import * as THREE   from 'three';
 
-import Log from '../../utils/log';
+import Log          from '../../utils/log';
 
 import EventEmitter from '../../classes/EventEmitter';
 
-import Modules from './modules';
+import Modules      from './modules';
 
 class SceneController extends EventEmitter {
 	constructor() {

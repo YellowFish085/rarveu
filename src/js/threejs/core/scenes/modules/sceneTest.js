@@ -1,6 +1,6 @@
 'use strict';
 
-import * as THREE from 'three';
+import * as THREE   from 'three';
 
 import EventEmitter from '../../../classes/EventEmitter';
 
