@@ -12557,6 +12557,7 @@ if (_gsScope._gsDefine) { _gsScope._gsQueue.pop()(); } //necessary in case Tween
 
 })((typeof(module) !== "undefined" && module.exports && typeof(global) !== "undefined") ? global : this || window, "TweenMax");
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+
 },{}],7:[function(require,module,exports){
 // stats.js - http://github.com/mrdoob/stats.js
 var Stats=function(){function h(a){c.appendChild(a.dom);return a}function k(a){for(var d=0;d<c.children.length;d++)c.children[d].style.display=d===a?"block":"none";l=a}var l=0,c=document.createElement("div");c.style.cssText="position:fixed;top:0;left:0;cursor:pointer;opacity:0.9;z-index:10000";c.addEventListener("click",function(a){a.preventDefault();k(++l%c.children.length)},!1);var g=(performance||Date).now(),e=g,a=0,r=h(new Stats.Panel("FPS","#0ff","#002")),f=h(new Stats.Panel("MS","#0f0","#020"));
@@ -63541,6 +63542,7 @@ var WebGL = function (_EventEmitter) {
 
 exports.default = WebGL;
 
-},{"../classes/EventEmitter":13,"../config/config":19,"../events/eventsController":20,"../scenes/scenesController":34,"../utils/log":35,"three":8}]},{},[10]);
+},{"../classes/EventEmitter":13,"../config/config":19,"../events/eventsController":20,"../scenes/scenesController":34,"../utils/log":35,"three":8}]},{},[10])
 
-//# sourceMappingURL=map/build.js.map
+
+//# sourceMappingURL=build.js.map

@@ -17,12 +17,14 @@ var mapError       = require('../error');
 var config = {
   src: 'src/js/main.js',
   outputDir: './www/assets/js',
-  outputFile: 'build.js',
+  outputFile: 'build.js'
 };
 
 
 gulp.task('browserify', function() {
-  var bundler = watchify(browserify(config.src, watchify.args));
+  var args = merge(watchify.args, { debug: true });
+
+  var bundler = watchify(browserify(config.src, args));
   bundler
     .transform(stringify,{ appliesTo: { includeExtensions: ['.html'] }, minify: true })
     .transform(babelify, { presets: ['es2015'] })
@@ -32,18 +34,18 @@ gulp.task('browserify', function() {
 
     bundler
       .bundle()
-      .on('error', mapError)                   // Map error reporting
-      .pipe(source('main.js'))                 // Set source name
-      .pipe(buffer())                          // Convert to gulp pipeline
-      .pipe(rename(config.outputFile))      // Rename the output file
-      .pipe(sourcemaps.init({loadMaps: true})) // Extract the inline sourcemaps
-      .pipe(sourcemaps.write('./map'))         // Set folder for sourcemaps to output to
-      .pipe(gulp.dest(config.outputDir))    // Set the output folder
+      .on('error', mapError)                     // Map error reporting
+      .pipe(source('main.js'))                   // Set source name
+      .pipe(buffer())                            // Convert to gulp pipeline
+      .pipe(rename(config.outputFile))           // Rename the output file
+      .pipe(sourcemaps.init({ loadMaps: true })) // Extract the inline sourcemaps
+      .pipe(sourcemaps.write('./'))           // Set folder for sourcemaps to output to
+      .pipe(gulp.dest(config.outputDir))         // Set the output folder
       .pipe(notify({
         onLast: true,
         message: 'Generated file: <%= file.relative %>',
-      }))                                      // Output the file being created
-      .pipe(bundleTimer)                       // Output time timing of the file creation
+      }))                                        // Output the file being created
+      .pipe(bundleTimer)                         // Output time timing of the file creation
   }
   bundler.on('update', function() {
     rebundle();
