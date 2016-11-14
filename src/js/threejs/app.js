@@ -5,7 +5,7 @@ import Stats from 'stats.js';
 import Vue from 'vue/dist/vue';
 
 import * as CONFIG from './core/config/config';
-import Log from './core/utils/log';
+import Log from './utils/log';
 
 import EventEmitter from './classes/EventEmitter';
 

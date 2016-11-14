@@ -1,6 +1,6 @@
 'use strict';
 
-import Log from '../../utils/log';
+import Log from '../../../utils/log';
 
 class KeyboardEvents {
 	constructor() {

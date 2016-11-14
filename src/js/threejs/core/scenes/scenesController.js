@@ -2,7 +2,7 @@
 
 import * as THREE from 'three';
 
-import Log from '../utils/log';
+import Log from '../../utils/log';
 
 import EventEmitter from '../../classes/EventEmitter';
 
