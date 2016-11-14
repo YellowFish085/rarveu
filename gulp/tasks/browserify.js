@@ -10,6 +10,7 @@ var rename         = require('gulp-rename');          // Rename sources
 var source         = require('vinyl-source-stream');  // Vinyl stream support
 var sourcemaps     = require('gulp-sourcemaps');      // Provide external sourcemap files
 var stringify      = require('stringify');            // Require text files like templates
+var uglify         = require('gulp-uglify');          //
 var watchify       = require('watchify');             // Watchify for source changes
 
 var mapError       = require('../error');
@@ -39,6 +40,7 @@ gulp.task('browserify', function() {
       .pipe(buffer())                            // Convert to gulp pipeline
       .pipe(rename(config.outputFile))           // Rename the output file
       .pipe(sourcemaps.init({ loadMaps: true })) // Extract the inline sourcemaps
+      .pipe(uglify())
       .pipe(sourcemaps.write('./'))           // Set folder for sourcemaps to output to
       .pipe(gulp.dest(config.outputDir))         // Set the output folder
       .pipe(notify({
