@@ -17,12 +17,13 @@ var config = {
 gulp.task('sass', function() {
 
   return gulp.src(config.src)
-    .pipe(sourcemaps.init())
+    .pipe(sourcemaps.init({ loadMaps: true })) // Extract the inline sourcemaps
     .pipe(sass())
     .on('error', mapError)
-    .pipe(autoprefixer())
-    // .pipe(minify())
     .pipe(rename(config.outputFile))
+    .pipe(autoprefixer())
+    .pipe(minify())
+    .pipe(sourcemaps.write('./'))              // Set folder for sourcemaps to output to
     .pipe(gulp.dest(config.outputDir))
     .pipe(notify({
       onLast: true,
