@@ -1,6 +1,6 @@
 'use strict';
 
-import CONFIG from '../core/config/config';
+import CONFIG from '../core/config';
 
 /**
  * Log

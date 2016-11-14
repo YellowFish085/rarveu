@@ -2,7 +2,7 @@
 
 import * as THREE from 'three';
 
-import * as CONFIG from '../config/config';
+import * as CONFIG from '../config';
 import Log from '../../utils/log';
 
 import EventEmitter from '../../classes/EventEmitter';

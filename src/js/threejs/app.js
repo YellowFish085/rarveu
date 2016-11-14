@@ -4,12 +4,12 @@ import dat from 'dat-gui';
 import Stats from 'stats.js';
 import Vue from 'vue/dist/vue';
 
-import * as CONFIG from './core/config/config';
+import * as CONFIG from './core/config';
 import Log from './utils/log';
 
 import EventEmitter from './classes/EventEmitter';
 
-import WebGL from './core/webGL/webGL';
+import WebGL from './core/webGL';
 import Hud from './core/hud';
 
 /**
