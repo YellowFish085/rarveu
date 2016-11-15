@@ -12,6 +12,11 @@ $ npm install
 $ gulp
 ```
 
+### Clean JS with eslint
+``` sh
+$ ./node_modules/.bin/eslint --fix ./scs/js/
+```
+
 ### Run local server if needed
 ```
 # Run local server on localhost:8080
