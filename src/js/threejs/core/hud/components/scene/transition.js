@@ -1,7 +1,7 @@
 'use strict';
 
 import Vue             from 'vue/dist/vue';
-import { TimeLineLite } from 'gsap';
+import { TimelineLite } from 'gsap';
 
 export default Vue.component('scene-transition', {
 	functional: true,
@@ -13,7 +13,7 @@ export default Vue.component('scene-transition', {
 			},
 			on: {
 				enter: function(el, done) {
-					let tl = new TimeLineLite({
+					let tl = new TimelineLite({
 						paused: true,
 						onComplete: function() {
 							done();
@@ -24,7 +24,7 @@ export default Vue.component('scene-transition', {
 					tl.play();
 				},
 				leave: function(el, done) {
-					let tl = new TimeLineLite({
+					let tl = new TimelineLite({
 						paused: true,
 						onComplete: function() {
 							done();
