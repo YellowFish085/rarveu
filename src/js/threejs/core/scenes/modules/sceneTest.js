@@ -5,78 +5,78 @@ import * as THREE   from 'three';
 import EventEmitter from '../../../classes/EventEmitter';
 
 class SceneTest extends EventEmitter {
-	constructor() {
-		super();
+  constructor() {
+    super();
 
-		this._scene         = null;
-		this._loader        = null;
-		
-		this._animationClip = null;
-		this._mixer         = null;
-		this._clock         = null;
-	}
+    this._scene         = null;
+    this._loader        = null;
 
-	/**
-	 * Will be called when ScenesManager is initialized.
-	 * Init what's necessary here.
-	 */
-	init(loadingManager) {
-		this.bind();
+    this._animationClip = null;
+    this._mixer         = null;
+    this._clock         = null;
+  }
 
-		this._clock  = new THREE.Clock();
-		this._scene  = new THREE.Scene()
-		this._loader = new THREE.ObjectLoader(loadingManager);
-	}
+  /**
+   * Will be called when ScenesManager is initialized.
+   * Init what's necessary here.
+   */
+  init(loadingManager) {
+    this.bind();
 
-	bind() {
-		this.emitScenesNextEvent = this.emitScenesNextEvent.bind(this);
-	}
+    this._clock  = new THREE.Clock();
+    this._scene  = new THREE.Scene();
+    this._loader = new THREE.ObjectLoader(loadingManager);
+  }
 
-	addEventListener() {
-		document.addEventListener('click', this.emitScenesNextEvent);
-	}
+  bind() {
+    this.emitScenesNextEvent = this.emitScenesNextEvent.bind(this);
+  }
 
-	removeEventListener() {
-		document.removeEventListener('click', this.emitScenesNextEvent);
-	}
+  addEventListener() {
+    document.addEventListener('click', this.emitScenesNextEvent);
+  }
 
-	emitScenesNextEvent(e) {
-		e.preventDefault();
-		e.stopPropagation();
+  removeEventListener() {
+    document.removeEventListener('click', this.emitScenesNextEvent);
+  }
 
-		this.eeEmit('scenes-next');
-	}
+  emitScenesNextEvent(e) {
+    e.preventDefault();
+    e.stopPropagation();
 
-	load() {
-		this._loader.load("assets/threejs/models/test.json", function ( loadedScene ) {
-			this._animationClip = loadedScene.animations[0];
-			this._scene         = loadedScene;
-			this._scene.fog     = new THREE.Fog( 0xffffff, 2000, 10000 );
+    this.eeEmit('scenes-next');
+  }
 
-			this._mixer         = new THREE.AnimationMixer( this._scene );
-			this._mixer.clipAction( this._animationClip ).play();
-		}.bind(this));
-	}
+  load() {
+    this._loader.load('assets/threejs/models/test.json', (loadedScene) => {
+      this._animationClip = loadedScene.animations[0];
+      this._scene         = loadedScene;
+      this._scene.fog     = new THREE.Fog(0xffffff, 2000, 10000);
 
-	update() {
-		var delta = 0.75 * this._clock.getDelta();
-		if( this._mixer ) {
-			//console.log( "updating mixer by " + delta );
-			this._mixer.update( delta );
-		}
-	}
+      this._mixer         = new THREE.AnimationMixer(this._scene);
+      this._mixer.clipAction(this._animationClip).play();
+    });
+  }
 
-	activate() {
-		this.addEventListener();
-	}
+  update() {
+    const delta = 0.75 * this._clock.getDelta();
+    if (this._mixer) {
+      // console.log( "updating mixer by " + delta );
+      this._mixer.update(delta);
+    }
+  }
 
-	deactivate() {
-		this.removeEventListener();
-	}
+  activate() {
+    this.addEventListener();
+  }
 
-	get scene() {
-		return this._scene;
-	}
+  deactivate() {
+    this.removeEventListener();
+  }
+
+  get scene() {
+    return this._scene;
+  }
 }
 
 export default SceneTest;

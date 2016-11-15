@@ -4,18 +4,19 @@
  * "import ModuleName from './modules/fileName';"
  * then add 'ModuleName' to the 'modules' list.
  */
+
 'use strict';
 
 import SceneTest from './modules/sceneTest';
 
-var modules = [
-	SceneTest,
-	SceneTest,
-	SceneTest,
-	SceneTest,
-	SceneTest,
-	SceneTest,
-	SceneTest
+const modules = [
+  SceneTest,
+  SceneTest,
+  SceneTest,
+  SceneTest,
+  SceneTest,
+  SceneTest,
+  SceneTest,
 ];
 
 export default modules;

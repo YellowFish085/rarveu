@@ -4,17 +4,17 @@ import Vue from 'vue/dist/vue';
 
 require('./transition');
 
-let template = eval("`" + require('./template.html') + "`");
+const template = eval(`\`${require('./template.html')}\``);
 
-var Loader = Vue.extend({
-	template: template,
+const Loader = Vue.extend({
+  template,
 
-	props: {
-		id: {
-			type: Number,
-			required: true
-		}
-	}
+  props: {
+    id: {
+      type    : Number,
+      required: true,
+    },
+  },
 });
 
 export default Loader;

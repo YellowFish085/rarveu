@@ -7,9 +7,9 @@ import EventEmitter from 'events';
  * Extends default Node.js Event Emitter
  */
 class ExtendedEventEmitter extends EventEmitter {
-	constructor() {
-		super();
-	}
+  constructor() {
+    super();
+  }
 }
 
-export default (new ExtendedEventEmitter);
+export default (new ExtendedEventEmitter());

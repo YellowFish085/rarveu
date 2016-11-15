@@ -13,10 +13,10 @@ import * as WEBGL  from './_webGL';
 const DEBUG = true;
 
 module.exports = {
-	PATH,
-	LOCAL,
-	ROUTES,
-	STATS,
-	WEBGL,
-	DEBUG
+  PATH,
+  LOCAL,
+  ROUTES,
+  STATS,
+  WEBGL,
+  DEBUG,
 };

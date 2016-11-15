@@ -4,7 +4,7 @@
  * Routes
  */
 export const ROUTES = {
-	example: {
-		path: '/'
-	}
-}
+  example: {
+    path: '/',
+  },
+};

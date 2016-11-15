@@ -3,35 +3,35 @@
 import Log from '../../../utils/log';
 
 class KeyboardEvents {
-	constructor() {
-		this.bind();
-	}
+  constructor() {
+    this.bind();
+  }
 
-	init() {
-		this.addEventListener();
-	}
+  init() {
+    this.addEventListener();
+  }
 
-	bind() {
-		this.onKeyDown = this.onKeyDown.bind(this);
-		this.onKeyUp   = this.onKeyUp.bind(this);
-	}
+  bind() {
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onKeyUp   = this.onKeyUp.bind(this);
+  }
 
-	addEventListener() {
-		window.addEventListener('keydown', this.onKeyDown);
-		window.addEventListener('keyup', this.onKeyUp);
-	}
+  addEventListener() {
+    window.addEventListener('keydown', this.onKeyDown);
+    window.addEventListener('keyup', this.onKeyUp);
+  }
 
-	onKeyDown(e) {
-		var key = e.keyCode;
+  onKeyDown(e) {
+    const key = e.keyCode;
 
-		Log.trace(key + ' down');
-	}
+    Log.trace(`${key} down`);
+  }
 
-	onKeyUp(e) {
-		var key = e.keyCode;
+  onKeyUp(e) {
+    const key = e.keyCode;
 
-		Log.trace(key + ' up');
-	}
+    Log.trace(`${key} up`);
+  }
 }
 
 export default KeyboardEvents;
