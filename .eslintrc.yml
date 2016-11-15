@@ -1,0 +1,14 @@
+extends: airbnb
+plugins:
+  - import
+rules:
+  key-spacing:
+    - 1
+    - align: colon
+  no-multi-spaces:
+    - 1
+    - exceptions:
+        Property: true
+        VariableDeclarator: true
+        ImportDeclaration: true
+        AssignmentExpression: true
