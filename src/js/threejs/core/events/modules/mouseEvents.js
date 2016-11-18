@@ -32,7 +32,7 @@ class MouseEvents extends EventEmitter {
   }
 
   onMouseDown(e) {
-    e.preventDefault();
+    // e.preventDefault();
     e.stopPropagation();
 
     Log.trace(`mouseDown, btn ${e.button}`);
@@ -41,7 +41,7 @@ class MouseEvents extends EventEmitter {
   }
 
   onMouseUp(e) {
-    e.preventDefault();
+    // e.preventDefault();
     e.stopPropagation();
 
     Log.trace(`mouseUp, btn ${e.button}`);
