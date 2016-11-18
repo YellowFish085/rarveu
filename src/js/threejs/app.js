@@ -83,22 +83,19 @@ class App extends EventEmitter {
    * Add events listeners
    */
   addEventListener() {
-    // Temp event
     this.eeListen('loading-progress', (percentage) => {
       this._hud.loadingPercentage = percentage;
     });
 
-    // Temp event
     this.eeListen('loading-end', () => {
       this._hud.loadingPercentage = 100;
       setTimeout(() => {
         this._hud.isLoading = false;
 
         this.render();
-      }, 500);
+      }, 1000);
     });
 
-    // Temp event
     this.eeListen('scene-changed', (id) => {
       this._hud.sceneId = id;
     });

@@ -20,7 +20,8 @@ export default Vue.component('scene-transition', {
             },
           });
 
-          tl.fromTo(el, 1, { opacity: 0  }, { opacity: 1 }, '-=0');
+          tl.delay(.5)
+            .fromTo(el, 1, { opacity: 0  }, { opacity: 1 }, '-=0');
           tl.play();
         },
         leave(el, done) {
