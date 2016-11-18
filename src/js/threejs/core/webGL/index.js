@@ -21,7 +21,7 @@ class WebGL extends EventEmitter {
     this._scenesController = null;                      // Scene controller
     this._camera           = null;                      // Three Camera
     this._renderer         = null;                      // Three Renderer
-    this._events           = null;                      // EventController
+    this._eventsController = null;                      // EventController
 
     this.init();
   }
@@ -30,12 +30,12 @@ class WebGL extends EventEmitter {
     this.bind();
 
     this.createScenesController();
+    this.createEventsController();
     this.createCamera();
     this.createRenderer();
 
     this.addEventListener();
 
-    this._events = new EventsController();
 
     // Add renderer in DOM
     document.getElementById(this._containerId).appendChild(this._renderer.domElement);
@@ -50,6 +50,13 @@ class WebGL extends EventEmitter {
    */
   createScenesController() {
     this._scenesController = new ScenesController();
+  }
+
+  /**
+   * Create events controller
+   */
+  createEventsController() {
+    this._eventsController = new EventsController();
   }
 
   /**

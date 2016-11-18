@@ -1,16 +1,17 @@
 'use strict';
 
-import dat          from 'dat-gui';
-import Stats        from 'stats.js';
-import Vue          from 'vue/dist/vue';
+import dat              from 'dat-gui';
+import Stats            from 'stats.js';
+import Vue              from 'vue/dist/vue';
+import { TimelineLite } from 'gsap';
 
-import * as CONFIG  from './core/config';
-import Log          from './utils/log';
+import * as CONFIG      from './core/config';
+import Log              from './utils/log';
 
-import EventEmitter from './classes/EventEmitter';
+import EventEmitter     from './classes/EventEmitter';
 
-import WebGL        from './core/webGL';
-import Hud          from './core/hud';
+import WebGL            from './core/webGL';
+import Hud              from './core/hud';
 
 /**
  * Main App
@@ -30,8 +31,6 @@ class App extends EventEmitter {
     this.createStats();
 
     this.addEventListener();
-
-    this.render();
   }
 
   /**
@@ -95,7 +94,7 @@ class App extends EventEmitter {
       setTimeout(() => {
         this._hud.isLoading = false;
 
-        setTimeout(this.displayThreeJS, 500);
+        this.render();
       }, 500);
     });
 
@@ -103,20 +102,6 @@ class App extends EventEmitter {
     this.eeListen('scene-changed', (id) => {
       this._hud.sceneId = id;
     });
-  }
-
-  /**
-   * Display three.js container
-   */
-  displayThreeJS() {
-    const el = document.getElementById('main');
-
-    const tl = new TimelineMax({
-      paused: true,
-    });
-
-    tl.fromTo(el, 1, { opacity: 0  }, { opacity: 1 }, '-=0');
-    tl.play();
   }
 
   /**

@@ -30,20 +30,16 @@ class MouseEvents extends EventEmitter {
   }
 
   onMouseMove(e) {
-    // Log.trace('mouseMove: ' + e.pageX + ' , ' + e.pageY);
+
   }
 
   onMouseDown(e) {
-    // e.preventDefault();
     e.stopPropagation();
 
     Log.trace(`mouseDown, btn ${e.button}`);
-
-    this.eeEmit('mousedown');
   }
 
   onMouseUp(e) {
-    // e.preventDefault();
     e.stopPropagation();
 
     Log.trace(`mouseUp, btn ${e.button}`);

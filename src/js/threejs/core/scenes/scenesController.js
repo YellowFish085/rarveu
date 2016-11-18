@@ -50,6 +50,13 @@ class SceneController extends EventEmitter {
   }
 
   onLoadEnd() {
+    if (this._scenesList.length > 0) {
+      this._currentSceneIndex = 0;
+      this.currentScene.activate();
+    }
+
+    this.eeEmit('scene-changed', this._currentSceneIndex);
+
     this.eeEmit('loading-end');
   }
 
@@ -65,31 +72,13 @@ class SceneController extends EventEmitter {
     this._scenes.forEach((Scene, index) => {
       Scene.load();
     });
-
-    if (this._scenesList.length > 0) {
-      this._currentSceneIndex = 0;
-      this.currentScene.activate();
-    }
-
-    this.eeEmit('scene-changed', this._currentSceneIndex);
   }
 
   /**
    * Add events listeners
    */
   addEventListener() {
-    this.eeListen('scenes-next', () => {
-      this.currentScene.deactivate();
 
-      this._currentSceneIndex += 1;
-      if (this._currentSceneIndex >= this._scenes.length) {
-        this._currentSceneIndex = 0;
-      }
-
-      this.currentScene.activate();
-
-      this.eeEmit('scene-changed', this._currentSceneIndex);
-    });
   }
 
   /**
