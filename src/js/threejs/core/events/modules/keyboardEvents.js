@@ -2,8 +2,12 @@
 
 import Log from '../../../utils/log';
 
-class KeyboardEvents {
+import EventEmitter from '../../../classes/EventEmitter';
+
+class KeyboardEvents extends EventEmitter{
   constructor() {
+    super();
+
     this.bind();
   }
 
@@ -25,6 +29,12 @@ class KeyboardEvents {
     const key = e.keyCode;
 
     Log.trace(`${key} down`);
+
+    //if S key is pressed
+    if(key == 83){
+      this.eeEmit('stereoKey');
+    }
+    //this.eeEmit(monTruc)
   }
 
   onKeyUp(e) {

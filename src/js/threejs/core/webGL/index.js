@@ -10,6 +10,10 @@ import EventEmitter     from '../../classes/EventEmitter';
 import EventsController from '../events/eventsController';
 import ScenesController from '../scenes/scenesController';
 
+import STEREO           from "three-stereo-effect";
+
+var stereoEffect = new STEREO(THREE);
+
 /**
  * WebGL with three.js
  */
@@ -22,6 +26,7 @@ class WebGL extends EventEmitter {
     this._camera           = null;                      // Three Camera
     this._renderer         = null;                      // Three Renderer
     this._eventsController = null;                      // EventController
+    this._stereoEffect     = null;
 
     this.init();
   }
@@ -33,6 +38,7 @@ class WebGL extends EventEmitter {
     this.createEventsController();
     this.createCamera();
     this.createRenderer();
+    this.createStereoEffect();
 
     this.addEventListener();
 
@@ -43,6 +49,7 @@ class WebGL extends EventEmitter {
 
   bind() {
     this.onResize = this.onResize.bind(this);
+    this.setStereo = this.setStereo.bind(this);
   }
 
   /**
@@ -85,11 +92,18 @@ class WebGL extends EventEmitter {
     this._renderer.setSize(CONFIG.WEBGL.WEBGL_WIDTH, CONFIG.WEBGL.WEBGL_HEIGHT);
   }
 
+  createStereoEffect(){
+    this._stereoEffect = new stereoEffect(this._renderer);
+    this._stereoEffect.eyeSeparation = 2;
+    this._stereoEffect.setSize(CONFIG.WEBGL.WEBGL_WIDTH, CONFIG.WEBGL.WEBGL_HEIGHT);
+  }
+
   /**
    * Add events listeners
    */
   addEventListener() {
     window.addEventListener('resize', this.onResize);
+    this.eeListen("stereoKey", this.setStereo);
   }
 
   /**
@@ -99,8 +113,14 @@ class WebGL extends EventEmitter {
     this._camera.aspect = window.innerWidth / window.innerHeight;
     this._camera.updateProjectionMatrix();
     this._renderer.setSize(window.innerWidth, window.innerHeight);
+    this._stereoEffect.setSize(window.innerWidth, window.innerHeight);
 
     this.eeEmit('resize');
+  }
+
+  setStereo(){
+    CONFIG.WEBGL.USE_STEREO = !CONFIG.WEBGL.USE_STEREO;
+    this.onResize("rien");
   }
 
   /**
@@ -109,7 +129,8 @@ class WebGL extends EventEmitter {
    */
   update() {
     this._scenesController.update();
-    this._renderer.render(this._scenesController.currentScene.scene, this._camera);
+    var renderer = CONFIG.WEBGL.USE_STEREO ? this._stereoEffect : this._renderer;
+    renderer.render(this._scenesController.currentScene.scene, this._camera);
   }
 }
 
