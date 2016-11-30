@@ -9,8 +9,6 @@ export const WEBGL_WIDTH  = window.innerWidth;
 
 export const WEBGL_HEIGHT = window.innerHeight;
 
-export var USE_STEREO = false;
-
 /**
  * Camera
  */

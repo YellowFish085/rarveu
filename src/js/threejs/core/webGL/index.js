@@ -27,6 +27,7 @@ class WebGL extends EventEmitter {
     this._renderer         = null;                      // Three Renderer
     this._eventsController = null;                      // EventController
     this._stereoEffect     = null;
+    this._isStereo         = false;
 
     this.init();
   }
@@ -119,8 +120,8 @@ class WebGL extends EventEmitter {
   }
 
   setStereo(){
-    CONFIG.WEBGL.USE_STEREO = !CONFIG.WEBGL.USE_STEREO;
-    this.onResize("rien");
+    this._isStereo = !this._isStereo;
+    this.onResize("default");
   }
 
   /**
@@ -129,7 +130,7 @@ class WebGL extends EventEmitter {
    */
   update() {
     this._scenesController.update();
-    var renderer = CONFIG.WEBGL.USE_STEREO ? this._stereoEffect : this._renderer;
+    var renderer = this._isStereo ? this._stereoEffect : this._renderer;
     renderer.render(this._scenesController.currentScene.scene, this._camera);
   }
 }
