@@ -53,9 +53,9 @@ class App extends EventEmitter {
    * Create a GUI with params specified in the config files
    */
   createGUI() {
-    this._gui = new dat.GUI();
+    if (!CONFIG.DEBUG) return;
 
-    this._gui.domElement.style.display = CONFIG.DEBUG ? 'block' : 'none';
+    this._gui = new dat.GUI();
 
     // GUI options
     const cameraFolder = this._gui.addFolder('Camera');
@@ -68,6 +68,8 @@ class App extends EventEmitter {
    * Create Stats with params specified in the config files
    */
   createStats() {
+    if (!CONFIG.DEBUG) return;
+    
     this._stats = new Stats();
     this._stats.setMode(CONFIG.STATS.STATS_MODE);
 
@@ -94,10 +96,6 @@ class App extends EventEmitter {
 
         this.render();
       }, 1000);
-    });
-
-    this.eeListen('scene-changed', (id) => {
-      this._hud.sceneId = id;
     });
   }
 

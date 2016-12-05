@@ -1,5 +1,7 @@
 'use strict';
 
+import CONFIG from '../../../config';
+
 import Vue from 'vue/dist/vue';
 
 require('./transition');
@@ -10,10 +12,18 @@ const Loader = Vue.extend({
   template,
 
   props: {
-    id: {
+    currentSceneId: {
       type    : Number,
       required: true,
     },
+  },
+
+  data: function data() {
+    return {
+      config: {
+        debug: CONFIG.DEBUG,
+      },
+    };
   },
 });
 
