@@ -43,6 +43,7 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
+    "annyang": "^2.6.0",
     "dat-gui": "^0.5.0",
     "domready": "^1.0.8",
     "es6-promise": "^4.0.5",

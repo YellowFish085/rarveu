@@ -9,10 +9,12 @@
 
 import MouseEvents    from './modules/mouseEvents';
 import KeyboardEvents from './modules/keyboardEvents';
+import SpeechEvents from './modules/speechEvents';
 
 const modules = [
   MouseEvents,
   KeyboardEvents,
+  SpeechEvents,
 ];
 
 export default modules;
