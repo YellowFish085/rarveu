@@ -36,6 +36,10 @@ gulp.task('browserify', function() {
     bundler
       .bundle()
       .on('error', mapError)                     // Map error reporting
+      .pipe(notify({
+        onLast: true,
+        message: 'Rebuilding js...',
+      }))
       .pipe(source('main.js'))                   // Set source name
       .pipe(buffer())                            // Convert to gulp pipeline
       .pipe(rename(config.outputFile))           // Rename the output file
