@@ -1,6 +1,16 @@
 #hud-debug {
   position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%);
+  bottom: 10px;
+  left: 10px;
+
+  font-size: 12px;
+}
+
+.hud-debug-category {
+  padding: 0 5px 5px 5px;
+}
+
+.hud-debug-content {
+  font-size: 10px;
+  color: lighten($text-color, 25%);
 }

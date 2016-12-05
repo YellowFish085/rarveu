@@ -46,6 +46,9 @@ const App = Vue.extend({
 
     addEventListener() {
       eventEmitter.eeOnce('hud-loader-leave', this.addIntroEventListener)
+      eventEmitter.eeListen('scene-changed', (id) => {
+        this.sceneId = id;
+      });
     },
 
     addIntroEventListener() {

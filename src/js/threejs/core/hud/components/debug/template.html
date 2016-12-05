@@ -1,5 +1,30 @@
 <debug-transition>
   <div id="hud-debug">
-    <p>Scene: {{ id }}</p>
+    <table>
+      <tr>
+        <td class="hud-debug-category">
+          Scene
+        </td>
+        <td class="hud-debug-content">
+          <ul>
+            <li>
+              id: {{ currentSceneId }}
+            </li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td class="hud-debug-category">
+          Config
+        </td>
+        <td class="hud-debug-content">
+          <ul>
+            <li>
+              Debug: {{ config.debug }} 
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </table>
   </div>
 </debug-transition>
