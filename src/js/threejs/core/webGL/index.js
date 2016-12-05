@@ -89,8 +89,13 @@ class WebGL extends EventEmitter {
    * Create three.js Renderer with params in the config files
    */
   createRenderer() {
-    this._renderer = new THREE.WebGLRenderer();
+    this._renderer = new THREE.WebGLRenderer({
+      alpha    : true,
+      antialias: true,
+    });
     this._renderer.setSize(CONFIG.WEBGL.WEBGL_WIDTH, CONFIG.WEBGL.WEBGL_HEIGHT);
+    this._renderer.shadowMap.enabled = true;
+
   }
 
   createStereoEffect(){

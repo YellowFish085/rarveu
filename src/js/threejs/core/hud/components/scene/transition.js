@@ -1,7 +1,10 @@
 'use strict';
 
-import Vue             from 'vue/dist/vue';
+import Vue              from 'vue/dist/vue';
 import { TimelineLite } from 'gsap';
+
+import EventEmitter     from '../../../../classes/EventEmitter';
+const eventEmitter = new EventEmitter();
 
 export default Vue.component('scene-transition', {
   functional: true,
@@ -11,6 +14,7 @@ export default Vue.component('scene-transition', {
         name: 'scene-transition',
         mode: 'out-in',
       },
+
       on: {
         enter(el, done) {
           const tl = new TimelineLite({
@@ -20,10 +24,13 @@ export default Vue.component('scene-transition', {
             },
           });
 
-          tl.delay(.5)
-            .fromTo(el, 1, { opacity: 0  }, { opacity: 1 }, '-=0');
-          tl.play();
+          tl.fromTo(el, 1, { opacity: 0  }, { opacity: 1 }, '-=0');
+
+          eventEmitter.eeOnce('hud-loader-leave', () => {
+            tl.play();
+          });
         },
+
         leave(el, done) {
           const tl = new TimelineLite({
             paused: true,
