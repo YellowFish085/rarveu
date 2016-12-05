@@ -7,7 +7,7 @@ import EventEmitter from '../../../classes/EventEmitter';
 class DefaultScene extends EventEmitter {
   constructor() {
     super();
-    
+        
     this._scene  = null;
     this._loader = null;
   }
@@ -32,10 +32,7 @@ class DefaultScene extends EventEmitter {
    * Load datas
    */
   load() {
-    this._loader.load('assets/threejs/models/magikarp/BR_Magikarp.json', (loadedScene) => {
-      this._scene         = loadedScene;
-      this._scene.fog     = new THREE.Fog(0xffffff, 2000, 10000);
-    });
+
   }
 
   /**
