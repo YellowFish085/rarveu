@@ -35,6 +35,7 @@ export default Vue.component('intro-transition', {
           const tl = new TimelineLite({
             paused: true,
             onComplete() {
+              eventEmitter.eeEmit('hud-intro-leave');
               done();
             },
           });

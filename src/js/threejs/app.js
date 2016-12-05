@@ -25,12 +25,18 @@ class App extends EventEmitter {
     this._webGL = null; // WebGL
     this._hud   = null; // VueJS HUD
 
+    this.bind();
+
     this.addEventListener();
 
     this.createHUD();
     this.createWebGL();
     this.createGUI();
     this.createStats();
+  }
+
+  bind() {
+    this.displayThreeJS = this.displayThreeJS.bind(this);
   }
 
   /**
@@ -89,7 +95,7 @@ class App extends EventEmitter {
       this._hud.loadingPercentage = percentage;
     });
 
-    this.eeListen('loading-end', () => {
+    this.eeOnce('loading-end', () => {
       this._hud.loadingPercentage = 100;
       setTimeout(() => {
         this._hud.isLoading = false;
@@ -97,6 +103,21 @@ class App extends EventEmitter {
         this.render();
       }, 1000);
     });
+
+    this.eeOnce('hud-intro-leave', () => {
+      this.displayThreeJS();
+    });
+  }
+
+  displayThreeJS() {
+    const el = document.getElementById('main');
+    const tl = new TimelineLite({
+        paused: true,
+    });
+
+    tl.fromTo(el, 1, { opacity: 0  }, { opacity: 1 });
+
+    tl.play();
   }
 
   /**
