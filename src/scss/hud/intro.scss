@@ -1,0 +1,27 @@
+.intro-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.intro-container ul {
+  display: block;
+
+  font-variant: small-caps;
+  font-style: italic;
+}
+
+.intro-container ul li {
+  margin-bottom: 10px;
+}
+
+.intro-container ul li span {
+  color: $blue;
+}

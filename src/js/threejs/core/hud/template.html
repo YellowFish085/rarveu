@@ -4,5 +4,9 @@
   </template>
   <template v-else>
     <scene :id="sceneId"></scene>
+
+    <template v-if="showIntro">
+      <intro></intro>
+    </template>
   </template>
 </div>

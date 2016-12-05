@@ -1,5 +1,7 @@
 @import './reset';
 
+$blue: #68c3c0;
+
 @import './font';
 @import './hud/main';
 
@@ -36,4 +38,8 @@ body {
 
 #main canvas {
 	display: block;
+}
+
+.bold {
+	font-weight: bold;
 }
