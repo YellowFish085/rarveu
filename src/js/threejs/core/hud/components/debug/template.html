@@ -5,36 +5,23 @@
         <td class="hud-debug-category">
           Scene
         </td>
-        <td class="hud-debug-content">
-          <table class="hud-debug-sub-table">
-            <tr>
+        <td>
+          <table class="hud-debug-main-table-content">
+            <tr class="hud-debug-table-tr-content">
               <td>Current scene id</td>
               <td>{{ currentSceneId }}</td>
             </tr>
-            <tr>
+            <tr class="hud-debug-table-tr-content">
               <td>Scenes</td>
               <td>{{ scenes.length }}</td>
             </tr>
           </table>
         </td>
       </tr>
-      <tr>
-        <td class="hud-debug-category">
-          Config
-        </td>
-        <td class="hud-debug-content">
-          <table class="hud-debug-sub-table">
-            <tr>
-              <td>
-                Debug
-              </td>
-              <td>
-                {{ config.debug }}
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>
+    </table>
+
+    <table class="hud-debug-config-table">
+      <tree class="item" :model="treeDatas"></tree>
     </table>
   </div>
 </debug-transition>

@@ -1,0 +1,14 @@
+<tr>
+  <td :class="getTdClass">
+    <span>{{ model.name }}</span>
+  </td>
+  <td :class="getTdClass" v-on:click="toggle" v-on:dblclick="changeType">
+    <span>{{ model.value }}</span>
+    <span v-if="isFolder" class="hud-debug-config-table-button">[ {{ open ? '-' : '+' }} ]</span>
+  </td>
+  <td :class="getTdClass">
+    <table v-show="open" v-if="isFolder">
+      <tree class="item" v-for="model in model.children" :model="model"></tree>
+    </table>
+  </td>
+</tr>
