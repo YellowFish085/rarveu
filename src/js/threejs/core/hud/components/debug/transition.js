@@ -6,12 +6,12 @@ import { TimelineLite } from 'gsap';
 import EventEmitter     from '../../../../classes/EventEmitter';
 const eventEmitter = new EventEmitter();
 
-export default Vue.component('scene-transition', {
+export default Vue.component('debug-transition', {
   functional: true,
   render(createElement, context) {
     const data = {
       props: {
-        name: 'scene-transition',
+        name: 'debug-transition',
         mode: 'out-in',
       },
 

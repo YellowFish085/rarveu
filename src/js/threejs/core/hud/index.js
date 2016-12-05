@@ -5,7 +5,7 @@ import Vue    from 'vue/dist/vue';
 import CONFIG from '../config';
 
 import Loader from './components/loader';
-import Scene  from './components/scene';
+import Debug  from './components/debug';
 import Intro  from './components/intro';
 
 import Log          from '../../utils/log';
@@ -28,7 +28,7 @@ const App = Vue.extend({
 
   components: {
     loader: Loader,
-    scene : Scene,
+    debug : Debug,
     intro : Intro,
   },
 
