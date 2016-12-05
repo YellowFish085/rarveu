@@ -29,6 +29,15 @@ class EventEmitter {
   }
 
   /**
+   * Listen to an event once. When event emited, the listener will be removed
+   * @param {string} e - Event name
+   * @param {function} func - Callback. Use .bind(this) if you want to access datas from the caller
+   */
+  eeOnce(e, func) {
+    this._ee.once(e, func);
+  }
+
+  /**
    * Remove an event
    * @param {string} e - Event name
    * @param {function} func - Callback.
