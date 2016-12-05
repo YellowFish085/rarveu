@@ -1,6 +1,15 @@
 <loader-transition>
   <div id="hud-loader">
-    <p>Loading</p>
-    <p>{{ percentage }}%</p>
+    <div class="loading-container">
+      <div class="loading"></div>
+      <div id="loading-text">
+        <div class="hud-loader-text">
+          <span class="hud-loader-text_loading">Loading</span>
+        </div>
+        <div class="hud-loader-percentage">
+          <span>{{ percentage }}%</span>
+        </div>
+      </div>
+    </div>
   </div>
 </loader-transition>

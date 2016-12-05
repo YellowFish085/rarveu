@@ -15,6 +15,12 @@ const Loader = Vue.extend({
       required: true,
     },
   },
+
+  data() {
+    return {
+      interval: null,
+    };
+  },
 });
 
 export default Loader;
