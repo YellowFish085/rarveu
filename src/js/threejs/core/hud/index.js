@@ -21,7 +21,8 @@ const App = Vue.extend({
     return {
       isLoading        : true,
       loadingPercentage: 0,
-      sceneId          : 0,
+      scenes           : null,
+      currentSceneId   : 0,
       showIntro        : true,
     };
   },
@@ -46,8 +47,9 @@ const App = Vue.extend({
 
     addEventListener() {
       eventEmitter.eeOnce('hud-loader-leave', this.addIntroEventListener)
-      eventEmitter.eeListen('scene-changed', (id) => {
-        this.sceneId = id;
+      eventEmitter.eeListen('scene-changed', (datas) => {
+        this.currentSceneId = datas.currentSceneId;
+        this.scenes         = datas.scenes;
       });
     },
 

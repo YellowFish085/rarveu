@@ -58,7 +58,10 @@ class SceneController extends EventEmitter {
       this.currentScene.activate();
     }
 
-    this.eeEmit('scene-changed', this._currentSceneIndex);
+    this.eeEmit('scene-changed', {
+      currentSceneId: this._currentSceneIndex,
+      scenes        : this._scenes,
+    });
 
     this.eeEmit('loading-end');
   }

@@ -1,16 +1,21 @@
 <debug-transition>
   <div id="hud-debug">
-    <table>
+    <table class="hud-debug-main-table">
       <tr>
         <td class="hud-debug-category">
           Scene
         </td>
         <td class="hud-debug-content">
-          <ul>
-            <li>
-              id: {{ currentSceneId }}
-            </li>
-          </ul>
+          <table class="hud-debug-sub-table">
+            <tr>
+              <td>Current scene id</td>
+              <td>{{ currentSceneId }}</td>
+            </tr>
+            <tr>
+              <td>Scenes</td>
+              <td>{{ scenes.length }}</td>
+            </tr>
+          </table>
         </td>
       </tr>
       <tr>
@@ -18,11 +23,16 @@
           Config
         </td>
         <td class="hud-debug-content">
-          <ul>
-            <li>
-              Debug: {{ config.debug }} 
-            </li>
-          </ul>
+          <table class="hud-debug-sub-table">
+            <tr>
+              <td>
+                Debug
+              </td>
+              <td>
+                {{ config.debug }}
+              </td>
+            </tr>
+          </table>
         </td>
       </tr>
     </table>

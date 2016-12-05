@@ -3,14 +3,30 @@
   bottom: 10px;
   left: 10px;
 
-  font-size: 12px;
+  font-size: 10px;
+}
+
+table.hud-debug-main-table > tr > td {
+  padding-bottom: 8px;
 }
 
 .hud-debug-category {
-  padding: 0 5px 5px 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  text-align: right;
 }
 
 .hud-debug-content {
-  font-size: 10px;
   color: lighten($text-color, 25%);
+}
+
+table.hud-debug-sub-table {
+  border-left: 1px solid lighten($text-color, 50%);
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+table.hud-debug-sub-table td {
+  padding: 0 4px 2px 2px;
 }

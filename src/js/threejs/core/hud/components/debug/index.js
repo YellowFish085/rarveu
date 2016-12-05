@@ -16,6 +16,10 @@ const Loader = Vue.extend({
       type    : Number,
       required: true,
     },
+    scenes: {
+      type    : Array,
+      required: true,
+    },
   },
 
   data: function data() {
