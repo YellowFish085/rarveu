@@ -1,5 +1,6 @@
 @import './reset';
 
+$text-color: #383838;
 $blue: #68c3c0;
 
 @import './font';
@@ -15,6 +16,8 @@ body {
 	height: 100%;
 
 	background: linear-gradient(#FAFAFA, #D9D9D9);
+
+	overflow: hidden;
 }
 
 .dg {
