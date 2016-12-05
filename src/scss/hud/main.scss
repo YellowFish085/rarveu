@@ -1,0 +1,16 @@
+@import './loader';
+@import './scene';
+
+#hud {
+  z-index: 1;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  pointer-events: none;
+
+  color: #383838;
+}
