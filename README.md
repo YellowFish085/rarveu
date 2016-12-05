@@ -14,7 +14,7 @@ $ gulp
 
 ### Clean JS with eslint
 ``` sh
-$ ./node_modules/.bin/eslint --fix ./scs/js/
+$ ./node_modules/.bin/eslint --fix ./src/js/
 ```
 
 ### Run local server if needed

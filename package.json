@@ -52,6 +52,7 @@
     "preload-js": "^0.6.3",
     "stats.js": "^0.16.0",
     "three": "^0.81.2",
+    "three-stereo-effect": "^1.0.14",
     "vue": "^2.0.3"
   },
   "browserify": {
