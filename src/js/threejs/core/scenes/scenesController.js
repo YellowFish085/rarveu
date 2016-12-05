@@ -12,6 +12,7 @@ class SceneController extends EventEmitter {
   constructor() {
     super();
 
+    this._totalLoaded       = 0;
     this._scenesList        = Modules;
     this._scenes            = [];
     this._currentSceneIndex = null;
@@ -45,7 +46,9 @@ class SceneController extends EventEmitter {
   }
 
   onLoadProgress(item, loaded, total) {
-    const percentage = parseInt((loaded * 100) / total);
+    this._totalLoaded += 1;
+
+    const percentage = parseInt((this._totalLoaded * 100) / this._scenes.length);
     this.eeEmit('loading-progress', percentage);
   }
 
@@ -71,7 +74,15 @@ class SceneController extends EventEmitter {
 
     this._scenes.forEach((Scene, index) => {
       Scene.load();
+
+      if (Scene.syncLoading) {
+        this.onLoadProgress(Scene, this._totalLoaded, this._scenes.length);
+      }
     });
+
+    if (this._totalLoaded === this._scenes.length) {
+      this.onLoadEnd();
+    }
   }
 
   /**

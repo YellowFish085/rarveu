@@ -25,12 +25,12 @@ class App extends EventEmitter {
     this._webGL = null; // WebGL
     this._hud   = null; // VueJS HUD
 
+    this.addEventListener();
+
     this.createHUD();
     this.createWebGL();
     this.createGUI();
     this.createStats();
-
-    this.addEventListener();
   }
 
   /**

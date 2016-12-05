@@ -8,6 +8,8 @@ class SceneTest extends EventEmitter {
   constructor() {
     super();
 
+    this.syncLoading    = false;
+
     this._scene         = null;
     this._loader        = null;
 
