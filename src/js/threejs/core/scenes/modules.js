@@ -7,10 +7,10 @@
 
 'use strict';
 
-import sceneTest from './modules/sceneTest';
+import SceneA from './modules/sceneA';
 
 const modules = [
-  sceneTest,
+  SceneA,
 ];
 
 export default modules;
