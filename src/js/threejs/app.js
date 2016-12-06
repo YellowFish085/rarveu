@@ -1,5 +1,6 @@
 'use strict';
 
+import * as THREE       from 'three';
 import dat              from 'dat-gui';
 import Stats            from 'stats.js';
 import Vue              from 'vue/dist/vue';
@@ -29,10 +30,12 @@ class App extends EventEmitter {
 
     this.addEventListener();
 
-    this.createHUD();
-    this.createWebGL();
     this.createGUI();
     this.createStats();
+    this.createHUD();
+    this.createWebGL();
+
+    this.initGUI();
   }
 
   bind() {
@@ -61,13 +64,25 @@ class App extends EventEmitter {
   createGUI() {
     if (!CONFIG.DEBUG) return;
 
-    this._gui = new dat.GUI();
+    window.threeJSGui = new dat.GUI();
+  }
 
+  initGUI() {
     // GUI options
-    const cameraFolder = this._gui.addFolder('Camera');
-    cameraFolder.add(this._webGL._camera.position, 'x', -10, 10);
-    cameraFolder.add(this._webGL._camera.position, 'y', -10, 10);
-    cameraFolder.add(this._webGL._camera.position, 'z', 50, 150);
+    const cameraFolder = window.threeJSGui.addFolder('Camera');
+    let c1 = cameraFolder.add(this._webGL._camera.position, 'x', -360, 360);
+    let c2 = cameraFolder.add(this._webGL._camera.position, 'y', -360, 360);
+    let c3 = cameraFolder.add(this._webGL._camera.position, 'z', -360, 360);
+
+    c1.onChange(() => {
+      this._webGL._camera.lookAt(new THREE.Vector3(0, 0, 0));
+    });
+    c2.onChange(() => {
+      this._webGL._camera.lookAt(new THREE.Vector3(0, 0, 0));
+    });
+    c3.onChange(() => {
+      this._webGL._camera.lookAt(new THREE.Vector3(0, 0, 0));
+    });
   }
 
   /**
