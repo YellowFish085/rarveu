@@ -25,7 +25,7 @@ class Floor {
   createMat() {
     this._mat  = new THREE.MeshPhongMaterial({
       // color — geometry color in hexadecimal. Default is 0xffffff.
-      color: 0xFF0000FF,
+      color: 0xD3D3D3FF,
       // specular — Set specular color. Default is 0x111111 .
       // shininess — Set shininess Default is 30.
       // map — Set texture map. Default is null.
