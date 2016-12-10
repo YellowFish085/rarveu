@@ -30,3 +30,6 @@ rules:
     - 1
   linebreak-style:
     - 0
+  brace-style:
+    - 1
+    - "stroustrup"
