@@ -7,7 +7,7 @@ class Floor {
     this._w = w;
     this._h = h;
     this._d = d;
-    
+
     this.createMesh();
   }
 

@@ -4,7 +4,7 @@ import Log from '../../../utils/log';
 
 import EventEmitter from '../../../classes/EventEmitter';
 
-class KeyboardEvents extends EventEmitter{
+class KeyboardEvents extends EventEmitter {
   constructor() {
     super();
 
@@ -30,11 +30,11 @@ class KeyboardEvents extends EventEmitter{
 
     Log.trace(`${key} down`);
 
-    //if S key is pressed
-    if(key == 83){
+    // if S key is pressed
+    if (key === 83) {
       this.eeEmit('stereoKey');
     }
-    //this.eeEmit(monTruc)
+    // this.eeEmit(monTruc)
   }
 
   onKeyUp(e) {

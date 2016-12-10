@@ -9,11 +9,11 @@ import EventEmitter from '../../../classes/EventEmitter';
 class SceneA extends EventEmitter {
   constructor() {
     super();
-    
+
     this.syncLoading = true;
-    
+
     this._objects    = {};
-    
+
     this._scene      = null;
     this._loader     = null;
   }
@@ -44,19 +44,19 @@ class SceneA extends EventEmitter {
   createLights() {
     this._objects.lights = {};
 
-    // A hemisphere light is a gradient colored light; 
-    // the first parameter is the sky color, the second parameter is the ground color, 
+    // A hemisphere light is a gradient colored light;
+    // the first parameter is the sky color, the second parameter is the ground color,
     // the third parameter is the intensity of the light
-    let hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x000000, .9)
+    const hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x000000, 0.9);
 
-    // A directional light shines from a specific direction. 
-    // It acts like the sun, that means that all the rays produced are parallel. 
-    let shadowLight = new THREE.DirectionalLight(0xffffff, .9);
+    // A directional light shines from a specific direction.
+    // It acts like the sun, that means that all the rays produced are parallel.
+    const shadowLight = new THREE.DirectionalLight(0xffffff, 0.9);
 
-    // Set the direction of the light  
+    // Set the direction of the light
     shadowLight.position.set(150, 350, 350);
 
-    // Allow shadow casting 
+    // Allow shadow casting
     shadowLight.castShadow = true;
 
     // define the visible area of the projected shadow
@@ -67,26 +67,26 @@ class SceneA extends EventEmitter {
     shadowLight.shadow.camera.near   = 1;
     shadowLight.shadow.camera.far    = 1000;
 
-    // define the resolution of the shadow; the higher the better, 
+    // define the resolution of the shadow; the higher the better,
     // but also the more expensive and less performant
     shadowLight.shadow.mapSize.width  = 2048;
     shadowLight.shadow.mapSize.height = 2048;
 
     // an ambient light modifies the global color of a scene and makes the shadows softer
-    let ambientLight = new THREE.AmbientLight(0x48B66F, .5);
+    const ambientLight = new THREE.AmbientLight(0x48B66F, 0.5);
 
     // to activate the lights, just add them to the scene
     this._objects.lights.hemisphereLight = hemisphereLight;
     this._objects.lights.shadowLight     = shadowLight;
     this._objects.lights.ambientLight    = ambientLight;
 
-    this._scene.add(this._objects.lights.hemisphereLight);  
+    this._scene.add(this._objects.lights.hemisphereLight);
     this._scene.add(this._objects.lights.shadowLight);
     this._scene.add(this._objects.lights.ambientLight);
   }
 
   createObjects() {
-    let floor = new Floor(250, 10, 500);
+    const floor = new Floor(250, 10, 500);
     floor._mesh.position.x = 0;
     floor._mesh.position.y = 0;
     floor._mesh.position.z = 0;
@@ -96,22 +96,21 @@ class SceneA extends EventEmitter {
     this.debugAxis(100);
   }
 
-  debugAxis(axisLength){
-    //Shorten the vertex function
-    function v(x,y,z){
-      return new THREE.Vector3(x,y,z);
+  debugAxis(axisLength) {
+    // Shorten the vertex function
+    function v(x, y, z) {
+      return new THREE.Vector3(x, y, z);
     }
 
-    //Create axis (point1, point2, colour)
-    function createAxis(p1, p2, color){
-      let line;
-      let lineGeometry = new THREE.Geometry();
-      let lineMat      = new THREE.LineBasicMaterial({
-        color: color,
+    // Create axis (point1, point2, colour)
+    function createAxis(p1, p2, color) {
+      const lineGeometry = new THREE.Geometry();
+      const lineMat      = new THREE.LineBasicMaterial({
+        color,
       });
 
       lineGeometry.vertices.push(p1, p2);
-      line = new THREE.Line(lineGeometry, lineMat);
+      const line = new THREE.Line(lineGeometry, lineMat);
 
       return line;
     }
@@ -119,7 +118,7 @@ class SceneA extends EventEmitter {
     this._scene.add(createAxis(v(-axisLength, 0, 0), v(axisLength, 0, 0), 0xFF0000));
     this._scene.add(createAxis(v(0, -axisLength, 0), v(0, axisLength, 0), 0x00FF00));
     this._scene.add(createAxis(v(0, 0, -axisLength), v(0, 0, axisLength), 0x0000FF));
-};
+  }
 
   /**
    * Load datas

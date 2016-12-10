@@ -4,6 +4,7 @@ import Vue              from 'vue/dist/vue';
 import { TimelineLite } from 'gsap';
 
 import EventEmitter     from '../../../../classes/EventEmitter';
+
 const eventEmitter = new EventEmitter();
 
 export default Vue.component('loader-transition', {
@@ -24,7 +25,7 @@ export default Vue.component('loader-transition', {
             },
           });
 
-          tl.fromTo(el, 1, { opacity: 0  }, { opacity: 1 }, '-=0');
+          tl.fromTo(el, 1, { opacity: 0 }, { opacity: 1 }, '-=0');
           tl.play();
         },
 
@@ -32,12 +33,12 @@ export default Vue.component('loader-transition', {
           const tl = new TimelineLite({
             paused: true,
             onComplete() {
-              eventEmitter.eeEmit('hud-loader-leave')
+              eventEmitter.eeEmit('hud-loader-leave');
               done();
             },
           });
 
-          tl.fromTo(el, 0.5, { opacity: 1  }, { opacity: 0 }, '-=0');
+          tl.fromTo(el, 0.5, { opacity: 1 }, { opacity: 0 }, '-=0');
           tl.play();
         },
       },

@@ -22,7 +22,7 @@ class MouseEvents extends EventEmitter {
   }
 
   addEventListener() {
-    var threeContainer = document.getElementById('main');
+    const threeContainer = document.getElementById('main');
 
     threeContainer.addEventListener('mousemove', this.onMouseMove);
     threeContainer.addEventListener('mousedown', this.onMouseDown);

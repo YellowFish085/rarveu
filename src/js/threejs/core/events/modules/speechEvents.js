@@ -24,7 +24,7 @@ class SpeechEvents extends EventEmitter {
       annyang.addCallback('resultMatch', this.onResultMatch);
 
       const commands = {
-        'hello': this.onSpeech,
+        hello: this.onSpeech,
       };
       annyang.addCommands(commands);
 
@@ -33,7 +33,7 @@ class SpeechEvents extends EventEmitter {
   }
 
   addEventListener() {
-    
+
   }
 
   onResult(params) {

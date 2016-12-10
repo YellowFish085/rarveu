@@ -6,10 +6,6 @@ import CONFIG from '../core/config';
  * Log
  */
 class Log {
-  constructor() {
-
-  }
-
   static log(msg) {
     if (CONFIG.DEBUG) {
       console.log(msg);

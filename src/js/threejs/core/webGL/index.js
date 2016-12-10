@@ -1,6 +1,7 @@
 'use strict';
 
 import * as THREE       from 'three';
+import STEREO           from 'three-stereo-effect';
 
 import * as CONFIG      from '../config';
 import Log              from '../../utils/log';
@@ -10,9 +11,7 @@ import EventEmitter     from '../../classes/EventEmitter';
 import EventsController from '../events/eventsController';
 import ScenesController from '../scenes/scenesController';
 
-import STEREO           from "three-stereo-effect";
-
-var stereoEffect = new STEREO(THREE);
+const StereoEffect = new STEREO(THREE);
 
 /**
  * WebGL with three.js
@@ -42,7 +41,6 @@ class WebGL extends EventEmitter {
     this.createStereoEffect();
 
     this.addEventListener();
-
 
     // Add renderer in DOM
     document.getElementById(this._containerId).appendChild(this._renderer.domElement);
@@ -95,11 +93,10 @@ class WebGL extends EventEmitter {
     });
     this._renderer.setSize(CONFIG.WEBGL.WEBGL_WIDTH, CONFIG.WEBGL.WEBGL_HEIGHT);
     this._renderer.shadowMap.enabled = true;
-
   }
 
-  createStereoEffect(){
-    this._stereoEffect = new stereoEffect(this._renderer);
+  createStereoEffect() {
+    this._stereoEffect = new StereoEffect(this._renderer);
     this._stereoEffect.eyeSeparation = 2;
     this._stereoEffect.setSize(CONFIG.WEBGL.WEBGL_WIDTH, CONFIG.WEBGL.WEBGL_HEIGHT);
   }
@@ -109,7 +106,7 @@ class WebGL extends EventEmitter {
    */
   addEventListener() {
     window.addEventListener('resize', this.onResize);
-    this.eeListen("stereoKey", this.setStereo);
+    this.eeListen('stereoKey', this.setStereo);
   }
 
   /**
@@ -124,9 +121,9 @@ class WebGL extends EventEmitter {
     this.eeEmit('resize');
   }
 
-  setStereo(){
+  setStereo() {
     this._isStereo = !this._isStereo;
-    this.onResize("default");
+    this.onResize('default');
   }
 
   /**
@@ -135,7 +132,7 @@ class WebGL extends EventEmitter {
    */
   update() {
     this._scenesController.update();
-    var renderer = this._isStereo ? this._stereoEffect : this._renderer;
+    const renderer = this._isStereo ? this._stereoEffect : this._renderer;
     renderer.render(this._scenesController.currentScene.scene, this._camera);
   }
 }

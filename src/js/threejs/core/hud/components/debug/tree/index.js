@@ -15,37 +15,37 @@ const Tree = Vue.extend({
     },
   },
 
-  data: function () {
+  data() {
     return {
-      open: false
-    }
+      open: false,
+    };
   },
 
   computed: {
-    isFolder: function () {
+    isFolder() {
       return this.model.children && this.model.children.length;
     },
 
     getTdClass() {
       return this.model.children && this.model.children.length ? 'hud-debug-category' : '';
-    }
+    },
   },
 
   methods: {
-    toggle: function () {
+    toggle() {
       if (this.isFolder) {
         this.open = !this.open;
       }
     },
 
-    changeType: function () {
+    changeType() {
       if (!this.isFolder) {
         Vue.set(this.model, 'children', []);
         this.addChild();
         this.open = true;
       }
     },
-  }
+  },
 });
 
 export default Tree;

@@ -4,6 +4,7 @@ import Vue              from 'vue/dist/vue';
 import { TimelineLite } from 'gsap';
 
 import EventEmitter     from '../../../../classes/EventEmitter';
+
 const eventEmitter = new EventEmitter();
 
 export default Vue.component('debug-transition', {
@@ -24,7 +25,7 @@ export default Vue.component('debug-transition', {
             },
           });
 
-          tl.fromTo(el, 1, { opacity: 0  }, { opacity: 1 }, '-=0');
+          tl.fromTo(el, 1, { opacity: 0 }, { opacity: 1 }, '-=0');
 
           eventEmitter.eeOnce('hud-loader-leave', () => {
             tl.play();
@@ -39,7 +40,7 @@ export default Vue.component('debug-transition', {
             },
           });
 
-          tl.fromTo(el, 1, { opacity: 1  }, { opacity: 0 }, '-=0');
+          tl.fromTo(el, 1, { opacity: 1 }, { opacity: 0 }, '-=0');
           tl.play();
         },
       },

@@ -40,28 +40,30 @@ const Loader = Vue.extend({
 
   methods: {
     formatTreeDatas(obj, name) {
-      if (typeof obj === "object" && obj !== null) {
+      if (typeof obj === 'object' && obj !== null) {
         // key has multiple children
-        let children = [];
+        const children = [];
 
-        for (var key in obj) {
-          children.push(this.formatTreeDatas(obj[key], key));
+        for (const key in obj) {
+          if (obj[key]) {
+            children.push(this.formatTreeDatas(obj[key], key));
+          }
         }
 
         return {
-          name: name,
-          children: children,
+          name,
+          children,
         };
       }
       else {
         // key don't have children
         return {
-          name: name,
+          name,
           value: obj,
         };
       }
-    }
-  }
+    },
+  },
 });
 
 export default Loader;

@@ -7,9 +7,9 @@ import EventEmitter from '../../../classes/EventEmitter';
 class DefaultScene extends EventEmitter {
   constructor() {
     super();
-    
+
     this.syncLoading = true;
-    
+
     this._scene  = null;
     this._loader = null;
   }

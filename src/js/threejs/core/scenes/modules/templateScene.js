@@ -13,7 +13,7 @@ class TemplateScenes {
     // NEEDED, used to manage loading progress with or without the Three.js loading manager
     // true: not using three.js loading manager
     // false: using three.js loading manager
-    this.syncLoading = false
+    this.syncLoading = false;
 
     this._scene      = null;
   }

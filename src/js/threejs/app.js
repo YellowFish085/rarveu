@@ -3,7 +3,6 @@
 import * as THREE       from 'three';
 import dat              from 'dat-gui';
 import Stats            from 'stats.js';
-import Vue              from 'vue/dist/vue';
 import { TimelineLite } from 'gsap';
 
 import * as CONFIG      from './core/config';
@@ -70,9 +69,9 @@ class App extends EventEmitter {
   initGUI() {
     // GUI options
     const cameraFolder = window.threeJSGui.addFolder('Camera');
-    let c1 = cameraFolder.add(this._webGL._camera.position, 'x', -360, 360);
-    let c2 = cameraFolder.add(this._webGL._camera.position, 'y', -360, 360);
-    let c3 = cameraFolder.add(this._webGL._camera.position, 'z', -360, 360);
+    const c1 = cameraFolder.add(this._webGL._camera.position, 'x', -360, 360);
+    const c2 = cameraFolder.add(this._webGL._camera.position, 'y', -360, 360);
+    const c3 = cameraFolder.add(this._webGL._camera.position, 'z', -360, 360);
 
     c1.onChange(() => {
       this._webGL._camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -90,7 +89,7 @@ class App extends EventEmitter {
    */
   createStats() {
     if (!CONFIG.DEBUG) return;
-    
+
     this._stats = new Stats();
     this._stats.setMode(CONFIG.STATS.STATS_MODE);
 
@@ -127,10 +126,10 @@ class App extends EventEmitter {
   displayThreeJS() {
     const el = document.getElementById('main');
     const tl = new TimelineLite({
-        paused: true,
+      paused: true,
     });
 
-    tl.fromTo(el, 1, { opacity: 0  }, { opacity: 1 });
+    tl.fromTo(el, 1, { opacity: 0 }, { opacity: 1 });
 
     tl.play();
   }

@@ -10,9 +10,9 @@ import Intro  from './components/intro';
 
 import Log          from '../../utils/log';
 import EventEmitter from '../../classes/EventEmitter';
-const eventEmitter = new EventEmitter();
 
-const template = eval(`\`${require('./template.html')}\``);
+const eventEmitter = new EventEmitter();
+const template     = eval(`\`${require('./template.html')}\``);
 
 const App = Vue.extend({
   template,
@@ -46,7 +46,7 @@ const App = Vue.extend({
     },
 
     addEventListener() {
-      eventEmitter.eeOnce('hud-loader-leave', this.addIntroEventListener)
+      eventEmitter.eeOnce('hud-loader-leave', this.addIntroEventListener);
       eventEmitter.eeListen('scene-changed', (datas) => {
         this.currentSceneId = datas.currentSceneId;
         this.scenes         = datas.scenes;
@@ -63,8 +63,8 @@ const App = Vue.extend({
 
     handleCloseIntro() {
       this.showIntro = false;
-    }
-  }
+    },
+  },
 });
 
 export default App;
