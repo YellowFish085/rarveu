@@ -3,17 +3,16 @@
   bottom: 10px;
   left: 10px;
 
-  font-size: 10px;
-
   pointer-events: all;
+
+  font-size: 10px;
 }
 
 table.hud-debug-main-table td,
 table.hud-debug-config-table td {
-  padding-bottom: 4px;
   padding-right: 5px;
+  padding-bottom: 4px;
 }
-
 
 .hud-debug-category {
   text-align: right;
@@ -25,10 +24,10 @@ table.hud-debug-main-table-content,
 table.hud-debug-config-table td:first-child:not(.hud-debug-category) {
   padding-left: 5px;
 
+  color: lighten($text-color, 25%);
   border-left: 1px solid lighten($text-color, 50%);
 
   font-style: italic;
-  color: lighten($text-color, 25%);
 }
 
 table.hud-debug-config-table td:not(:first-child) {

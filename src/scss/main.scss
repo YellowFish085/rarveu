@@ -7,42 +7,44 @@ $blue: #68c3c0;
 @import './hud/main';
 
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
 body {
-	width: 100%;
-	height: 100%;
+  overflow: hidden;
 
-	background: linear-gradient(#FAFAFA, #D9D9D9);
+  width: 100%;
+  height: 100%;
 
-	overflow: hidden;
+  background: linear-gradient(#FAFAFA, #D9D9D9);
 }
 
 .dg {
-	z-index: 2 !important;
+  z-index: 2 !important;
 }
 
 #app-wrapper {
-	position: relative;
-	width: 100%;
-	height: 100%;
-	min-height: 100%;
+  position: relative;
+
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
 }
 
 #main {
-	position: relative;
-	width: 100%;
-	height: 100%;
+  position: relative;
 
-	opacity: 0;
+  width: 100%;
+  height: 100%;
+
+  opacity: 0;
 }
 
 #main canvas {
-	display: block;
+  display: block;
 }
 
 .bold {
-	font-weight: bold;
+  font-weight: bold;
 }
