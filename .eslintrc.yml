@@ -28,8 +28,15 @@ rules:
     - 1
   max-len:
     - 1
+    - ignoreComments: true
   linebreak-style:
     - 0
   brace-style:
     - 1
     - "stroustrup"
+  no-plusplus:
+    - 1
+    - allowForLoopAfterthoughts: true
+  no-trailing-spaces:
+    - 1
+    - skipBlankLines: true
