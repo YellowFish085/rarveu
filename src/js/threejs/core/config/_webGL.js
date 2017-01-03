@@ -16,10 +16,10 @@ export const CAMERA = {
   fov     : 75,
   aspect  : window.innerWidth / window.innerHeight,
   near    : 1,
-  far     : 1000,
+  far     : 10000,
   position: {
-    x: 50,
-    y: 50,
-    z: 200,
+    x: 250,
+    y: 250,
+    z: 250,
   },
 };
