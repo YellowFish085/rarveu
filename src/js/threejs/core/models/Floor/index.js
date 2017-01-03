@@ -4,6 +4,10 @@ import * as THREE from 'three';
 
 class Floor {
   constructor(w, h, d) {
+    this._mesh = null;
+    this._geom = null;
+    this._mat  = null;
+
     this._w = w;
     this._h = h;
     this._d = d;
@@ -12,8 +16,8 @@ class Floor {
   }
 
   createMesh() {
-    this.createGeom();
     this.createMat();
+    this.createGeom();
 
     this._mesh = new THREE.Mesh(this._geom, this._mat);
   }
