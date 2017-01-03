@@ -30,7 +30,7 @@ class Sky {
     for (i = 0; i < nClouds; i++) {
       const c = this.createClouds();
 
-      c.mesh.position.y = Math.floor(Math.random() * 400) + 100;
+      c.mesh.position.y = Math.floor(Math.random() * 400) + 50;
       c.mesh.position.x = Math.floor(Math.random() * 2000) - 1000;
       c.mesh.position.z = Math.floor(Math.random() * 2000) - 1000;
 
