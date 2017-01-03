@@ -88,7 +88,7 @@ class SceneA extends EventEmitter {
   }
 
   createObjects() {
-    const sky = new Sky();
+    // const sky = new Sky();
 
     const floor = new Floor(250, 10, 500);
     floor._mesh.position.x = 0;
@@ -100,11 +100,11 @@ class SceneA extends EventEmitter {
     player._mesh.position.y = 10;
     player._mesh.position.z = 200;
 
-    this._scene.add(sky.mesh);
+    // this._scene.add(sky.mesh);
     this._scene.add(floor.mesh);
     this._scene.add(player.mesh);
 
-    this._objects.sky = sky;
+    // this._objects.sky = sky;
 
     this.debugAxis(100);
   }
@@ -144,7 +144,7 @@ class SceneA extends EventEmitter {
    * Update scene each frame
    */
   update() {
-    this._objects.sky.update();
+    // this._objects.sky.update();
   }
 
   /**
