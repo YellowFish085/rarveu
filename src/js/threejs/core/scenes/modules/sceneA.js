@@ -56,7 +56,7 @@ class SceneA extends EventEmitter {
     const shadowLight = new THREE.DirectionalLight(0xffffff, 0.9);
 
     // Set the direction of the light
-    shadowLight.position.set(150, 350, 350);
+    shadowLight.position.set(-150, 350, 350);
 
     // Allow shadow casting
     shadowLight.castShadow = true;
