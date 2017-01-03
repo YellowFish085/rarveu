@@ -2,6 +2,8 @@
 
 import * as THREE   from 'three';
 
+import Player       from '../../models/Player';
+import Sky          from '../../models/Sky';
 import Floor        from '../../models/Floor';
 
 import EventEmitter from '../../../classes/EventEmitter';
@@ -86,12 +88,23 @@ class SceneA extends EventEmitter {
   }
 
   createObjects() {
+    const sky = new Sky();
+
     const floor = new Floor(250, 10, 500);
     floor._mesh.position.x = 0;
     floor._mesh.position.y = 0;
     floor._mesh.position.z = 0;
 
+    const player = new Player();
+    player._mesh.position.x = 0;
+    player._mesh.position.y = 30;
+    player._mesh.position.z = 200;
+
+    this._scene.add(sky.mesh);
     this._scene.add(floor.mesh);
+    this._scene.add(player.mesh);
+
+    this._objects.sky = sky;
 
     this.debugAxis(100);
   }
@@ -115,9 +128,9 @@ class SceneA extends EventEmitter {
       return line;
     }
 
-    this._scene.add(createAxis(v(-axisLength, 0, 0), v(axisLength, 0, 0), 0xFF0000));
-    this._scene.add(createAxis(v(0, -axisLength, 0), v(0, axisLength, 0), 0x00FF00));
-    this._scene.add(createAxis(v(0, 0, -axisLength), v(0, 0, axisLength), 0x0000FF));
+    this._scene.add(createAxis(v(0, 0, 0), v(axisLength, 0, 0), 0xFF0000));
+    this._scene.add(createAxis(v(0, 0, 0), v(0, axisLength, 0), 0x00FF00));
+    this._scene.add(createAxis(v(0, 0, 0), v(0, 0, axisLength), 0x0000FF));
   }
 
   /**
@@ -131,7 +144,7 @@ class SceneA extends EventEmitter {
    * Update scene each frame
    */
   update() {
-
+    this._objects.sky.update();
   }
 
   /**
