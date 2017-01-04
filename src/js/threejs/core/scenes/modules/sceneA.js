@@ -140,9 +140,16 @@ class SceneA extends EventEmitter {
       return line;
     }
 
-    this._scene.add(createAxis(v(0, 0, 0), v(axisLength, 0, 0), 0xFF0000));
-    this._scene.add(createAxis(v(0, 0, 0), v(0, axisLength, 0), 0x00FF00));
-    this._scene.add(createAxis(v(0, 0, 0), v(0, 0, axisLength), 0x0000FF));
+    const axisX = createAxis(v(0, 0, 0), v(axisLength, 0, 0), 0xFF0000);
+    axisX.material.depthTest = false;
+    const axisY = createAxis(v(0, 0, 0), v(0, axisLength, 0), 0x00FF00);
+    axisY.material.depthTest = false;
+    const axisZ = createAxis(v(0, 0, 0), v(0, 0, axisLength), 0x0000FF);
+    axisZ.material.depthTest = false;
+
+    this._scene.add(axisX);
+    this._scene.add(axisY);
+    this._scene.add(axisZ);
   }
 
   /**
