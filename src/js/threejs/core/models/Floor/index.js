@@ -19,7 +19,8 @@ class Floor {
     this.createMat();
     this.createGeom();
 
-    this._mesh = new THREE.Mesh(this._geom, this._mat);
+    this._mesh               = new THREE.Mesh(this._geom, this._mat);
+    this._mesh.name          = 'floor';
     this._mesh.receiveShadow = true;
   }
 

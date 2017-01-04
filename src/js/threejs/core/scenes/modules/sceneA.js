@@ -2,6 +2,8 @@
 
 import * as THREE   from 'three';
 
+import CONFIG       from '../../config';
+
 import Player       from '../../models/Player';
 import Sky          from '../../models/Sky';
 import Floor        from '../../models/Floor';
@@ -32,6 +34,13 @@ class SceneA extends EventEmitter {
     this._loader = new THREE.ObjectLoader(loadingManager);
 
     this.fillScene();
+
+    if (CONFIG.DEBUG) {
+      if (!window.THREE) {
+        window.THREE = THREE;
+      }
+      window.scene = this._scene;
+    }
   }
 
   bind() {
@@ -50,10 +59,12 @@ class SceneA extends EventEmitter {
     // the first parameter is the sky color, the second parameter is the ground color,
     // the third parameter is the intensity of the light
     const hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x000000, 0.9);
+    hemisphereLight.name = 'hemisphereLight';
 
     // A directional light shines from a specific direction.
     // It acts like the sun, that means that all the rays produced are parallel.
     const shadowLight = new THREE.DirectionalLight(0xffffff, 0.9);
+    shadowLight.name = 'shadowLight';
 
     // Set the direction of the light
     shadowLight.position.set(-150, 350, 350);
@@ -76,6 +87,7 @@ class SceneA extends EventEmitter {
 
     // an ambient light modifies the global color of a scene and makes the shadows softer
     const ambientLight = new THREE.AmbientLight(0x48B66F, 0.5);
+    ambientLight.name = 'ambientLight';
 
     // to activate the lights, just add them to the scene
     this._objects.lights.hemisphereLight = hemisphereLight;

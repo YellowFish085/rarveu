@@ -17,6 +17,8 @@ class Sky {
 
     this._mesh = new THREE.Object3D();
 
+    this._mesh.name = 'sky';
+
     let i;
     for (i = 0; i < this._geom.length; i++) {
       this._mesh.add(this._geom[i].mesh);
@@ -29,6 +31,8 @@ class Sky {
     let i;
     for (i = 0; i < nClouds; i++) {
       const c = this.createClouds();
+
+      c.mesh.name = `cloud_${i}`;
 
       c.mesh.position.y = Math.floor(Math.random() * 400) + 50;
       c.mesh.position.x = Math.floor(Math.random() * 2000) - 1000;
@@ -56,6 +60,7 @@ class Sky {
     let i;
     for (i = 0; i < nBlocs; i++) {
       const m = new THREE.Mesh(geom, this._mat.clone());
+      m.name = `cloud-item_${i}`;
 
       // set the position and the rotation of each cube randomly
       m.position.x = i * 15;
