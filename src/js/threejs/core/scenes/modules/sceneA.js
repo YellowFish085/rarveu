@@ -109,7 +109,7 @@ class SceneA extends EventEmitter {
 
     const player = new Player();
     player._mesh.position.x = 0;
-    player._mesh.position.y = 10;
+    player._mesh.position.y = 52;
     player._mesh.position.z = 200;
 
     // this._scene.add(sky.mesh);
