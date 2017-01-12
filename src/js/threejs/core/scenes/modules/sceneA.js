@@ -9,6 +9,7 @@ import Sky          from '../../models/Sky';
 import Floor        from '../../models/Floor';
 import GateStart    from '../../models/GateStart';
 import GatePattern  from '../../models/GatePattern';
+import Rock         from '../../models/Rock';
 
 import EventEmitter from '../../../classes/EventEmitter';
 
@@ -105,6 +106,7 @@ class SceneA extends EventEmitter {
     this.createObjectFloor();
     this.createObjectPlayer();
     this.createObjectGates();
+    this.createObjectRock();
 
     this.debugAxis(100);
   }
@@ -232,6 +234,15 @@ class SceneA extends EventEmitter {
     gate2.add(gatePattern8.mesh);
 
     this._scene.add(gate2);
+  }
+
+  createObjectRock() {
+    const rock = new Rock(50, 50, 50);
+    rock._mesh.position.x = 0;
+    rock._mesh.position.y = 25;
+    rock._mesh.position.z = -50;
+
+    this._scene.add(rock.mesh);
   }
 
   debugAxis(axisLength) {
