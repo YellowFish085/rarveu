@@ -22,6 +22,7 @@ class Rock {
     this._mesh               = new THREE.Mesh(this._geom, this._mat);
     this._mesh.name          = 'rock';
     this._mesh.receiveShadow = true;
+    this._mesh.castShadow    = true;
   }
 
   createGeom() {
