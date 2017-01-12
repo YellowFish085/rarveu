@@ -92,7 +92,7 @@ class WebGL extends EventEmitter {
       antialias: true,
     });
     this._renderer.setSize(CONFIG.WEBGL.WEBGL_WIDTH, CONFIG.WEBGL.WEBGL_HEIGHT);
-    this._renderer.shadowMap.enabled = true;
+    // this._renderer.shadowMap.enabled = true;
   }
 
   createStereoEffect() {
