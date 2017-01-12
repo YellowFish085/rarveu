@@ -14,15 +14,18 @@ class GatePattern {
     this.createMat();
     this.createGeom();
 
-    this._mesh = new THREE.Object3D();
-    this._mesh.name = 'gate_pattern';
+    const singleGeometry = new THREE.Geometry();
 
     let i;
     for (i = 0; i < this._geom.length; i++) {
-      this._mesh.add(this._geom[i].mesh);
+      this._geom[i].mesh.updateMatrix();
+      singleGeometry.merge(this._geom[i].mesh.geometry, this._geom[i].mesh.matrix);
     }
 
-    this._mesh.castShadow = true;
+    this._mesh      = new THREE.Mesh(singleGeometry, this._mat);
+    this._mesh.name = 'gate_pattern';
+
+    this._mesh.castShadow    = true;
     this._mesh.receiveShadow = true;
   }
 
@@ -33,7 +36,7 @@ class GatePattern {
      * depth : 5
      */
 
-    const post         = new THREE.Mesh(new THREE.BoxGeometry(5, 20, 5), this._mat);
+    const post         = new THREE.Mesh(new THREE.BoxGeometry(5, 20, 5));
     post.name          = 'gate_post';
     post.castShadow    = true;
     post.receiveShadow = true;
@@ -46,7 +49,7 @@ class GatePattern {
       mesh: post,
     });
 
-    const bar1         = new THREE.Mesh(new THREE.BoxGeometry(20, 3, 3), this._mat);
+    const bar1         = new THREE.Mesh(new THREE.BoxGeometry(20, 3, 3));
     bar1.name          = 'gate_bar1';
     bar1.castShadow    = true;
     bar1.receiveShadow = true;
@@ -59,7 +62,7 @@ class GatePattern {
       mesh: bar1,
     });
 
-    const bar2         = new THREE.Mesh(new THREE.BoxGeometry(20, 3, 3), this._mat);
+    const bar2         = new THREE.Mesh(new THREE.BoxGeometry(20, 3, 3));
     bar2.name          = 'gate_bar2';
     bar2.castShadow    = true;
     bar2.receiveShadow = true;
@@ -74,47 +77,17 @@ class GatePattern {
   }
 
   createMat() {
-    this._mat  = new THREE.MeshPhongMaterial({
-      // color — geometry color in hexadecimal. Default is 0xffffff.
+    this._mat  = new THREE.MeshLambertMaterial({
       color: 0x63350e,
-      // specular — Set specular color. Default is 0x111111 .
-      // shininess — Set shininess Default is 30.
-      // map — Set texture map. Default is null.
-      // lightMap — Set light map. Default is null.
-      // lightMapIntensity — Set light map intensity. Default is 1.
-      // aoMap — Set ao map. Default is null.
-      // aoMapIntensity — Set ao map intensity. Default is 1.
-      // emissive - Set emissive color. Default is 0x000000.
-      // emissiveMap — Set emissive map. Default is null.
-      // emissiveIntensity — Set emissive map intensity. Default is 1.
-      // bumpMap — Set bump map. Default is null.
-      // bumpScale — Set bump map scale. Default is 1.
-      // normalMap — Set normal map. Default is null.
-      // normalScale — Set normal map scale. Default is (1, 1).
-      // displacementMap — Set displacement map. Default is null.
-      // displacementScale — Set displacement scale. Default is 1.
-      // displacementBias — Set displacement offset. Default is 0.
-      // specularMap — Set specular map. Default is null.
-      // alphaMap — Set alpha map. Default is null.
-      // envMap — Set env map. Default is null.
-      // combine — Set combine operation. Default is THREE.MultiplyOperation.
-      // reflectivity — Set reflectivity. Default is 1.
-      // refractionRatio — Set refraction ratio. Default is 0.98.
-      // fog — Define whether the material color is affected by global fog settings. Default is true.
-      // shading — Define shading type. Default is THREE.SmoothShading.
-      // wireframe — render geometry as wireframe. Default is false.
-      // wireframeLinewidth — Line thickness. Default is 1.
-      // wireframeLinecap — Define appearance of line ends. Default is 'round'.
-      // wireframeLinejoin — Define appearance of line joints. Default is 'round'.
-      // vertexColors — Define how the vertices gets colored. Default is THREE.NoColors.
-      // skinning — Define whether the material uses skinning. Default is false.
-      // morphTargets — Define whether the material uses morphTargets. Default is false.
-      // morphNormals — Define whether the material uses morphNormals. Default is false.
     });
   }
 
   get mesh() {
     return this._mesh;
+  }
+
+  get mat() {
+    return this._mat;
   }
 }
 

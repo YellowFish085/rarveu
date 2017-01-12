@@ -76,14 +76,20 @@ class Player {
     headHairMesh4.position.z = -1;
     headHairMesh4.position.y = 6;
 
-    const headHairMesh         = new THREE.Mesh();
+    const headHairGeometry = new THREE.Geometry();
+    headHairMesh1.updateMatrix();
+    headHairGeometry.merge(headHairMesh1.geometry, headHairMesh1.matrix);
+    headHairMesh2.updateMatrix();
+    headHairGeometry.merge(headHairMesh2.geometry, headHairMesh2.matrix);
+    headHairMesh3.updateMatrix();
+    headHairGeometry.merge(headHairMesh3.geometry, headHairMesh3.matrix);
+    headHairMesh4.updateMatrix();
+    headHairGeometry.merge(headHairMesh4.geometry, headHairMesh4.matrix);
+
+    const headHairMesh         = new THREE.Mesh(headHairGeometry, headHairMat);
     headHairMesh.name          = 'head_hair';
     headHairMesh.castShadow    = true;
     headHairMesh.receiveShadow = true;
-    headHairMesh.add(headHairMesh1);
-    headHairMesh.add(headHairMesh2);
-    headHairMesh.add(headHairMesh3);
-    headHairMesh.add(headHairMesh4);
 
     const headMesh         = new THREE.Mesh();
     headMesh.name          = 'head';
@@ -176,43 +182,7 @@ class Player {
   }
 
   createMat() {
-    this._mat  = new THREE.MeshPhongMaterial({
-      // color — geometry color in hexadecimal. Default is 0xffffff.
-      // color: 0xFF0000,
-      // specular — Set specular color. Default is 0x111111 .
-      // shininess — Set shininess Default is 30.
-      // map — Set texture map. Default is null.
-      // lightMap — Set light map. Default is null.
-      // lightMapIntensity — Set light map intensity. Default is 1.
-      // aoMap — Set ao map. Default is null.
-      // aoMapIntensity — Set ao map intensity. Default is 1.
-      // emissive - Set emissive color. Default is 0x000000.
-      // emissiveMap — Set emissive map. Default is null.
-      // emissiveIntensity — Set emissive map intensity. Default is 1.
-      // bumpMap — Set bump map. Default is null.
-      // bumpScale — Set bump map scale. Default is 1.
-      // normalMap — Set normal map. Default is null.
-      // normalScale — Set normal map scale. Default is (1, 1).
-      // displacementMap — Set displacement map. Default is null.
-      // displacementScale — Set displacement scale. Default is 1.
-      // displacementBias — Set displacement offset. Default is 0.
-      // specularMap — Set specular map. Default is null.
-      // alphaMap — Set alpha map. Default is null.
-      // envMap — Set env map. Default is null.
-      // combine — Set combine operation. Default is THREE.MultiplyOperation.
-      // reflectivity — Set reflectivity. Default is 1.
-      // refractionRatio — Set refraction ratio. Default is 0.98.
-      // fog — Define whether the material color is affected by global fog settings. Default is true.
-      // shading — Define shading type. Default is THREE.SmoothShading.
-      // wireframe — render geometry as wireframe. Default is false.
-      // wireframeLinewidth — Line thickness. Default is 1.
-      // wireframeLinecap — Define appearance of line ends. Default is 'round'.
-      // wireframeLinejoin — Define appearance of line joints. Default is 'round'.
-      // vertexColors — Define how the vertices gets colored. Default is THREE.NoColors.
-      // skinning — Define whether the material uses skinning. Default is false.
-      // morphTargets — Define whether the material uses morphTargets. Default is false.
-      // morphNormals — Define whether the material uses morphNormals. Default is false.
-    });
+    this._mat  = new THREE.MeshLambertMaterial({ });
   }
 
   get mesh() {

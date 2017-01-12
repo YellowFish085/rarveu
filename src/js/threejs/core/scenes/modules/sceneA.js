@@ -108,13 +108,14 @@ class SceneA extends EventEmitter {
     this.createObjectGates();
     this.createObjectRock();
 
+    const sky = new Sky();
+    this._scene.add(sky.mesh);
+    this._objects.sky = sky;
+
     this.debugAxis(100);
   }
 
   createObjectFloor() {
-    const floor = new THREE.Mesh();
-    floor.name = 'floor';
-
     const floor1 = new Floor(250, 50, 240);
     floor1._mesh.position.x = 0;
     floor1._mesh.position.y = -25;
@@ -135,10 +136,19 @@ class SceneA extends EventEmitter {
     floor4._mesh.position.y = -25;
     floor4._mesh.position.z = 0;
 
-    floor.add(floor1.mesh);
-    floor.add(floor2.mesh);
-    floor.add(floor3.mesh);
-    floor.add(floor4.mesh);
+    const floorGeometry = new THREE.Geometry();
+    floor1._mesh.updateMatrix();
+    floorGeometry.merge(floor1.mesh.geometry, floor1.mesh.matrix);
+    floor2._mesh.updateMatrix();
+    floorGeometry.merge(floor2.mesh.geometry, floor2.mesh.matrix);
+    floor3._mesh.updateMatrix();
+    floorGeometry.merge(floor3.mesh.geometry, floor3.mesh.matrix);
+    floor4._mesh.updateMatrix();
+    floorGeometry.merge(floor4.mesh.geometry, floor4.mesh.matrix);
+
+    const floor = new THREE.Mesh(floorGeometry, floor1.mat);
+    floor.name          = 'floor';
+    floor.receiveShadow = true;
 
     this._scene.add(floor);
   }
@@ -153,11 +163,7 @@ class SceneA extends EventEmitter {
   }
 
   createObjectGates() {
-    const gate1 = new THREE.Mesh();
-    gate1.name          = 'Gate1';
-    gate1.recieveShadow = true;
-    gate1.castShadow    = true;
-
+    // Gate 1
     const gateStart1 = new GateStart();
     gateStart1._mesh.position.x = -122;
     gateStart1._mesh.position.y = 10;
@@ -187,19 +193,26 @@ class SceneA extends EventEmitter {
     gatePattern4._mesh.position.z = 0;
     gatePattern4._mesh.rotation.y = -0.3;
 
-    gate1.add(gateStart1.mesh);
-    gate1.add(gatePattern1.mesh);
-    gate1.add(gatePattern2.mesh);
-    gate1.add(gatePattern3.mesh);
-    gate1.add(gatePattern4.mesh);
+    const gate1Geometry = new THREE.Geometry();
+    gateStart1._mesh.updateMatrix();
+    gate1Geometry.merge(gateStart1.mesh.geometry, gateStart1.mesh.matrix);
+    gatePattern1._mesh.updateMatrix();
+    gate1Geometry.merge(gatePattern1.mesh.geometry, gatePattern1.mesh.matrix);
+    gatePattern2._mesh.updateMatrix();
+    gate1Geometry.merge(gatePattern2.mesh.geometry, gatePattern2.mesh.matrix);
+    gatePattern3._mesh.updateMatrix();
+    gate1Geometry.merge(gatePattern3.mesh.geometry, gatePattern3.mesh.matrix);
+    gatePattern4._mesh.updateMatrix();
+    gate1Geometry.merge(gatePattern4.mesh.geometry, gatePattern4.mesh.matrix);
+
+    const gate1 = new THREE.Mesh(gate1Geometry, gateStart1.mat);
+    gate1.name          = 'Gate1';
+    gate1.receiveShadow = true;
+    gate1.castShadow    = true;
 
     this._scene.add(gate1);
 
-    const gate2 = new THREE.Mesh();
-    gate2.name          = 'Gate2';
-    gate2.recieveShadow = true;
-    gate2.castShadow    = true;
-
+    // Gate 2
     const gateStart2 = new GateStart();
     gateStart2._mesh.position.x = 32;
     gateStart2._mesh.position.y = 10;
@@ -229,11 +242,22 @@ class SceneA extends EventEmitter {
     gatePattern8._mesh.position.z = 0;
     gatePattern8._mesh.rotation.y = -0.3;
 
-    gate2.add(gateStart2.mesh);
-    gate2.add(gatePattern5.mesh);
-    gate2.add(gatePattern6.mesh);
-    gate2.add(gatePattern7.mesh);
-    gate2.add(gatePattern8.mesh);
+    const gate2Geometry = new THREE.Geometry();
+    gateStart2._mesh.updateMatrix();
+    gate2Geometry.merge(gateStart2.mesh.geometry, gateStart2.mesh.matrix);
+    gatePattern5._mesh.updateMatrix();
+    gate2Geometry.merge(gatePattern5.mesh.geometry, gatePattern5.mesh.matrix);
+    gatePattern6._mesh.updateMatrix();
+    gate2Geometry.merge(gatePattern6.mesh.geometry, gatePattern6.mesh.matrix);
+    gatePattern7._mesh.updateMatrix();
+    gate2Geometry.merge(gatePattern7.mesh.geometry, gatePattern7.mesh.matrix);
+    gatePattern8._mesh.updateMatrix();
+    gate2Geometry.merge(gatePattern8.mesh.geometry, gatePattern8.mesh.matrix);
+
+    const gate2 = new THREE.Mesh(gate2Geometry, gateStart2.mat);
+    gate2.name          = 'Gate2';
+    gate2.receiveShadow = true;
+    gate2.castShadow    = true;
 
     this._scene.add(gate2);
   }
@@ -289,7 +313,7 @@ class SceneA extends EventEmitter {
    * Update scene each frame
    */
   update() {
-    // this._objects.sky.update();
+    this._objects.sky.update();
   }
 
   /**
