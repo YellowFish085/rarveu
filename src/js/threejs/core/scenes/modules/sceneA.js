@@ -110,12 +110,35 @@ class SceneA extends EventEmitter {
   }
 
   createObjectFloor() {
-    const floor = new Floor(250, 10, 500);
-    floor._mesh.position.x = 0;
-    floor._mesh.position.y = -5;
-    floor._mesh.position.z = 0;
+    const floor = new THREE.Mesh();
+    floor.name = 'floor';
 
-    this._scene.add(floor.mesh);
+    const floor1 = new Floor(250, 10, 240);
+    floor1._mesh.position.x = 0;
+    floor1._mesh.position.y = -5;
+    floor1._mesh.position.z = -130;
+
+    const floor2 = new Floor(250, 10, 240);
+    floor2._mesh.position.x = 0;
+    floor2._mesh.position.y = -5;
+    floor2._mesh.position.z = 130;
+
+    const floor3 = new Floor(100, 10, 20);
+    floor3._mesh.position.x = -75;
+    floor3._mesh.position.y = -5;
+    floor3._mesh.position.z = 0;
+
+    const floor4 = new Floor(100, 10, 20);
+    floor4._mesh.position.x = 75;
+    floor4._mesh.position.y = -5;
+    floor4._mesh.position.z = 0;
+
+    floor.add(floor1.mesh);
+    floor.add(floor2.mesh);
+    floor.add(floor3.mesh);
+    floor.add(floor4.mesh);
+
+    this._scene.add(floor);
   }
 
   createObjectPlayer() {
