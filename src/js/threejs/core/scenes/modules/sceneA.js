@@ -7,6 +7,8 @@ import CONFIG       from '../../config';
 import Player       from '../../models/Player';
 import Sky          from '../../models/Sky';
 import Floor        from '../../models/Floor';
+import GateStart    from '../../models/GateStart';
+import GatePattern  from '../../models/GatePattern';
 
 import EventEmitter from '../../../classes/EventEmitter';
 
@@ -104,17 +106,29 @@ class SceneA extends EventEmitter {
 
     const floor = new Floor(250, 10, 500);
     floor._mesh.position.x = 0;
-    floor._mesh.position.y = 0;
+    floor._mesh.position.y = -5;
     floor._mesh.position.z = 0;
 
     const player = new Player();
     player._mesh.position.x = 0;
-    player._mesh.position.y = 52;
+    player._mesh.position.y = 47;
     player._mesh.position.z = 200;
+
+    const gateStart = new GateStart();
+    gateStart._mesh.position.x = 0;
+    gateStart._mesh.position.y = 10;
+    gateStart._mesh.position.z = 0;
+
+    const gatePattern = new GatePattern();
+    gatePattern._mesh.position.x = 50;
+    gatePattern._mesh.position.y = 10;
+    gatePattern._mesh.position.z = 0;
 
     // this._scene.add(sky.mesh);
     this._scene.add(floor.mesh);
     this._scene.add(player.mesh);
+    this._scene.add(gateStart.mesh);
+    this._scene.add(gatePattern.mesh);
 
     // this._objects.sky = sky;
 

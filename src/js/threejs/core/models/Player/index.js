@@ -31,7 +31,7 @@ class Player {
     /**
      * width : 16
      * depth : 12
-     * height: 52
+     * height: 47
      */
 
     // HEAD
