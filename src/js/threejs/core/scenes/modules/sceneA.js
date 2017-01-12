@@ -154,6 +154,7 @@ class SceneA extends EventEmitter {
 
   createObjectGates() {
     const gate1 = new THREE.Mesh();
+    gate1.name          = 'Gate1';
     gate1.recieveShadow = true;
     gate1.castShadow    = true;
 
@@ -195,6 +196,7 @@ class SceneA extends EventEmitter {
     this._scene.add(gate1);
 
     const gate2 = new THREE.Mesh();
+    gate2.name          = 'Gate2';
     gate2.recieveShadow = true;
     gate2.castShadow    = true;
 
