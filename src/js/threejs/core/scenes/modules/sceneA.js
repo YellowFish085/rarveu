@@ -115,24 +115,24 @@ class SceneA extends EventEmitter {
     const floor = new THREE.Mesh();
     floor.name = 'floor';
 
-    const floor1 = new Floor(250, 10, 240);
+    const floor1 = new Floor(250, 50, 240);
     floor1._mesh.position.x = 0;
-    floor1._mesh.position.y = -5;
-    floor1._mesh.position.z = -130;
+    floor1._mesh.position.y = -25;
+    floor1._mesh.position.z = -145;
 
-    const floor2 = new Floor(250, 10, 240);
+    const floor2 = new Floor(250, 50, 240);
     floor2._mesh.position.x = 0;
-    floor2._mesh.position.y = -5;
-    floor2._mesh.position.z = 130;
+    floor2._mesh.position.y = -25;
+    floor2._mesh.position.z = 145;
 
-    const floor3 = new Floor(100, 10, 20);
+    const floor3 = new Floor(100, 50, 50);
     floor3._mesh.position.x = -75;
-    floor3._mesh.position.y = -5;
+    floor3._mesh.position.y = -25;
     floor3._mesh.position.z = 0;
 
-    const floor4 = new Floor(100, 10, 20);
+    const floor4 = new Floor(100, 50, 50);
     floor4._mesh.position.x = 75;
-    floor4._mesh.position.y = -5;
+    floor4._mesh.position.y = -25;
     floor4._mesh.position.z = 0;
 
     floor.add(floor1.mesh);
