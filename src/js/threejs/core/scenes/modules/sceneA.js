@@ -102,37 +102,113 @@ class SceneA extends EventEmitter {
   }
 
   createObjects() {
-    // const sky = new Sky();
+    this.createObjectFloor();
+    this.createObjectPlayer();
+    this.createObjectGates();
 
+    this.debugAxis(100);
+  }
+
+  createObjectFloor() {
     const floor = new Floor(250, 10, 500);
     floor._mesh.position.x = 0;
     floor._mesh.position.y = -5;
     floor._mesh.position.z = 0;
 
+    this._scene.add(floor.mesh);
+  }
+
+  createObjectPlayer() {
     const player = new Player();
     player._mesh.position.x = 0;
     player._mesh.position.y = 47;
     player._mesh.position.z = 200;
 
-    const gateStart = new GateStart();
-    gateStart._mesh.position.x = 0;
-    gateStart._mesh.position.y = 10;
-    gateStart._mesh.position.z = 0;
-
-    const gatePattern = new GatePattern();
-    gatePattern._mesh.position.x = 50;
-    gatePattern._mesh.position.y = 10;
-    gatePattern._mesh.position.z = 0;
-
-    // this._scene.add(sky.mesh);
-    this._scene.add(floor.mesh);
     this._scene.add(player.mesh);
-    this._scene.add(gateStart.mesh);
-    this._scene.add(gatePattern.mesh);
+  }
 
-    // this._objects.sky = sky;
+  createObjectGates() {
+    const gate1 = new THREE.Mesh();
+    gate1.recieveShadow = true;
+    gate1.castShadow    = true;
 
-    this.debugAxis(100);
+    const gateStart1 = new GateStart();
+    gateStart1._mesh.position.x = -122;
+    gateStart1._mesh.position.y = 10;
+    gateStart1._mesh.position.z = 0;
+
+    const gatePattern1 = new GatePattern();
+    gatePattern1._mesh.position.x = -98;
+    gatePattern1._mesh.position.y = 10;
+    gatePattern1._mesh.position.z = -6;
+    gatePattern1._mesh.rotation.y = 0.3;
+
+    const gatePattern2 = new GatePattern();
+    gatePattern2._mesh.position.x = -76;
+    gatePattern2._mesh.position.y = 10;
+    gatePattern2._mesh.position.z = 0;
+    gatePattern2._mesh.rotation.y = -0.3;
+
+    const gatePattern3 = new GatePattern();
+    gatePattern3._mesh.position.x = -55;
+    gatePattern3._mesh.position.y = 10;
+    gatePattern3._mesh.position.z = -6;
+    gatePattern3._mesh.rotation.y = 0.3;
+
+    const gatePattern4 = new GatePattern();
+    gatePattern4._mesh.position.x = -32;
+    gatePattern4._mesh.position.y = 10;
+    gatePattern4._mesh.position.z = 0;
+    gatePattern4._mesh.rotation.y = -0.3;
+
+    gate1.add(gateStart1.mesh);
+    gate1.add(gatePattern1.mesh);
+    gate1.add(gatePattern2.mesh);
+    gate1.add(gatePattern3.mesh);
+    gate1.add(gatePattern4.mesh);
+
+    this._scene.add(gate1);
+
+    const gate2 = new THREE.Mesh();
+    gate2.recieveShadow = true;
+    gate2.castShadow    = true;
+
+    const gateStart2 = new GateStart();
+    gateStart2._mesh.position.x = 32;
+    gateStart2._mesh.position.y = 10;
+    gateStart2._mesh.position.z = 0;
+
+    const gatePattern5 = new GatePattern();
+    gatePattern5._mesh.position.x = 55;
+    gatePattern5._mesh.position.y = 10;
+    gatePattern5._mesh.position.z = -6;
+    gatePattern5._mesh.rotation.y = 0.3;
+
+    const gatePattern6 = new GatePattern();
+    gatePattern6._mesh.position.x = 76;
+    gatePattern6._mesh.position.y = 10;
+    gatePattern6._mesh.position.z = 0;
+    gatePattern6._mesh.rotation.y = -0.3;
+
+    const gatePattern7 = new GatePattern();
+    gatePattern7._mesh.position.x = 98;
+    gatePattern7._mesh.position.y = 10;
+    gatePattern7._mesh.position.z = -6;
+    gatePattern7._mesh.rotation.y = 0.3;
+
+    const gatePattern8 = new GatePattern();
+    gatePattern8._mesh.position.x = 122;
+    gatePattern8._mesh.position.y = 10;
+    gatePattern8._mesh.position.z = 0;
+    gatePattern8._mesh.rotation.y = -0.3;
+
+    gate2.add(gateStart2.mesh);
+    gate2.add(gatePattern5.mesh);
+    gate2.add(gatePattern6.mesh);
+    gate2.add(gatePattern7.mesh);
+    gate2.add(gatePattern8.mesh);
+
+    this._scene.add(gate2);
   }
 
   debugAxis(axisLength) {
