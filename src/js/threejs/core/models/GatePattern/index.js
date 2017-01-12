@@ -15,7 +15,7 @@ class GatePattern {
     this.createGeom();
 
     this._mesh = new THREE.Object3D();
-    this._mesh.name = 'gate';
+    this._mesh.name = 'gate_pattern';
 
     let i;
     for (i = 0; i < this._geom.length; i++) {
@@ -50,7 +50,7 @@ class GatePattern {
     bar1.name          = 'gate_bar1';
     bar1.castShadow    = true;
     bar1.receiveShadow = true;
-    bar1.position.x    = 12.5;
+    bar1.position.x    = -12.5;
     bar1.position.z    = 0;
     bar1.position.y    = 8;
 
@@ -63,7 +63,7 @@ class GatePattern {
     bar2.name          = 'gate_bar2';
     bar2.castShadow    = true;
     bar2.receiveShadow = true;
-    bar2.position.x    = 12.5;
+    bar2.position.x    = -12.5;
     bar2.position.z    = 0;
     bar2.position.y    = 2;
 
