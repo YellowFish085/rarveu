@@ -13,8 +13,8 @@ class SpeechEvents extends EventEmitter {
 
   init() {
     this.bind();
-    this.initAnnyang();
     this.addEventListener();
+    this.initAnnyang();
   }
 
   bind() {
@@ -38,8 +38,6 @@ class SpeechEvents extends EventEmitter {
         'wind'       : this.onSpeech,
       };
       annyang.addCommands(commands);
-
-      annyang.start({ autoRestart: false, continuous: false });
     }
   }
 
