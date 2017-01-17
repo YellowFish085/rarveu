@@ -5,6 +5,7 @@ import STEREO           from 'three-stereo-effect';
 
 import * as CONFIG      from '../config';
 import Log              from '../../utils/log';
+import * as CONTROLS    from '../../utils/DeviceOrientationControls';
 
 import EventEmitter     from '../../classes/EventEmitter';
 
@@ -27,6 +28,7 @@ class WebGL extends EventEmitter {
     this._eventsController = null;                      // EventController
     this._stereoEffect     = null;
     this._isStereo         = false;
+    this._controls         = null;
 
     this.init();
   }
@@ -37,6 +39,7 @@ class WebGL extends EventEmitter {
     this.createScenesController();
     this.createEventsController();
     this.createCamera();
+    this.createControls();
     this.createRenderer();
     this.createStereoEffect();
 
@@ -81,6 +84,10 @@ class WebGL extends EventEmitter {
     this._camera.position.z = CONFIG.WEBGL.CAMERA.position.z;
 
     this._camera.lookAt(new THREE.Vector3(0, 0, 0));
+  }
+
+  createControls(){
+    this._controls = new THREE.DeviceOrientationControls(this._camera);
   }
 
   /**
@@ -131,8 +138,9 @@ class WebGL extends EventEmitter {
    * Called each frame
    */
   update() {
+    this._controls.update();
     this._scenesController.update();
-    const renderer = this._isStereo ? this._stereoEffect : this._renderer;
+    var renderer = this._isStereo ? this._stereoEffect : this._renderer;
     renderer.render(this._scenesController.currentScene.scene, this._camera);
   }
 }
