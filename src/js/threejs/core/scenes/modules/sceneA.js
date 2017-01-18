@@ -5,6 +5,7 @@ import * as THREE   from 'three';
 import CONFIG       from '../../config';
 
 import Player       from '../../models/Player';
+import Goal         from '../../models/Goal';
 import Sky          from '../../models/Sky';
 import Floor        from '../../models/Floor';
 import GateStart    from '../../models/GateStart';
@@ -111,6 +112,13 @@ class SceneA extends EventEmitter {
     const sky = new Sky();
     this._scene.add(sky.mesh);
     this._objects.sky = sky;
+
+    const goal = new Goal();
+    goal._mesh.position.x = 0;
+    goal._mesh.position.y = 50;
+    goal._mesh.position.z = 0;
+    this._objects.goal = goal;
+    this._scene.add(goal.mesh);
 
     this.debugAxis(100);
   }
@@ -314,6 +322,7 @@ class SceneA extends EventEmitter {
    */
   update() {
     this._objects.sky.update();
+    this._objects.goal.update();
   }
 
   /**
