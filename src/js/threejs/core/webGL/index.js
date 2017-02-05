@@ -29,7 +29,8 @@ class WebGL extends EventEmitter {
     this._stereoEffect     = null;                      // StereoEffect
     this._isStereo         = false;                     // Flag
     this._controls         = null;                      // Controls (device orientation)
-
+    this._raycaster        = null;
+    this._arrow            =null;
     this.init();
   }
 
@@ -42,11 +43,13 @@ class WebGL extends EventEmitter {
     this.createRenderer();
     this.createStereoEffect();
     this.createControls();
+    this.createRayCaster();
 
     this.addEventListener();
 
     // Add renderer in DOM
     document.getElementById(this._containerId).appendChild(this._renderer.domElement);
+
   }
 
   bind() {
@@ -109,6 +112,10 @@ class WebGL extends EventEmitter {
     this._stereoEffect.setSize(CONFIG.WEBGL.WEBGL_WIDTH, CONFIG.WEBGL.WEBGL_HEIGHT);
   }
 
+  createRayCaster(){
+    this._raycaster = new THREE.Raycaster();
+  }
+
   /**
    * Add events listeners
    */
@@ -142,9 +149,27 @@ class WebGL extends EventEmitter {
     this._controls.update();
     this._scenesController.update();
 
+    this._scenesController.currentScene._scene.remove ( this._arrow );
+    this._arrow = new THREE.ArrowHelper( this._camera.getWorldDirection(), this._camera.getWorldPosition(), 500, Math.random() * 0xffffff );
+    this._scenesController.currentScene._scene.add( this._arrow );
+    // update the picking ray with the camera and mouse position
+    this._raycaster.set( this._camera.getWorldDirection(), this._camera.getWorldPosition() );
+    //console.log(this._scenesController.currentScene.scene);
+    // calculate objects intersecting the picking ray
+    var object = this._scenesController.currentScene._scene.getObjectByName("player");
+    //console.log(object);
+    var intersects = this._raycaster.intersectObjects(this._scenesController.currentScene._scene.children, true);
+    console.log(intersects);
+    if(intersects > 0){
+      console.log("found player");
+    }
+    //console.log(intersects);
+
+
     var renderer = this._isStereo ? this._stereoEffect : this._renderer;
     renderer.render(this._scenesController.currentScene.scene, this._camera);
   }
 }
+
 
 export default WebGL;
