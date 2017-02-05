@@ -12,28 +12,41 @@ class SpeechEvents extends EventEmitter {
   }
 
   init() {
-    this.initAnnyang();
+    this.bind();
     this.addEventListener();
+    this.initAnnyang();
+  }
+
+  bind() {
+    this.onResultMatch = this.onResultMatch.bind(this);
+    this.startRecording = this.startRecording.bind(this);
   }
 
   initAnnyang() {
     if (annyang) {
+      // eau vent feu foudre
+
       annyang.setLanguage('en-US');
 
       annyang.addCallback('result', this.onResult);
       annyang.addCallback('resultMatch', this.onResultMatch);
 
       const commands = {
-        hello: this.onSpeech,
+        'water'      : this.onSpeech,
+        'fire'       : this.onSpeech,
+        'electricity': this.onSpeech,
+        'wind'       : this.onSpeech,
       };
       annyang.addCommands(commands);
-
-      annyang.start();
     }
   }
 
   addEventListener() {
+    this.eeListen('startRecording', this.startRecording);
+  }
 
+  startRecording() {
+    annyang.start({ autoRestart: false, continuous: false });
   }
 
   onResult(params) {

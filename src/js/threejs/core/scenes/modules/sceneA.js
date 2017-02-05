@@ -2,9 +2,15 @@
 
 import * as THREE   from 'three';
 
+import CONFIG       from '../../config';
+
 import Player       from '../../models/Player';
+import Goal         from '../../models/Goal';
 import Sky          from '../../models/Sky';
 import Floor        from '../../models/Floor';
+import GateStart    from '../../models/GateStart';
+import GatePattern  from '../../models/GatePattern';
+import Rock         from '../../models/Rock';
 
 import EventEmitter from '../../../classes/EventEmitter';
 
@@ -32,6 +38,13 @@ class SceneA extends EventEmitter {
     this._loader = new THREE.ObjectLoader(loadingManager);
 
     this.fillScene();
+
+    if (CONFIG.DEBUG) {
+      if (!window.THREE) {
+        window.THREE = THREE;
+      }
+      window.scene = this._scene;
+    }
   }
 
   bind() {
@@ -50,13 +63,15 @@ class SceneA extends EventEmitter {
     // the first parameter is the sky color, the second parameter is the ground color,
     // the third parameter is the intensity of the light
     const hemisphereLight = new THREE.HemisphereLight(0xaaaaaa, 0x000000, 0.9);
+    hemisphereLight.name = 'hemisphereLight';
 
     // A directional light shines from a specific direction.
     // It acts like the sun, that means that all the rays produced are parallel.
     const shadowLight = new THREE.DirectionalLight(0xffffff, 0.9);
+    shadowLight.name = 'shadowLight';
 
     // Set the direction of the light
-    shadowLight.position.set(150, 350, 350);
+    shadowLight.position.set(-150, 350, 350);
 
     // Allow shadow casting
     shadowLight.castShadow = true;
@@ -76,6 +91,7 @@ class SceneA extends EventEmitter {
 
     // an ambient light modifies the global color of a scene and makes the shadows softer
     const ambientLight = new THREE.AmbientLight(0x48B66F, 0.5);
+    ambientLight.name = 'ambientLight';
 
     // to activate the lights, just add them to the scene
     this._objects.lights.hemisphereLight = hemisphereLight;
@@ -88,25 +104,179 @@ class SceneA extends EventEmitter {
   }
 
   createObjects() {
+    this.createObjectFloor();
+    this.createObjectPlayer();
+    this.createObjectGates();
+    this.createObjectRock();
+
     const sky = new Sky();
-
-    const floor = new Floor(250, 10, 500);
-    floor._mesh.position.x = 0;
-    floor._mesh.position.y = 0;
-    floor._mesh.position.z = 0;
-
-    const player = new Player();
-    player._mesh.position.x = 0;
-    player._mesh.position.y = 30;
-    player._mesh.position.z = 200;
-
     this._scene.add(sky.mesh);
-    this._scene.add(floor.mesh);
-    this._scene.add(player.mesh);
-
     this._objects.sky = sky;
 
+    const goal = new Goal();
+    goal._mesh.position.x = 0;
+    goal._mesh.position.y = 50;
+    goal._mesh.position.z = 0;
+    this._objects.goal = goal;
+    this._scene.add(goal.mesh);
+
     this.debugAxis(100);
+  }
+
+  createObjectFloor() {
+    const floor1 = new Floor(250, 50, 240);
+    floor1._mesh.position.x = 0;
+    floor1._mesh.position.y = -25;
+    floor1._mesh.position.z = -145;
+
+    const floor2 = new Floor(250, 50, 240);
+    floor2._mesh.position.x = 0;
+    floor2._mesh.position.y = -25;
+    floor2._mesh.position.z = 145;
+
+    const floor3 = new Floor(100, 50, 50);
+    floor3._mesh.position.x = -75;
+    floor3._mesh.position.y = -25;
+    floor3._mesh.position.z = 0;
+
+    const floor4 = new Floor(100, 50, 50);
+    floor4._mesh.position.x = 75;
+    floor4._mesh.position.y = -25;
+    floor4._mesh.position.z = 0;
+
+    const floorGeometry = new THREE.Geometry();
+    floor1._mesh.updateMatrix();
+    floorGeometry.merge(floor1.mesh.geometry, floor1.mesh.matrix);
+    floor2._mesh.updateMatrix();
+    floorGeometry.merge(floor2.mesh.geometry, floor2.mesh.matrix);
+    floor3._mesh.updateMatrix();
+    floorGeometry.merge(floor3.mesh.geometry, floor3.mesh.matrix);
+    floor4._mesh.updateMatrix();
+    floorGeometry.merge(floor4.mesh.geometry, floor4.mesh.matrix);
+
+    const floor = new THREE.Mesh(floorGeometry, floor1.mat);
+    floor.name          = 'floor';
+    floor.receiveShadow = true;
+
+    this._scene.add(floor);
+  }
+
+  createObjectPlayer() {
+    const player = new Player();
+    player._mesh.position.x = 0;
+    player._mesh.position.y = 47;
+    player._mesh.position.z = 200;
+
+    this._scene.add(player.mesh);
+  }
+
+  createObjectGates() {
+    // Gate 1
+    const gateStart1 = new GateStart();
+    gateStart1._mesh.position.x = -122;
+    gateStart1._mesh.position.y = 10;
+    gateStart1._mesh.position.z = 0;
+
+    const gatePattern1 = new GatePattern();
+    gatePattern1._mesh.position.x = -98;
+    gatePattern1._mesh.position.y = 10;
+    gatePattern1._mesh.position.z = -6;
+    gatePattern1._mesh.rotation.y = 0.3;
+
+    const gatePattern2 = new GatePattern();
+    gatePattern2._mesh.position.x = -76;
+    gatePattern2._mesh.position.y = 10;
+    gatePattern2._mesh.position.z = 0;
+    gatePattern2._mesh.rotation.y = -0.3;
+
+    const gatePattern3 = new GatePattern();
+    gatePattern3._mesh.position.x = -55;
+    gatePattern3._mesh.position.y = 10;
+    gatePattern3._mesh.position.z = -6;
+    gatePattern3._mesh.rotation.y = 0.3;
+
+    const gatePattern4 = new GatePattern();
+    gatePattern4._mesh.position.x = -32;
+    gatePattern4._mesh.position.y = 10;
+    gatePattern4._mesh.position.z = 0;
+    gatePattern4._mesh.rotation.y = -0.3;
+
+    const gate1Geometry = new THREE.Geometry();
+    gateStart1._mesh.updateMatrix();
+    gate1Geometry.merge(gateStart1.mesh.geometry, gateStart1.mesh.matrix);
+    gatePattern1._mesh.updateMatrix();
+    gate1Geometry.merge(gatePattern1.mesh.geometry, gatePattern1.mesh.matrix);
+    gatePattern2._mesh.updateMatrix();
+    gate1Geometry.merge(gatePattern2.mesh.geometry, gatePattern2.mesh.matrix);
+    gatePattern3._mesh.updateMatrix();
+    gate1Geometry.merge(gatePattern3.mesh.geometry, gatePattern3.mesh.matrix);
+    gatePattern4._mesh.updateMatrix();
+    gate1Geometry.merge(gatePattern4.mesh.geometry, gatePattern4.mesh.matrix);
+
+    const gate1 = new THREE.Mesh(gate1Geometry, gateStart1.mat);
+    gate1.name          = 'Gate1';
+    gate1.receiveShadow = true;
+    gate1.castShadow    = true;
+
+    this._scene.add(gate1);
+
+    // Gate 2
+    const gateStart2 = new GateStart();
+    gateStart2._mesh.position.x = 32;
+    gateStart2._mesh.position.y = 10;
+    gateStart2._mesh.position.z = 0;
+
+    const gatePattern5 = new GatePattern();
+    gatePattern5._mesh.position.x = 55;
+    gatePattern5._mesh.position.y = 10;
+    gatePattern5._mesh.position.z = -6;
+    gatePattern5._mesh.rotation.y = 0.3;
+
+    const gatePattern6 = new GatePattern();
+    gatePattern6._mesh.position.x = 76;
+    gatePattern6._mesh.position.y = 10;
+    gatePattern6._mesh.position.z = 0;
+    gatePattern6._mesh.rotation.y = -0.3;
+
+    const gatePattern7 = new GatePattern();
+    gatePattern7._mesh.position.x = 98;
+    gatePattern7._mesh.position.y = 10;
+    gatePattern7._mesh.position.z = -6;
+    gatePattern7._mesh.rotation.y = 0.3;
+
+    const gatePattern8 = new GatePattern();
+    gatePattern8._mesh.position.x = 122;
+    gatePattern8._mesh.position.y = 10;
+    gatePattern8._mesh.position.z = 0;
+    gatePattern8._mesh.rotation.y = -0.3;
+
+    const gate2Geometry = new THREE.Geometry();
+    gateStart2._mesh.updateMatrix();
+    gate2Geometry.merge(gateStart2.mesh.geometry, gateStart2.mesh.matrix);
+    gatePattern5._mesh.updateMatrix();
+    gate2Geometry.merge(gatePattern5.mesh.geometry, gatePattern5.mesh.matrix);
+    gatePattern6._mesh.updateMatrix();
+    gate2Geometry.merge(gatePattern6.mesh.geometry, gatePattern6.mesh.matrix);
+    gatePattern7._mesh.updateMatrix();
+    gate2Geometry.merge(gatePattern7.mesh.geometry, gatePattern7.mesh.matrix);
+    gatePattern8._mesh.updateMatrix();
+    gate2Geometry.merge(gatePattern8.mesh.geometry, gatePattern8.mesh.matrix);
+
+    const gate2 = new THREE.Mesh(gate2Geometry, gateStart2.mat);
+    gate2.name          = 'Gate2';
+    gate2.receiveShadow = true;
+    gate2.castShadow    = true;
+
+    this._scene.add(gate2);
+  }
+
+  createObjectRock() {
+    const rock = new Rock(50, 50, 50);
+    rock._mesh.position.x = 0;
+    rock._mesh.position.y = 25;
+    rock._mesh.position.z = -50;
+
+    this._scene.add(rock.mesh);
   }
 
   debugAxis(axisLength) {
@@ -128,9 +298,16 @@ class SceneA extends EventEmitter {
       return line;
     }
 
-    this._scene.add(createAxis(v(0, 0, 0), v(axisLength, 0, 0), 0xFF0000));
-    this._scene.add(createAxis(v(0, 0, 0), v(0, axisLength, 0), 0x00FF00));
-    this._scene.add(createAxis(v(0, 0, 0), v(0, 0, axisLength), 0x0000FF));
+    const axisX = createAxis(v(0, 0, 0), v(axisLength, 0, 0), 0xFF0000);
+    axisX.material.depthTest = false;
+    const axisY = createAxis(v(0, 0, 0), v(0, axisLength, 0), 0x00FF00);
+    axisY.material.depthTest = false;
+    const axisZ = createAxis(v(0, 0, 0), v(0, 0, axisLength), 0x0000FF);
+    axisZ.material.depthTest = false;
+
+    this._scene.add(axisX);
+    this._scene.add(axisY);
+    this._scene.add(axisZ);
   }
 
   /**
@@ -145,6 +322,7 @@ class SceneA extends EventEmitter {
    */
   update() {
     this._objects.sky.update();
+    this._objects.goal.update();
   }
 
   /**

@@ -34,6 +34,12 @@ class KeyboardEvents extends EventEmitter {
     if (key === 83) {
       this.eeEmit('stereoKey');
     }
+
+    // t
+    if (key === 84) {
+      this.eeEmit('startRecording');
+    }
+
     // this.eeEmit(monTruc)
   }
 

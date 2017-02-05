@@ -2,7 +2,7 @@
 
 import * as THREE from 'three';
 
-class Floor {
+class Rock {
   constructor(w, h, d) {
     this._mesh = null;
     this._geom = null;
@@ -19,9 +19,10 @@ class Floor {
     this.createMat();
     this.createGeom();
 
-    this._mesh               = new THREE.Mesh(this._geom);
-    this._mesh.name          = 'floor-item';
+    this._mesh               = new THREE.Mesh(this._geom, this._mat);
+    this._mesh.name          = 'rock';
     this._mesh.receiveShadow = true;
+    this._mesh.castShadow    = true;
   }
 
   createGeom() {
@@ -30,17 +31,13 @@ class Floor {
 
   createMat() {
     this._mat  = new THREE.MeshLambertMaterial({
-      color: 0xD3D3D3FF,
+      color: 0x969696,
     });
   }
 
   get mesh() {
     return this._mesh;
   }
-
-  get mat() {
-    return this._mat;
-  }
 }
 
-export default Floor;
+export default Rock;

@@ -17,6 +17,8 @@ class Sky {
 
     this._mesh = new THREE.Object3D();
 
+    this._mesh.name = 'sky';
+
     let i;
     for (i = 0; i < this._geom.length; i++) {
       this._mesh.add(this._geom[i].mesh);
@@ -30,7 +32,9 @@ class Sky {
     for (i = 0; i < nClouds; i++) {
       const c = this.createClouds();
 
-      c.mesh.position.y = Math.floor(Math.random() * 400) + 100;
+      c.mesh.name = `cloud_${i}`;
+
+      c.mesh.position.y = Math.floor(Math.random() * 400) + 50;
       c.mesh.position.x = Math.floor(Math.random() * 2000) - 1000;
       c.mesh.position.z = Math.floor(Math.random() * 2000) - 1000;
 
@@ -43,7 +47,6 @@ class Sky {
 
   createClouds() {
     const cloud           = {};
-    cloud.mesh            = new THREE.Object3D();
     cloud.meshElements    = [];
     cloud.originalOpacity = Math.max(Math.min(0.1, Math.random()), 0.3);
 
@@ -53,9 +56,12 @@ class Sky {
 
     this._mat.opacity = cloud.originalOpacity;
 
+    const cloudGeometry = new THREE.Geometry();
+
     let i;
     for (i = 0; i < nBlocs; i++) {
       const m = new THREE.Mesh(geom, this._mat.clone());
+      m.name = `cloud-item_${i}`;
 
       // set the position and the rotation of each cube randomly
       m.position.x = i * 15;
@@ -71,50 +77,18 @@ class Sky {
       m.castShadow    = true;
       m.receiveShadow = true;
 
-      cloud.mesh.add(m);
-      cloud.meshElements.push(m);
+      m.updateMatrix();
+      cloudGeometry.merge(m.geometry, m.matrix);
     }
+
+    cloud.mesh = new THREE.Mesh(cloudGeometry, this._mat.clone());
 
     return cloud;
   }
 
   createMat() {
-    this._mat  = new THREE.MeshPhongMaterial({
-      // color — geometry color in hexadecimal. Default is 0xffffff.
+    this._mat  = new THREE.MeshLambertMaterial({
       color: 0xFFFFFF,
-      // specular — Set specular color. Default is 0x111111 .
-      // shininess — Set shininess Default is 30.
-      // map — Set texture map. Default is null.
-      // lightMap — Set light map. Default is null.
-      // lightMapIntensity — Set light map intensity. Default is 1.
-      // aoMap — Set ao map. Default is null.
-      // aoMapIntensity — Set ao map intensity. Default is 1.
-      // emissive - Set emissive color. Default is 0x000000.
-      // emissiveMap — Set emissive map. Default is null.
-      // emissiveIntensity — Set emissive map intensity. Default is 1.
-      // bumpMap — Set bump map. Default is null.
-      // bumpScale — Set bump map scale. Default is 1.
-      // normalMap — Set normal map. Default is null.
-      // normalScale — Set normal map scale. Default is (1, 1).
-      // displacementMap — Set displacement map. Default is null.
-      // displacementScale — Set displacement scale. Default is 1.
-      // displacementBias — Set displacement offset. Default is 0.
-      // specularMap — Set specular map. Default is null.
-      // alphaMap — Set alpha map. Default is null.
-      // envMap — Set env map. Default is null.
-      // combine — Set combine operation. Default is THREE.MultiplyOperation.
-      // reflectivity — Set reflectivity. Default is 1.
-      // refractionRatio — Set refraction ratio. Default is 0.98.
-      // fog — Define whether the material color is affected by global fog settings. Default is true.
-      // shading — Define shading type. Default is THREE.SmoothShading.
-      // wireframe — render geometry as wireframe. Default is false.
-      // wireframeLinewidth — Line thickness. Default is 1.
-      // wireframeLinecap — Define appearance of line ends. Default is 'round'.
-      // wireframeLinejoin — Define appearance of line joints. Default is 'round'.
-      // vertexColors — Define how the vertices gets colored. Default is THREE.NoColors.
-      // skinning — Define whether the material uses skinning. Default is false.
-      // morphTargets — Define whether the material uses morphTargets. Default is false.
-      // morphNormals — Define whether the material uses morphNormals. Default is false.
     });
 
     this._mat.transparent = true;
@@ -127,17 +101,11 @@ class Sky {
       this._geom[i].mesh.position.x += -0.3;
 
       if (this._geom[i].mesh.position.x <= -500) {
-        let j;
-        for (j = 0; j < this._geom[i].mesh.children.length; j++) {
-          this._geom[i].mesh.children[j].material.opacity -= 0.01;
-        }
+        this._geom[i].mesh.material.opacity -= 0.01;
 
-        if (this._geom[i].mesh.children[0].material.opacity <= 0) {
+        if (this._geom[i].mesh.material.opacity <= 0) {
           this._geom[i].mesh.position.x = 1000;
-
-          for (j = 0; j < this._geom[i].mesh.children.length; j++) {
-            this._geom[i].mesh.children[j].material.opacity = this._geom[i].originalOpacity;
-          }
+          this._geom[i].mesh.material.opacity = 1;
         }
       }
     }
