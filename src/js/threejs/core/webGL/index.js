@@ -5,6 +5,7 @@ import STEREO           from 'three-stereo-effect';
 
 import * as CONFIG      from '../config';
 import Log              from '../../utils/log';
+import DeviceOrientationController from '../../utils/DeviceOrientationControls';
 
 import EventEmitter     from '../../classes/EventEmitter';
 
@@ -25,8 +26,9 @@ class WebGL extends EventEmitter {
     this._camera           = null;                      // Three Camera
     this._renderer         = null;                      // Three Renderer
     this._eventsController = null;                      // EventController
-    this._stereoEffect     = null;
-    this._isStereo         = false;
+    this._stereoEffect     = null;                      // StereoEffect
+    this._isStereo         = false;                     // Flag
+    this._controls         = null;                      // Controls (device orientation)
 
     this.init();
   }
@@ -39,6 +41,7 @@ class WebGL extends EventEmitter {
     this.createCamera();
     this.createRenderer();
     this.createStereoEffect();
+    this.createControls();
 
     this.addEventListener();
 
@@ -81,6 +84,11 @@ class WebGL extends EventEmitter {
     this._camera.position.z = CONFIG.WEBGL.CAMERA.position.z;
 
     this._camera.lookAt(new THREE.Vector3(0, 0, 0));
+  }
+
+  createControls(){
+    this._controls = new DeviceOrientationController(this._camera, document.getElementById(this._containerId));
+    //controls will be connected once user starts the game.
   }
 
   /**
@@ -131,8 +139,10 @@ class WebGL extends EventEmitter {
    * Called each frame
    */
   update() {
+    this._controls.update();
     this._scenesController.update();
-    const renderer = this._isStereo ? this._stereoEffect : this._renderer;
+
+    var renderer = this._isStereo ? this._stereoEffect : this._renderer;
     renderer.render(this._scenesController.currentScene.scene, this._camera);
   }
 }
