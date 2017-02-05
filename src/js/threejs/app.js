@@ -132,6 +132,7 @@ class App extends EventEmitter {
     tl.fromTo(el, 1, { opacity: 0 }, { opacity: 1 });
 
     tl.play();
+    this._webGL._controls.connect();
   }
 
   /**
