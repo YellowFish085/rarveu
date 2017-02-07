@@ -56,7 +56,10 @@ class SpeechEvents extends EventEmitter {
   onResultMatch(userSaid, commandText, phrases) {
     console.log(`Matched %c"${userSaid}"`, 'color: blue;');
 
-    this.eeEmit(`speech-${userSaid}`);
+    this.eeEmit(`speech-${userSaid}`, {
+      x: window.innerWidth / 2,
+      y: window.innerHeight / 2,
+    });
   }
 
   onSpeech(params) {
