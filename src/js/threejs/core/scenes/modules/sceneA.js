@@ -34,6 +34,8 @@ class SceneA extends EventEmitter {
   init(loadingManager) {
     this.bind();
 
+    this._objects.intersects = [];
+
     this._scene  = new THREE.Scene();
     this._loader = new THREE.ObjectLoader(loadingManager);
 
@@ -276,6 +278,7 @@ class SceneA extends EventEmitter {
     rock._mesh.position.y = 25;
     rock._mesh.position.z = -50;
 
+    this._objects.intersects.push(rock.mesh);
     this._scene.add(rock.mesh);
   }
 
@@ -344,6 +347,10 @@ class SceneA extends EventEmitter {
    */
   get scene() {
     return this._scene;
+  }
+
+  get objects() {
+    return this._objects;
   }
 }
 
