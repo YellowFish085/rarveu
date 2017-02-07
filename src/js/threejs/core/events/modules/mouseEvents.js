@@ -2,6 +2,8 @@
 
 import Log          from '../../../utils/log';
 
+import * as CONFIG  from '../../config';
+
 import EventEmitter from '../../../classes/EventEmitter';
 
 class MouseEvents extends EventEmitter {
@@ -48,6 +50,10 @@ class MouseEvents extends EventEmitter {
       x: e.clientX,
       y: e.clientY,
     });
+
+    if (!CONFIG.DEBUG) {
+      this.eeEmit('startRecording');
+    }
   }
 }
 
