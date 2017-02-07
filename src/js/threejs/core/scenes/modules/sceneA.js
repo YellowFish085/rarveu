@@ -2,6 +2,8 @@
 
 import * as THREE   from 'three';
 
+import Log          from '../../../utils/log';
+
 import CONFIG       from '../../config';
 
 import Player       from '../../models/Player';
@@ -278,6 +280,9 @@ class SceneA extends EventEmitter {
     rock._mesh.position.y = 25;
     rock._mesh.position.z = -50;
 
+    rock._mesh.interactId       = 'Rock1';
+    rock._mesh.interactCallback = this.interactRock;
+
     this._objects.intersects.push(rock.mesh);
     this._scene.add(rock.mesh);
   }
@@ -318,6 +323,21 @@ class SceneA extends EventEmitter {
    */
   load() {
 
+  }
+
+  /**
+   * Launch Interaction with Object
+   */
+  interact(obj, type) {
+    console.log(obj);
+    if (obj.object.interactId === 'Rock1' && type === 'wind' || CONFIG.DEBUG && obj.object.interactId === 'Rock1' && type === 'click') {
+      obj.object.interactCallback();
+    }
+  }
+
+  interactRock() {
+    console.log('Rock interact !');
+    this.material.color.set(0xff0000);
   }
 
   /**

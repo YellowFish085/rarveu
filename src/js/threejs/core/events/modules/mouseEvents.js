@@ -47,8 +47,9 @@ class MouseEvents extends EventEmitter {
     Log.trace(`mouseUp, btn ${e.button}`);
 
     this.eeEmit('mouseclick', {
-      x: e.clientX,
-      y: e.clientY,
+      x   : e.clientX,
+      y   : e.clientY,
+      type: 'click',
     });
 
     if (!CONFIG.DEBUG) {

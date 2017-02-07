@@ -152,7 +152,6 @@ class WebGL extends EventEmitter {
 
   castRay(e) {
     console.log(e);
-    console.log(this._camera);
     this._raycaster.setFromCamera({
       x: ((e.x / window.innerWidth) * 2) - 1,
       y: -((e.y / window.innerHeight) * 2) + 1,
@@ -160,11 +159,9 @@ class WebGL extends EventEmitter {
     this._camera);
     const intersects = this._raycaster.intersectObjects(this._scenesController.currentScene.objects.intersects, true);
 
-    Log.trace(intersects);
-
     let i;
     for (i = 0; i < intersects.length; i++) {
-      intersects[i].object.material.color.set( 0xff0000 );
+      this._scenesController.currentScene.interact(intersects[i], e.type);
     }
   }
 
