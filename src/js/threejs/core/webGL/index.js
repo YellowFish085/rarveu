@@ -30,7 +30,7 @@ class WebGL extends EventEmitter {
     this._isStereo         = false;                     // Flag
     this._controls         = null;                      // Controls (device orientation)
     this._raycaster        = null;
-    this._arrow            =null;
+    this._arrow            = null;
     this.init();
   }
 
@@ -55,6 +55,7 @@ class WebGL extends EventEmitter {
   bind() {
     this.onResize = this.onResize.bind(this);
     this.setStereo = this.setStereo.bind(this);
+    this.castRay = this.castRay.bind(this);
   }
 
   /**
@@ -112,7 +113,7 @@ class WebGL extends EventEmitter {
     this._stereoEffect.setSize(CONFIG.WEBGL.WEBGL_WIDTH, CONFIG.WEBGL.WEBGL_HEIGHT);
   }
 
-  createRayCaster(){
+  createRayCaster() {
     this._raycaster = new THREE.Raycaster();
   }
 
@@ -120,8 +121,16 @@ class WebGL extends EventEmitter {
    * Add events listeners
    */
   addEventListener() {
+    if (CONFIG.DEBUG) {
+      this.eeListen('mouseclick', this.castRay);
+    }
+
     window.addEventListener('resize', this.onResize);
     this.eeListen('stereoKey', this.setStereo);
+    this.eeListen('speech-water', this.castRay);
+    this.eeListen('speech-fire', this.castRay);
+    this.eeListen('speech-electricity', this.castRay);
+    this.eeListen('speech-wind', this.castRay);
   }
 
   /**
@@ -141,6 +150,24 @@ class WebGL extends EventEmitter {
     this.onResize('default');
   }
 
+  castRay(e) {
+    console.log(e);
+    console.log(this._camera);
+    this._raycaster.setFromCamera({
+      x: ((e.x / window.innerWidth) * 2) - 1,
+      y: -((e.y / window.innerHeight) * 2) + 1,
+    },
+    this._camera);
+    const intersects = this._raycaster.intersectObjects(this._scenesController.currentScene.objects.intersects, true);
+
+    Log.trace(intersects);
+
+    let i;
+    for (i = 0; i < intersects.length; i++) {
+      intersects[i].object.material.color.set( 0xff0000 );
+    }
+  }
+
   /**
    * Update the scene
    * Called each frame
@@ -149,24 +176,7 @@ class WebGL extends EventEmitter {
     this._controls.update();
     this._scenesController.update();
 
-    this._scenesController.currentScene._scene.remove ( this._arrow );
-    this._arrow = new THREE.ArrowHelper( this._camera.getWorldDirection(), this._camera.getWorldPosition(), 500, Math.random() * 0xffffff );
-    this._scenesController.currentScene._scene.add( this._arrow );
-    // update the picking ray with the camera and mouse position
-    this._raycaster.set( this._camera.getWorldDirection(), this._camera.getWorldPosition() );
-    //console.log(this._scenesController.currentScene.scene);
-    // calculate objects intersecting the picking ray
-    var object = this._scenesController.currentScene._scene.getObjectByName("player");
-    //console.log(object);
-    var intersects = this._raycaster.intersectObjects(this._scenesController.currentScene._scene.children, true);
-    console.log(intersects);
-    if(intersects > 0){
-      console.log("found player");
-    }
-    //console.log(intersects);
-
-
-    var renderer = this._isStereo ? this._stereoEffect : this._renderer;
+    const renderer = this._isStereo ? this._stereoEffect : this._renderer;
     renderer.render(this._scenesController.currentScene.scene, this._camera);
   }
 }
