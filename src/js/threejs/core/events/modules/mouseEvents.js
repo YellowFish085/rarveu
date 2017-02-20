@@ -2,6 +2,8 @@
 
 import Log          from '../../../utils/log';
 
+import * as CONFIG  from '../../config';
+
 import EventEmitter from '../../../classes/EventEmitter';
 
 class MouseEvents extends EventEmitter {
@@ -45,9 +47,14 @@ class MouseEvents extends EventEmitter {
     Log.trace(`mouseUp, btn ${e.button}`);
 
     this.eeEmit('mouseclick', {
-      x: e.clientX,
-      y: e.clientY,
+      x   : e.clientX,
+      y   : e.clientY,
+      type: 'click',
     });
+
+    if (!CONFIG.DEBUG) {
+      this.eeEmit('startRecording');
+    }
   }
 }
 

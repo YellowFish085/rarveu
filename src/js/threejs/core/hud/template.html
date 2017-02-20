@@ -3,8 +3,8 @@
     <loader :percentage="loadingPercentage"></loader>
   </template>
   <template v-else>
-    <debug :current-scene-id="currentSceneId" :scenes="scenes"></debug>
-    
+    <debug :current-scene-id="currentSceneId" :scenes="scenes" v-if="debug"></debug>
+
     <template v-if="showIntro">
       <intro></intro>
     </template>

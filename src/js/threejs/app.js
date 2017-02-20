@@ -67,6 +67,8 @@ class App extends EventEmitter {
   }
 
   initGUI() {
+    if (!CONFIG.DEBUG) return;
+
     // GUI options
     const cameraFolder = window.threeJSGui.addFolder('Camera');
     const c1 = cameraFolder.add(this._webGL._camera.position, 'x', -360, 360);
@@ -139,11 +141,15 @@ class App extends EventEmitter {
    * Render the WebGL scene
    */
   render() {
-    this._stats.begin();
+    if (CONFIG.DEBUG) {
+      this._stats.begin();
+    }
 
     this._webGL.update();
 
-    this._stats.end();
+    if (CONFIG.DEBUG) {
+      this._stats.end();
+    }
 
     requestAnimationFrame(this.render.bind(this));
   }

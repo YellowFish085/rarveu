@@ -19,6 +19,7 @@ const App = Vue.extend({
 
   data: function data() {
     return {
+      debug            : CONFIG.DEBUG,
       isLoading        : true,
       loadingPercentage: 0,
       scenes           : null,

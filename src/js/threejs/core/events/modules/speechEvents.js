@@ -13,8 +13,8 @@ class SpeechEvents extends EventEmitter {
 
   init() {
     this.bind();
-    this.addEventListener();
     this.initAnnyang();
+    this.addEventListener();
   }
 
   bind() {
@@ -32,9 +32,10 @@ class SpeechEvents extends EventEmitter {
       annyang.addCallback('resultMatch', this.onResultMatch);
 
       const commands = {
-        'water'      : this.onSpeech,
-        'fire'       : this.onSpeech,
         'electricity': this.onSpeech,
+        'fire'       : this.onSpeech,
+        'play'       : this.onSpeech,
+        'water'      : this.onSpeech,
         'wind'       : this.onSpeech,
       };
       annyang.addCommands(commands);
@@ -56,7 +57,11 @@ class SpeechEvents extends EventEmitter {
   onResultMatch(userSaid, commandText, phrases) {
     console.log(`Matched %c"${userSaid}"`, 'color: blue;');
 
-    this.eeEmit(`speech-${userSaid}`);
+    this.eeEmit(`speech-${userSaid}`, {
+      x   : window.innerWidth / 2,
+      y   : window.innerHeight / 2,
+      type: userSaid,
+    });
   }
 
   onSpeech(params) {

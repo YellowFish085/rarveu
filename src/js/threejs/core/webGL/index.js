@@ -29,7 +29,8 @@ class WebGL extends EventEmitter {
     this._stereoEffect     = null;                      // StereoEffect
     this._isStereo         = false;                     // Flag
     this._controls         = null;                      // Controls (device orientation)
-
+    this._raycaster        = null;
+    this._arrow            = null;
     this.init();
   }
 
@@ -42,16 +43,19 @@ class WebGL extends EventEmitter {
     this.createRenderer();
     this.createStereoEffect();
     this.createControls();
+    this.createRayCaster();
 
     this.addEventListener();
 
     // Add renderer in DOM
     document.getElementById(this._containerId).appendChild(this._renderer.domElement);
+
   }
 
   bind() {
     this.onResize = this.onResize.bind(this);
     this.setStereo = this.setStereo.bind(this);
+    this.castRay = this.castRay.bind(this);
   }
 
   /**
@@ -109,12 +113,33 @@ class WebGL extends EventEmitter {
     this._stereoEffect.setSize(CONFIG.WEBGL.WEBGL_WIDTH, CONFIG.WEBGL.WEBGL_HEIGHT);
   }
 
+  createRayCaster() {
+    this._raycaster = new THREE.Raycaster();
+
+    //helper Ray
+    if(CONFIG.DEBUG){
+      var vector = new THREE.Vector3( 0, 0, -1 );
+      vector.applyQuaternion( this._camera.quaternion );
+      this._arrow = new THREE.ArrowHelper(vector, this._camera.position, 100, 0xdddddd );
+      this._scenesController.currentScene.scene.add( this._arrow );
+    }
+
+  }
+
   /**
    * Add events listeners
    */
   addEventListener() {
+    if (CONFIG.DEBUG) {
+      this.eeListen('mouseclick', this.castRay);
+    }
+
     window.addEventListener('resize', this.onResize);
     this.eeListen('stereoKey', this.setStereo);
+    this.eeListen('speech-water', this.castRay);
+    this.eeListen('speech-fire', this.castRay);
+    this.eeListen('speech-electricity', this.castRay);
+    this.eeListen('speech-wind', this.castRay);
   }
 
   /**
@@ -134,6 +159,21 @@ class WebGL extends EventEmitter {
     this.onResize('default');
   }
 
+  castRay(e) {
+    console.log(e);
+    this._raycaster.setFromCamera({
+      x: ((e.x / window.innerWidth) * 2) - 1,
+      y: -((e.y / window.innerHeight) * 2) + 1,
+    },
+    this._camera);
+    const intersects = this._raycaster.intersectObjects(this._scenesController.currentScene.objects.intersects, true);
+
+    let i;
+    for (i = 0; i < intersects.length; i++) {
+      this._scenesController.currentScene.interact(intersects[i], e.type);
+    }
+  }
+
   /**
    * Update the scene
    * Called each frame
@@ -142,9 +182,16 @@ class WebGL extends EventEmitter {
     this._controls.update();
     this._scenesController.update();
 
-    var renderer = this._isStereo ? this._stereoEffect : this._renderer;
+    if(CONFIG.DEBUG){
+      var vector = new THREE.Vector3( 0, 0, -1 );
+      vector.applyQuaternion( this._camera.quaternion );
+      this._arrow.setDirection(vector);
+    }
+
+    const renderer = this._isStereo ? this._stereoEffect : this._renderer;
     renderer.render(this._scenesController.currentScene.scene, this._camera);
   }
 }
+
 
 export default WebGL;
