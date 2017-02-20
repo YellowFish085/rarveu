@@ -115,6 +115,15 @@ class WebGL extends EventEmitter {
 
   createRayCaster() {
     this._raycaster = new THREE.Raycaster();
+
+    //helper Ray
+    if(CONFIG.DEBUG){
+      var vector = new THREE.Vector3( 0, 0, -1 );
+      vector.applyQuaternion( this._camera.quaternion );
+      this._arrow = new THREE.ArrowHelper(vector, this._camera.position, 100, 0xdddddd );
+      this._scenesController.currentScene.scene.add( this._arrow );
+    }
+
   }
 
   /**
@@ -172,6 +181,12 @@ class WebGL extends EventEmitter {
   update() {
     this._controls.update();
     this._scenesController.update();
+
+    if(CONFIG.DEBUG){
+      var vector = new THREE.Vector3( 0, 0, -1 );
+      vector.applyQuaternion( this._camera.quaternion );
+      this._arrow.setDirection(vector);
+    }
 
     const renderer = this._isStereo ? this._stereoEffect : this._renderer;
     renderer.render(this._scenesController.currentScene.scene, this._camera);
