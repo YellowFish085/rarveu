@@ -39,15 +39,22 @@ class SpeechEvents extends EventEmitter {
         'wind'       : this.onSpeech,
       };
       annyang.addCommands(commands);
+
+      this.startLoopRecording();
     }
   }
 
   addEventListener() {
-    this.eeListen('startRecording', this.startRecording);
+    // this.eeListen('startRecording', this.startRecording);
+    // this.eeListen('startRecording', this.startLoopRecording);
   }
 
   startRecording() {
     annyang.start({ autoRestart: false, continuous: false });
+  }
+
+  startLoopRecording() {
+    annyang.start({ autoRestart: true, continuous: true });
   }
 
   onResult(params) {
