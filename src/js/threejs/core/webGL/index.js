@@ -49,7 +49,7 @@ class WebGL extends EventEmitter {
     this.addEventListener();
 
     // Add renderer in DOM
-    document.getElementById(this._containerId).appendChild(this._renderer.domElement);
+    // document.getElementById(this._containerId).appendChild(this._renderer.domElement);
 
   }
 
@@ -103,6 +103,7 @@ class WebGL extends EventEmitter {
     this._renderer = new THREE.WebGLRenderer({
       alpha    : true,
       antialias: true,
+      canvas   : document.getElementById(this._containerId),
     });
     this._renderer.setSize(CONFIG.WEBGL.WEBGL_WIDTH, CONFIG.WEBGL.WEBGL_HEIGHT);
     // this._renderer.shadowMap.enabled = true;
