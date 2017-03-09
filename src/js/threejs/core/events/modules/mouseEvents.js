@@ -24,11 +24,10 @@ class MouseEvents extends EventEmitter {
   }
 
   addEventListener() {
-    const threeContainer = document.getElementById('main');
-
-    threeContainer.addEventListener('mousemove', this.onMouseMove);
-    threeContainer.addEventListener('mousedown', this.onMouseDown);
-    threeContainer.addEventListener('mouseup', this.onMouseUp);
+    document.addEventListener('mousemove', this.onMouseMove);
+    document.addEventListener('mousedown', this.onMouseDown);
+    document.addEventListener('mouseup', this.onMouseUp);
+    document.addEventListener('touchstart', this.onMouseUp);
   }
 
   onMouseMove(e) {
@@ -37,14 +36,12 @@ class MouseEvents extends EventEmitter {
 
   onMouseDown(e) {
     e.stopPropagation();
-
-    Log.trace(`mouseDown, btn ${e.button}`);
   }
 
   onMouseUp(e) {
-    e.stopPropagation();
+    console.log(e);
 
-    Log.trace(`mouseUp, btn ${e.button}`);
+    e.stopPropagation();
 
     this.eeEmit('mouseclick', {
       x   : e.clientX,
@@ -52,9 +49,10 @@ class MouseEvents extends EventEmitter {
       type: 'click',
     });
 
-    if (!CONFIG.DEBUG) {
-      this.eeEmit('startRecording');
-    }
+    this.eeEmit('startRecording');
+
+    // const appWrapper = document.getElementById('app-wrapper');
+    // appWrapper.addEventListener('mouseup touchstart', this.onMouseUp);
   }
 }
 

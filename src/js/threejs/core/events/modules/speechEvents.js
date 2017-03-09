@@ -30,6 +30,13 @@ class SpeechEvents extends EventEmitter {
 
       annyang.addCallback('result', this.onResult);
       annyang.addCallback('resultMatch', this.onResultMatch);
+      
+      annyang.addCallback('soundstart', (e) => {
+        Log.trace(e);
+      });
+      annyang.addCallback('end', (e) => {
+        Log.trace(e);
+      });
 
       const commands = {
         'electricity': this.onSpeech,
@@ -40,12 +47,12 @@ class SpeechEvents extends EventEmitter {
       };
       annyang.addCommands(commands);
 
-      this.startLoopRecording();
+      // this.startLoopRecording();
     }
   }
 
   addEventListener() {
-    // this.eeListen('startRecording', this.startRecording);
+    this.eeListen('startRecording', this.startRecording);
     // this.eeListen('startRecording', this.startLoopRecording);
   }
 
