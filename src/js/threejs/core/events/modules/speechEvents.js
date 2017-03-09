@@ -39,11 +39,11 @@ class SpeechEvents extends EventEmitter {
       });
 
       const commands = {
-        'electricity': this.onSpeech,
-        'fire'       : this.onSpeech,
-        'play'       : this.onSpeech,
-        'water'      : this.onSpeech,
-        'wind'       : this.onSpeech,
+        'thunder': this.onSpeech,
+        'fire'   : this.onSpeech,
+        'play'   : this.onSpeech,
+        'water'  : this.onSpeech,
+        'wind'   : this.onSpeech,
       };
       annyang.addCommands(commands);
 
