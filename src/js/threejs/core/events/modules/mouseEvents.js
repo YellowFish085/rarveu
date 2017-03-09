@@ -39,8 +39,6 @@ class MouseEvents extends EventEmitter {
   }
 
   onMouseUp(e) {
-    console.log(e);
-
     e.stopPropagation();
 
     this.eeEmit('mouseclick', {
@@ -49,10 +47,7 @@ class MouseEvents extends EventEmitter {
       type: 'click',
     });
 
-    this.eeEmit('startRecording');
-
-    // const appWrapper = document.getElementById('app-wrapper');
-    // appWrapper.addEventListener('mouseup touchstart', this.onMouseUp);
+    this.eeEmit('startRecording');  
   }
 }
 
