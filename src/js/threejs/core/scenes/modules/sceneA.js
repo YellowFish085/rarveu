@@ -16,6 +16,8 @@ import Rock         from '../../models/Rock';
 
 import EventEmitter from '../../../classes/EventEmitter';
 
+import { TimelineLite } from 'gsap';
+
 class SceneA extends EventEmitter {
   constructor() {
     super();
@@ -337,7 +339,14 @@ class SceneA extends EventEmitter {
 
   interactRock() {
     console.log('Rock interact !');
+    console.log(this);
     this.material.color.set(0xff0000);
+
+    const tl = new TimelineLite();
+
+    tl.to(this.position, 1, { z: this.position.z + 60 })
+    .to(this.position, 1, { y: this.position.y - 50 });
+    tl.play();
   }
 
   /**

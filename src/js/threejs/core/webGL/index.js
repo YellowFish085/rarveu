@@ -27,7 +27,7 @@ class WebGL extends EventEmitter {
     this._renderer         = null;                      // Three Renderer
     this._eventsController = null;                      // EventController
     this._stereoEffect     = null;                      // StereoEffect
-    this._isStereo         = false;                     // Flag
+    this._isStereo         = true;                     // Flag
     this._controls         = null;                      // Controls (device orientation)
     this._raycaster        = null;
     this._arrow            = null;

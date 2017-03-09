@@ -10,7 +10,7 @@ import * as STATS  from './_stats';
 
 import * as WEBGL  from './_webGL';
 
-const DEBUG = true;
+const DEBUG = false;
 
 module.exports = {
   PATH,
