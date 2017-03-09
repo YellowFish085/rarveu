@@ -24,10 +24,14 @@ class MouseEvents extends EventEmitter {
   }
 
   addEventListener() {
+    const canvas = document.getElementById('main');
+
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('mousedown', this.onMouseDown);
     document.addEventListener('mouseup', this.onMouseUp);
+    canvas.addEventListener('mouseup', this.onMouseUp);
     document.addEventListener('touchstart', this.onMouseUp);
+    canvas.addEventListener('touchstart', this.onMouseUp);
   }
 
   onMouseMove(e) {
