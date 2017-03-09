@@ -9,4 +9,8 @@
       <intro></intro>
     </template>
   </template>
+
+  <template v-if="speechOverlayVisible">
+    <speech-overlay :text="speechOverlayText"></speech-overlay>
+  </template>
 </div>

@@ -4,9 +4,10 @@ import Vue    from 'vue/dist/vue';
 
 import CONFIG from '../config';
 
-import Loader from './components/loader';
-import Debug  from './components/debug';
-import Intro  from './components/intro';
+import Loader        from './components/loader';
+import Debug         from './components/debug';
+import Intro         from './components/intro';
+import SpeechOverlay from './components/speechOverlay';
 
 import Log          from '../../utils/log';
 import EventEmitter from '../../classes/EventEmitter';
@@ -25,6 +26,8 @@ const App = Vue.extend({
       scenes           : null,
       currentSceneId   : 0,
       showIntro        : true,
+      speechOverlayVisible: false,
+      speechOverlayText: '',
     };
   },
 
@@ -32,6 +35,7 @@ const App = Vue.extend({
     loader: Loader,
     debug : Debug,
     intro : Intro,
+    'speech-overlay': SpeechOverlay,
   },
 
   mounted() {
@@ -44,6 +48,7 @@ const App = Vue.extend({
     bind() {
       this.addIntroEventListener = this.addIntroEventListener.bind(this);
       this.handleCloseIntro      = this.handleCloseIntro.bind(this);
+      this.handleSpeech          = this.handleSpeech.bind(this);
     },
 
     addEventListener() {
@@ -55,16 +60,34 @@ const App = Vue.extend({
     },
 
     addIntroEventListener() {
-      if (CONFIG.DEBUG) {
-        eventEmitter.eeOnce('mouseclick', this.handleCloseIntro);
-      }
-
       eventEmitter.eeOnce('speech-play', this.handleCloseIntro);
+
+      eventEmitter.eeListen('speech-fire', () => {
+        this.handleSpeech('FIRE');
+      });
+      eventEmitter.eeListen('speech-thunder', () => {
+        this.handleSpeech('THUNDER');
+      });
+      eventEmitter.eeListen('speech-water', () => {
+        this.handleSpeech('WATER');
+      });
+      eventEmitter.eeListen('speech-wind', () => {
+        this.handleSpeech('WIND');
+      });
     },
 
     handleCloseIntro() {
       this.showIntro = false;
     },
+
+    handleSpeech(txt) {
+      this.speechOverlayText    = txt;
+      this.speechOverlayVisible = true;
+
+      setTimeout(function() {
+        this.speechOverlayVisible = false;
+      }.bind(this), 2000)
+    }
   },
 });
 

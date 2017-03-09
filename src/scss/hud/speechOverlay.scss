@@ -1,0 +1,28 @@
+#hud-speech-overlay {
+  display: block;
+
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 100%;
+
+  font-family: Lombok;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+#hud-speech-overlay-content.fire {
+  color: #E03E3E;
+}
+
+#hud-speech-overlay-content.thunder {
+  color: #E4DF4E;
+}
+
+#hud-speech-overlay-content.water {
+  color: #4A8CDD;
+}
+
+#hud-speech-overlay-content.wind {
+  color: #45CE6C;
+}
