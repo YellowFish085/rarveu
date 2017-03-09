@@ -31,6 +31,7 @@ class WebGL extends EventEmitter {
     this._controls         = null;                      // Controls (device orientation)
     this._raycaster        = null;
     this._arrow            = null;
+
     this.init();
   }
 
@@ -174,6 +175,22 @@ class WebGL extends EventEmitter {
     }
   }
 
+  castHoverRay() {
+    this._scenesController.currentScene.resetInteracts();
+
+    this._raycaster.setFromCamera({
+      x: (((window.innerWidth / 2) / window.innerWidth) * 2) - 1,
+      y: -(((window.innerHeight / 2) / window.innerHeight) * 2) + 1,
+    },
+    this._camera);
+    const intersects = this._raycaster.intersectObjects(this._scenesController.currentScene.objects.intersects, true);
+
+    let i;
+    for (i = 0; i < intersects.length; i++) {
+      this._scenesController.currentScene.interactHover(intersects[i]);
+    }
+  }
+
   /**
    * Update the scene
    * Called each frame
@@ -187,6 +204,8 @@ class WebGL extends EventEmitter {
       vector.applyQuaternion( this._camera.quaternion );
       this._arrow.setDirection(vector);
     }
+
+    this.castHoverRay();
 
     const renderer = this._isStereo ? this._stereoEffect : this._renderer;
     renderer.render(this._scenesController.currentScene.scene, this._camera);

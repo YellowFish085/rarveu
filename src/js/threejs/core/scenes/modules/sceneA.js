@@ -284,6 +284,9 @@ class SceneA extends EventEmitter {
 
     rock._mesh.interactId       = 'Rock1';
     rock._mesh.interactCallback = this.interactRock;
+    rock._mesh.originalColor    = rock._mesh.material.color.getHex();
+    rock._mesh.hoverColor       = 0xFFFF00;
+    rock._mesh.state            = 'idle';
 
     this._objects.intersects.push(rock.mesh);
     this._scene.add(rock.mesh);
@@ -328,11 +331,31 @@ class SceneA extends EventEmitter {
   }
 
   /**
+   * Reset interactables objects to their original color
+   */
+  resetInteracts() {
+    let i;
+    for (i = 0; i < this._objects.intersects.length; i++) {
+      this._objects.intersects[i].material.color.setHex( this._objects.intersects[i].originalColor );
+    }
+  }
+
+  /**
+   * Hover color on interactable object
+   */
+  interactHover(obj) {
+    if (obj.object.state == 'idle') {
+      obj.object.material.color.setHex( obj.object.hoverColor );
+    }
+  }
+
+  /**
    * Launch Interaction with Object
    */
   interact(obj, type) {
     console.log(obj);
     if (obj.object.interactId === 'Rock1' && type === 'wind' || CONFIG.DEBUG && obj.object.interactId === 'Rock1' && type === 'click') {
+      obj.object.state = 'activated';
       obj.object.interactCallback();
     }
   }
@@ -371,7 +394,7 @@ class SceneA extends EventEmitter {
 
   }
 
-  /**
+  /** 
    * Retun three.js scene. Used for three.js renderer
    */
   get scene() {
