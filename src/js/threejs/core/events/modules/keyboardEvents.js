@@ -40,6 +40,53 @@ class KeyboardEvents extends EventEmitter {
       this.eeEmit('startRecording');
     }
 
+    // Key shorcut for speechs
+
+    // p
+    if (key === 80) {
+      this.eeEmit('speech-play', {
+        x   : window.innerWidth / 2,
+        y   : window.innerHeight / 2,
+        type: 'play',
+      });
+    }
+
+    // w
+    if (key === 87) {
+      this.eeEmit('speech-thunder', {
+        x   : window.innerWidth / 2,
+        y   : window.innerHeight / 2,
+        type: 'thunder',
+      });
+    }
+
+    // x
+    if (key === 88) {
+      this.eeEmit('speech-fire', {
+        x   : window.innerWidth / 2,
+        y   : window.innerHeight / 2,
+        type: 'fire',
+      });
+    }
+
+    // c
+    if (key === 67) {
+      this.eeEmit('speech-water', {
+        x   : window.innerWidth / 2,
+        y   : window.innerHeight / 2,
+        type: 'water',
+      });
+    }
+
+    // v
+    if (key === 86) {
+      this.eeEmit('speech-wind', {
+        x   : window.innerWidth / 2,
+        y   : window.innerHeight / 2,
+        type: 'wind',
+      });
+    }
+
     // this.eeEmit(monTruc)
   }
 
