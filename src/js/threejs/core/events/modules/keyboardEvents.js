@@ -35,11 +35,6 @@ class KeyboardEvents extends EventEmitter {
       this.eeEmit('stereoKey');
     }
 
-    // t
-    if (key === 84) {
-      this.eeEmit('startRecording');
-    }
-
     // Key shorcut for speechs
 
     // p
