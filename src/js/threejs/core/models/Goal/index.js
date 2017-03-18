@@ -36,7 +36,7 @@ class Goal {
     ring1.castShadow = false;
     ring1.receiveShadow = false;
     ring1.position.x = 0;
-    ring1.position.y = 0;
+    ring1.position.y = 50;
     ring1.position.z = 0;
     ring1.rotation.x = 1.5708; // 90°
 
@@ -49,13 +49,26 @@ class Goal {
     ring2.castShadow = false;
     ring2.receiveShadow = false;
     ring2.position.x = 0;
-    ring2.position.y = 0;
+    ring2.position.y = 50;
     ring2.position.z = 0;
     ring2.rotation.x = 1.5708; // 90°
 
     this._geom.push({
       id  : 'ring2',
       mesh: ring2,
+    });
+
+    const ring3 = new THREE.Mesh(new THREE.TorusGeometry(10, 1, 3, 10), this._mat);
+    ring3.castShadow = false;
+    ring3.receiveShadow = false;
+    ring3.position.x = 0;
+    ring3.position.y = 0;
+    ring3.position.z = 0;
+    ring3.rotation.x = 1.5708; // 90°
+
+    this._geom.push({
+      id  : 'ring3',
+      mesh: ring3,
     });
   }
 
@@ -68,6 +81,7 @@ class Goal {
   update() {
     this._geom[0].mesh.rotation.x += 0.05;
     this._geom[1].mesh.rotation.y -= 0.05;
+    this._geom[2].mesh.rotation.z -= 0.05;
   }
 
   get mesh() {
