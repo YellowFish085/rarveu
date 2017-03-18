@@ -133,7 +133,9 @@ class SceneA extends EventEmitter {
     this._objects.goal = goal;
     this._scene.add(goal.mesh);
 
-    this.debugAxis(100);
+    if (CONFIG.DEBUG) {
+      this.debugAxis(100);
+    }
   }
 
   createObjectFloor() {
