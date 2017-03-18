@@ -131,8 +131,8 @@ class SceneA extends EventEmitter {
 
     const goal = new Goal();
     goal._mesh.position.x = 0;
-    goal._mesh.position.y = 50;
-    goal._mesh.position.z = 0;
+    goal._mesh.position.y = 0;
+    goal._mesh.position.z = -150;
     this._objects.goal = goal;
     this._scene.add(goal.mesh);
 
