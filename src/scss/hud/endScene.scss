@@ -1,0 +1,21 @@
+#hud-end-scene {
+  display: block;
+
+  width: 100%;
+
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+
+  border-radius: 2px;
+
+  background: linear-gradient(to right,rgba(255,255,255,0),#fff,rgba(255,255,255,0));
+
+  font-family: Lombok;
+  font-size: 1.5em;
+  text-align: center;
+}
