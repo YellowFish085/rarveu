@@ -105,7 +105,7 @@ const App = Vue.extend({
       this.speechOverlayVisible = true;
 
       setTimeout(function() {
-        // this.speechOverlayVisible = false;
+        this.speechOverlayVisible = false;
       }.bind(this), 2000)
     },
 
