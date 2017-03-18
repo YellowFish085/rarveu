@@ -1,6 +1,19 @@
 # RARVEU
 
-## Commands
+## Introduction
+
+This small project, or merely it's prototype, was created by [Lucas Horand](http://luhof.fr), [Julien Rousset](http://julien-rousset.fr/) and [Theo Costantini](http://theocostantini.com).
+
+It's an AR/RV game in which you'll have to solve some puzzle unsing your voice and moving some objects on the scene. The powers you can use are : THUNDER, FIRE, WATER, WIND.
+Try to find which power to use on which object to progress!
+
+To test it, you should :
+- use Chrome mobile browser
+- then go to the [project url](http://www.theocostantini.com/lab/projects/rarveu/)
+- select "Add to Home Screen" option
+- launch the game from the Home Screen shortcut
+
+## Dev commands
 
 ### Keyboard shortcuts
 - s : Switch stereo mode on/off
