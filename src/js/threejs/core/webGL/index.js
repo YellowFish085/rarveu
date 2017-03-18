@@ -6,6 +6,8 @@ import STEREO           from 'three-stereo-effect';
 import * as CONFIG      from '../config';
 import Log              from '../../utils/log';
 import DeviceOrientationController from '../../utils/DeviceOrientationControls';
+import IsMobile         from '../../utils/detectMobileBrowser';
+
 
 import EventEmitter     from '../../classes/EventEmitter';
 
@@ -93,6 +95,9 @@ class WebGL extends EventEmitter {
 
   createControls(){
     this._controls = new DeviceOrientationController(this._camera, document.getElementById(this._containerId));
+    if (IsMobile()) {
+      this._controls.enableManualDrag = false;
+    }
     //controls will be connected once user starts the game.
   }
 
