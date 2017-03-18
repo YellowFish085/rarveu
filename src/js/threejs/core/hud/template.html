@@ -17,4 +17,8 @@
   <template v-if="sceneSpeechHelperVisible">
     <scene-speech-helper :text="sceneSpeechHelperText"></scene-speech-helper>
   </template>
+
+  <template v-if="endSceneVisible">
+    <end-scene :text="endSceneText"></end-scene>
+  </template>
 </div>

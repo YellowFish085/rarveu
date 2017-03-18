@@ -9,6 +9,7 @@ import Debug             from './components/debug';
 import Intro             from './components/intro';
 import SpeechOverlay     from './components/speechOverlay';
 import SceneSpeechHelper from './components/sceneSpeechHelper';
+import EndScene          from './components/endScene';
 
 import Log          from '../../utils/log';
 import EventEmitter from '../../classes/EventEmitter';
@@ -31,6 +32,8 @@ const App = Vue.extend({
       speechOverlayText       : '',
       sceneSpeechHelperVisible: false,
       sceneSpeechHelperText   : '',
+      endSceneVisible         : false,
+      endSceneText            : '',
     };
   },
 
@@ -40,6 +43,7 @@ const App = Vue.extend({
     intro                : Intro,
     'speech-overlay'     : SpeechOverlay,
     'scene-speech-helper': SceneSpeechHelper,
+    'end-scene'          : EndScene,
   },
 
   mounted() {
@@ -54,6 +58,8 @@ const App = Vue.extend({
       this.handleCloseIntro             = this.handleCloseIntro.bind(this);
       this.handleSpeech                 = this.handleSpeech.bind(this);
       this.handleCloseSceneSpeechHelper = this.handleCloseSceneSpeechHelper.bind(this);
+      this.handleEndScene               = this.handleEndScene.bind(this);
+      this.handleEndGame                = this.handleEndGame.bind(this);
     },
 
     addEventListener() {
@@ -61,6 +67,10 @@ const App = Vue.extend({
       eventEmitter.eeListen('scene-changed', (datas) => {
         this.currentSceneId = datas.currentSceneId;
         this.scenes         = datas.scenes;
+
+        if (!datas.firstCall) {
+          this.handleCloseEndScene();
+        }
       });
     },
 
@@ -94,6 +104,9 @@ const App = Vue.extend({
       eventEmitter.eeListen('scene-speech-helper-wind', () => {
         this.handleSceneSpeechHelper('WIND');
       });
+
+      eventEmitter.eeListen('scene-completed', this.handleEndScene);
+      eventEmitter.eeListen('game-end', this.handleEndGame);
     },
 
     handleCloseIntro() {
@@ -116,6 +129,30 @@ const App = Vue.extend({
     handleSceneSpeechHelper(txt) {
       this.sceneSpeechHelperText    = txt;
       this.sceneSpeechHelperVisible = true;
+    },
+
+    handleEndScene() {
+      this.endSceneText = 'CONGRATULATION'
+      this.endSceneVisible = true;
+
+      setTimeout(function() {
+        eventEmitter.eeEmit('next-scene');
+      }.bind(this), 2500);
+    },
+
+    handleCloseEndScene() {
+      this.endSceneVisible = false;
+
+      setTimeout(function() {
+        eventEmitter.eeEmit('redisplay-threejs');
+      }.bind(this), 1500);
+    },
+
+    handleEndGame() {
+      this.endSceneText = 'YOU BEAT THE GAME'
+      this.endSceneVisible = true;
+
+      eventEmitter.eeRemoveAllListeners();
     },
   },
 });

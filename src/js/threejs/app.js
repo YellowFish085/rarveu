@@ -39,6 +39,7 @@ class App extends EventEmitter {
 
   bind() {
     this.displayThreeJS = this.displayThreeJS.bind(this);
+    this.nextScene      = this.nextScene.bind(this);
   }
 
   /**
@@ -121,11 +122,17 @@ class App extends EventEmitter {
     });
 
     this.eeOnce('hud-intro-leave', () => {
-      this.displayThreeJS();
+      this.displayThreeJS(true);
     });
+
+    this.eeListen('redisplay-threejs', () => {
+      this.displayThreeJS(false);
+    });
+
+    this.eeListen('next-scene', this.nextScene);
   }
 
-  displayThreeJS() {
+  displayThreeJS(init) {
     const el = document.getElementById('main');
     const tl = new TimelineLite({
       paused: true,
@@ -137,7 +144,27 @@ class App extends EventEmitter {
     tl.fromTo(el, 1, { opacity: 0 }, { opacity: 1 });
 
     tl.play();
-    this._webGL._controls.connect();
+
+    if (init) {
+      this._webGL._controls.connect();
+    }
+  }
+
+  nextScene() {
+    // First hide ThreeJS canvas
+    const el = document.getElementById('main');
+    const tl = new TimelineLite({
+      paused: true,
+    });
+
+    tl.fromTo(el, 1, { opacity: 1 }, { opacity: 0 });
+
+    tl.play();
+
+    // Next scene
+    setTimeout(() => {
+      this._webGL.scenesController.nextScene();
+    }, 1100);
   }
 
   /**

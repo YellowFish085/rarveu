@@ -211,6 +211,10 @@ class WebGL extends EventEmitter {
     const renderer = this._isStereo ? this._stereoEffect : this._renderer;
     renderer.render(this._scenesController.currentScene.scene, this._camera);
   }
+
+  get scenesController() {
+    return this._scenesController;
+  }
 }
 
 

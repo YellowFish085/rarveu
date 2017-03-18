@@ -57,6 +57,7 @@ class SceneA extends EventEmitter {
 
   bind() {
     this.sceneDisplayed = this.sceneDisplayed.bind(this);
+    this.endAnimation   = this.endAnimation.bind(this);
   }
 
   addEventListener() {
@@ -182,6 +183,8 @@ class SceneA extends EventEmitter {
     player._mesh.position.x = 0;
     player._mesh.position.y = 47;
     player._mesh.position.z = 200;
+
+    this._objects.player = player;
 
     this._scene.add(player.mesh);
   }
@@ -367,6 +370,8 @@ class SceneA extends EventEmitter {
       this.eeEmit('scene-speech-helper-close');
       obj.object.state = 'activated';
       obj.object.interactCallback();
+
+      this.endAnimation();
     }
   }
 
@@ -376,7 +381,19 @@ class SceneA extends EventEmitter {
     const tl = new TimelineLite();
 
     tl.to(this.position, 1, { z: this.position.z + 60 })
-    .to(this.position, 1, { y: this.position.y - 50 });
+      .to(this.position, 1, { y: this.position.y - 50 });
+    tl.play();
+  }
+
+  endAnimation() {
+    const tl = new TimelineLite({
+      onComplete: () => {
+        this.eeEmit('scene-completed');
+      }
+    });
+
+    tl.delay(2) // Dirty, but cannot have a callback on interactRock, neither an eventemitter event
+      .to(this._objects.player.mesh.position, 3, { ease: Expo.easeInOut, z: this._objects.player.mesh.position.z - 350 });
     tl.play();
   }
 

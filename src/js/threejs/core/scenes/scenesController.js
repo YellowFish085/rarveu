@@ -61,6 +61,7 @@ class SceneController extends EventEmitter {
     this.eeEmit('scene-changed', {
       currentSceneId: this._currentSceneIndex,
       scenes        : this._scenes,
+      firstCall     : true,
     });
 
     this.eeEmit('loading-end');
@@ -93,6 +94,22 @@ class SceneController extends EventEmitter {
    */
   addEventListener() {
 
+  }
+
+  nextScene() {
+    this._currentSceneIndex += 1;
+    
+    if (this._currentSceneIndex >= this._scenes.length) {
+      this._currentSceneIndex = 0;
+      this.eeEmit('game-end');
+    }
+    else {
+      this.eeEmit('scene-changed', {
+        currentSceneId: this._currentSceneIndex,
+        scenes        : this._scenes,
+        firstCall     : false,
+      });
+    }
   }
 
   /**
