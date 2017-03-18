@@ -2,6 +2,14 @@
 
 ## Commands
 
+### Keyboard shortcuts
+- s : Switch stereo mode on/off
+- p : 'play'    speech event
+- w : 'thunder' speech event
+- x : 'fire'    speech event
+- c : 'water'   speech event
+- v : 'wind'    speech event
+
 ### Install npm modules
 ```sh
 $ npm install
