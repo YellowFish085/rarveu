@@ -148,10 +148,14 @@ const App = Vue.extend({
     },
 
     handleEndGame() {
-      this.endSceneText = 'YOU BEAT THE GAME';
-      this.endSceneVisible = true;
+      this.endSceneVisible = false;
 
-      eventEmitter.eeRemoveAllListeners();
+      setTimeout(() => {
+        this.endSceneText    = 'YOU BEAT THE GAME';
+        this.endSceneVisible = true;
+
+        eventEmitter.eeRemoveAllListeners();
+      }, 1100);
     },
   },
 });
