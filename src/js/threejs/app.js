@@ -6,7 +6,6 @@ import Stats            from 'stats.js';
 import { TimelineLite } from 'gsap';
 
 import * as CONFIG      from './core/config';
-import Log              from './utils/log';
 
 import EventEmitter     from './classes/EventEmitter';
 
@@ -17,7 +16,7 @@ import Hud              from './core/hud';
  * Main App
  */
 class App extends EventEmitter {
-  constructor(args) {
+  constructor() {
     super();
 
     this._gui   = null; // GUI
@@ -135,7 +134,7 @@ class App extends EventEmitter {
   displayThreeJS(init) {
     const el = document.getElementById('main');
     const tl = new TimelineLite({
-      paused: true,
+      paused    : true,
       onComplete: () => {
         this.eeEmit('scene-displayed');
       },

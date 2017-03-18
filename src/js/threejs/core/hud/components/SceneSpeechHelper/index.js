@@ -25,19 +25,19 @@ const SceneSpeechHelper = Vue.extend({
   mounted() {
     const wrapper = document.getElementById('hud-scene-speech-helper-content');
 
-    if (this.text == 'FIRE') {
+    if (this.text === 'FIRE') {
       wrapper.className = 'fire';
     }
-    else if (this.text == 'THUNDER') {
+    else if (this.text === 'THUNDER') {
       wrapper.className = 'thunder';
     }
-    else if (this.text == 'WATER') {
+    else if (this.text === 'WATER') {
       wrapper.className = 'water';
     }
-    else if (this.text == 'WIND') {
+    else if (this.text === 'WIND') {
       wrapper.className = 'wind';
     }
-  }
+  },
 });
 
 export default SceneSpeechHelper;

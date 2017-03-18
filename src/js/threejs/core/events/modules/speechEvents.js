@@ -7,10 +7,6 @@ import Log          from '../../../utils/log';
 import EventEmitter from '../../../classes/EventEmitter';
 
 class SpeechEvents extends EventEmitter {
-  constructor() {
-    super();
-  }
-
   init() {
     this.bind();
     this.initAnnyang();
@@ -39,11 +35,11 @@ class SpeechEvents extends EventEmitter {
       });
 
       const commands = {
-        'thunder': this.onSpeech,
-        'fire'   : this.onSpeech,
-        'play'   : this.onSpeech,
-        'water'  : this.onSpeech,
-        'wind'   : this.onSpeech,
+        thunder: this.onSpeech,
+        fire   : this.onSpeech,
+        play   : this.onSpeech,
+        water  : this.onSpeech,
+        wind   : this.onSpeech,
       };
       annyang.addCommands(commands);
 

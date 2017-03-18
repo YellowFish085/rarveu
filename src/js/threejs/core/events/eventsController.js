@@ -1,7 +1,5 @@
 'use strict';
 
-import Log     from '../../utils/log';
-
 import Modules from './modules';
 
 /**

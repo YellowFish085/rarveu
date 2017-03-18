@@ -1,12 +1,12 @@
 'use strict';
 
+require('./transition');
+
 import CONFIG from '../../../config';
 
 import Vue from 'vue/dist/vue';
 
 import Tree from './tree';
-
-require('./transition');
 
 const template = eval(`\`${require('./template.html')}\``);
 

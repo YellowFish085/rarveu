@@ -46,10 +46,11 @@ class EventEmitter {
     this._ee.remove(e, func);
   }
 
+  /**
+   * Remove all events
+   */
   eeRemoveAllListeners() {
-    console.log(this._ee);
     this._ee.removeAllListeners();
-    console.log(this._ee);
   }
 }
 

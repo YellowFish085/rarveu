@@ -1,8 +1,7 @@
 'use strict';
 
+import { TimelineLite } from 'gsap';
 import * as THREE   from 'three';
-
-import Log          from '../../../utils/log';
 
 import CONFIG       from '../../config';
 
@@ -15,8 +14,6 @@ import GatePattern  from '../../models/GatePattern';
 import Rock         from '../../models/Rock';
 
 import EventEmitter from '../../../classes/EventEmitter';
-
-import { TimelineLite } from 'gsap';
 
 class SceneA extends EventEmitter {
   constructor() {
@@ -348,7 +345,7 @@ class SceneA extends EventEmitter {
   resetInteracts() {
     let i;
     for (i = 0; i < this._objects.intersects.length; i++) {
-      this._objects.intersects[i].material.color.setHex( this._objects.intersects[i].originalColor );
+      this._objects.intersects[i].material.color.setHex(this._objects.intersects[i].originalColor);
     }
   }
 
@@ -356,8 +353,8 @@ class SceneA extends EventEmitter {
    * Hover color on interactable object
    */
   interactHover(obj) {
-    if (obj.object.state == 'idle') {
-      obj.object.material.color.setHex( obj.object.hoverColor );
+    if (obj.object.state === 'idle') {
+      obj.object.material.color.setHex(obj.object.hoverColor);
     }
   }
 
@@ -365,7 +362,7 @@ class SceneA extends EventEmitter {
    * Launch Interaction with Object
    */
   interact(obj, type) {
-    if (obj.object.interactId === 'Rock1' && type === 'wind' || CONFIG.DEBUG && obj.object.interactId === 'Rock1' && type === 'click') {
+    if ((obj.object.interactId === 'Rock1' && type === 'wind') || (CONFIG.DEBUG && obj.object.interactId === 'Rock1' && type === 'click')) {
       this.eeEmit('scene-speech-helper-close');
       obj.object.state = 'activated';
       obj.object.interactCallback();
@@ -388,7 +385,7 @@ class SceneA extends EventEmitter {
     const tl = new TimelineLite({
       onComplete: () => {
         this.eeEmit('scene-completed');
-      }
+      },
     });
 
     tl.delay(2) // Dirty, but cannot have a callback on interactRock, neither an eventemitter event
@@ -418,7 +415,7 @@ class SceneA extends EventEmitter {
 
   }
 
-  /** 
+  /**
    * Retun three.js scene. Used for three.js renderer
    */
   get scene() {

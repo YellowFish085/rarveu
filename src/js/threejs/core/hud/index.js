@@ -11,7 +11,6 @@ import SpeechOverlay     from './components/speechOverlay';
 import SceneSpeechHelper from './components/sceneSpeechHelper';
 import EndScene          from './components/endScene';
 
-import Log          from '../../utils/log';
 import EventEmitter from '../../classes/EventEmitter';
 
 const eventEmitter = new EventEmitter();
@@ -117,9 +116,9 @@ const App = Vue.extend({
       this.speechOverlayText    = txt;
       this.speechOverlayVisible = true;
 
-      setTimeout(function() {
+      setTimeout(() => {
         this.speechOverlayVisible = false;
-      }.bind(this), 2000)
+      }, 2000);
     },
 
     handleCloseSceneSpeechHelper() {
@@ -132,24 +131,24 @@ const App = Vue.extend({
     },
 
     handleEndScene() {
-      this.endSceneText = 'CONGRATULATION'
+      this.endSceneText = 'CONGRATULATION';
       this.endSceneVisible = true;
 
-      setTimeout(function() {
+      setTimeout(() => {
         eventEmitter.eeEmit('next-scene');
-      }.bind(this), 2500);
+      }, 2500);
     },
 
     handleCloseEndScene() {
       this.endSceneVisible = false;
 
-      setTimeout(function() {
+      setTimeout(() => {
         eventEmitter.eeEmit('redisplay-threejs');
-      }.bind(this), 1500);
+      }, 1500);
     },
 
     handleEndGame() {
-      this.endSceneText = 'YOU BEAT THE GAME'
+      this.endSceneText = 'YOU BEAT THE GAME';
       this.endSceneVisible = true;
 
       eventEmitter.eeRemoveAllListeners();

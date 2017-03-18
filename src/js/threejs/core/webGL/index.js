@@ -5,9 +5,8 @@ import STEREO           from 'three-stereo-effect';
 
 import * as CONFIG      from '../config';
 import Log              from '../../utils/log';
-import DeviceOrientationController from '../../utils/DeviceOrientationControls';
+import DeviceOrientationController from '../../utils/deviceOrientationControls';
 import IsMobile         from '../../utils/detectMobileBrowser';
-
 
 import EventEmitter     from '../../classes/EventEmitter';
 
@@ -52,7 +51,6 @@ class WebGL extends EventEmitter {
 
     // Add renderer in DOM
     // document.getElementById(this._containerId).appendChild(this._renderer.domElement);
-
   }
 
   bind() {
@@ -93,12 +91,12 @@ class WebGL extends EventEmitter {
     this._camera.lookAt(new THREE.Vector3(0, 0, 0));
   }
 
-  createControls(){
+  createControls() {
     this._controls = new DeviceOrientationController(this._camera, document.getElementById(this._containerId));
     if (IsMobile()) {
       this._controls.enableManualDrag = false;
     }
-    //controls will be connected once user starts the game.
+    // controls will be connected once user starts the game.
   }
 
   /**
@@ -123,14 +121,13 @@ class WebGL extends EventEmitter {
   createRayCaster() {
     this._raycaster = new THREE.Raycaster();
 
-    //helper Ray
-    if(CONFIG.DEBUG){
-      var vector = new THREE.Vector3( 0, 0, -1 );
-      vector.applyQuaternion( this._camera.quaternion );
-      this._arrow = new THREE.ArrowHelper(vector, this._camera.position, 100, 0xdddddd );
-      this._scenesController.currentScene.scene.add( this._arrow );
+    // helper Ray
+    if (CONFIG.DEBUG) {
+      const vector = new THREE.Vector3(0, 0, -1);
+      vector.applyQuaternion(this._camera.quaternion);
+      this._arrow = new THREE.ArrowHelper(vector, this._camera.position, 100, 0xdddddd);
+      this._scenesController.currentScene.scene.add(this._arrow);
     }
-
   }
 
   /**
@@ -205,9 +202,9 @@ class WebGL extends EventEmitter {
     this._controls.update();
     this._scenesController.update();
 
-    if(CONFIG.DEBUG){
-      var vector = new THREE.Vector3( 0, 0, -1 );
-      vector.applyQuaternion( this._camera.quaternion );
+    if (CONFIG.DEBUG) {
+      const vector = new THREE.Vector3(0, 0, -1);
+      vector.applyQuaternion(this._camera.quaternion);
       this._arrow.setDirection(vector);
     }
 
@@ -221,6 +218,5 @@ class WebGL extends EventEmitter {
     return this._scenesController;
   }
 }
-
 
 export default WebGL;

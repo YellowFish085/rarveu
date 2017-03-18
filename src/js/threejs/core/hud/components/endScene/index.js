@@ -18,7 +18,7 @@ const endScene = Vue.extend({
 
   mounted() {
 
-  }
+  },
 });
 
 export default endScene;
