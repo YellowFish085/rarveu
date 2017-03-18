@@ -362,9 +362,11 @@ class SceneA extends EventEmitter {
    * Launch Interaction with Object
    */
   interact(obj, type) {
+    if (obj.object.state !== 'idle') return; // Can only activate objects that are idle
+
     if ((obj.object.interactId === 'Rock1' && type === 'wind') || (CONFIG.DEBUG && obj.object.interactId === 'Rock1' && type === 'click')) {
-      this.eeEmit('scene-speech-helper-close');
       obj.object.state = 'activated';
+      this.eeEmit('scene-speech-helper-close');
       obj.object.interactCallback();
 
       this.endAnimation();
@@ -374,10 +376,15 @@ class SceneA extends EventEmitter {
   interactRock() {
     this.material.color.set(0xff0000);
 
-    const tl = new TimelineLite();
+    const tl = new TimelineLite({
+      onComplete: () => {
+        this.state = 'disabled';
+      },
+    });
 
-    tl.to(this.position, 1, { z: this.position.z + 60 })
+    tl.to(this.position, 1, { z: this.position.z + 50 })
       .to(this.position, 1, { y: this.position.y - 50 });
+
     tl.play();
   }
 
