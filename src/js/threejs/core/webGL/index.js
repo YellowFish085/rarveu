@@ -162,7 +162,7 @@ class WebGL extends EventEmitter {
   }
 
   castRay(e) {
-    console.log(e);
+    Log.trace(e);
     this._raycaster.setFromCamera({
       x: ((e.x / window.innerWidth) * 2) - 1,
       y: -((e.y / window.innerHeight) * 2) + 1,

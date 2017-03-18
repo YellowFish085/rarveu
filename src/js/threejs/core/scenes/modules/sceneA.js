@@ -363,7 +363,6 @@ class SceneA extends EventEmitter {
    * Launch Interaction with Object
    */
   interact(obj, type) {
-    console.log(obj);
     if (obj.object.interactId === 'Rock1' && type === 'wind' || CONFIG.DEBUG && obj.object.interactId === 'Rock1' && type === 'click') {
       this.eeEmit('scene-speech-helper-close');
       obj.object.state = 'activated';
@@ -372,8 +371,6 @@ class SceneA extends EventEmitter {
   }
 
   interactRock() {
-    console.log('Rock interact !');
-    console.log(this);
     this.material.color.set(0xff0000);
 
     const tl = new TimelineLite();

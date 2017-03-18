@@ -24,8 +24,6 @@ const SceneSpeechHelper = Vue.extend({
 
   mounted() {
     const wrapper = document.getElementById('hud-scene-speech-helper-content');
-    console.log(wrapper);
-    console.log(this.text);
 
     if (this.text == 'FIRE') {
       wrapper.className = 'fire';
