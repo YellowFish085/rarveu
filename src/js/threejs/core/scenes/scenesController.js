@@ -33,6 +33,7 @@ class SceneController extends EventEmitter {
   bind() {
     this.onLoadProgress = this.onLoadProgress.bind(this);
     this.onLoadEnd      = this.onLoadEnd.bind(this);
+    this.sceneDisplayed = this.sceneDisplayed.bind(this);
   }
 
   /**
@@ -93,7 +94,11 @@ class SceneController extends EventEmitter {
    * Add events listeners
    */
   addEventListener() {
+    this.eeListen('scene-displayed', this.sceneDisplayed);
+  }
 
+  sceneDisplayed() {
+    this._scenes[this._currentSceneIndex].sceneDisplayed();
   }
 
   nextScene() {

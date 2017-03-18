@@ -56,12 +56,11 @@ class SceneA extends EventEmitter {
   }
 
   bind() {
-    this.sceneDisplayed = this.sceneDisplayed.bind(this);
     this.endAnimation   = this.endAnimation.bind(this);
   }
 
   addEventListener() {
-    this.eeOnce('scene-displayed', this.sceneDisplayed);
+    
   }
 
   sceneDisplayed() {
