@@ -1,0 +1,35 @@
+#hud-scene-speech-helper {
+  display: block;
+
+  position: absolute;
+  bottom: 30px;
+  left: 10px;
+  padding: 10px;
+
+  border-radius: 2px;
+
+  background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
+
+  text-align: left;
+}
+
+#hud-scene-speech-helper-content {
+  font-family: Lombok;
+  font-size: 1.5em;
+}
+
+#hud-scene-speech-helper-content.fire {
+  color: #E03E3E;
+}
+
+#hud-scene-speech-helper-content.thunder {
+  color: #E4DF4E;
+}
+
+#hud-scene-speech-helper-content.water {
+  color: #4A8CDD;
+}
+
+#hud-scene-speech-helper-content.wind {
+  color: #45CE6C;
+}

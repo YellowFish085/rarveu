@@ -38,6 +38,8 @@ class SceneA extends EventEmitter {
   init(loadingManager) {
     this.bind();
 
+    this.addEventListener();
+
     this._objects.intersects = [];
 
     this._scene  = new THREE.Scene();
@@ -54,7 +56,15 @@ class SceneA extends EventEmitter {
   }
 
   bind() {
+    this.sceneDisplayed = this.sceneDisplayed.bind(this);
+  }
 
+  addEventListener() {
+    this.eeOnce('scene-displayed', this.sceneDisplayed);
+  }
+
+  sceneDisplayed() {
+    this.eeEmit('scene-speech-helper-wind');
   }
 
   fillScene() {
@@ -355,6 +365,7 @@ class SceneA extends EventEmitter {
   interact(obj, type) {
     console.log(obj);
     if (obj.object.interactId === 'Rock1' && type === 'wind' || CONFIG.DEBUG && obj.object.interactId === 'Rock1' && type === 'click') {
+      this.eeEmit('scene-speech-helper-close');
       obj.object.state = 'activated';
       obj.object.interactCallback();
     }

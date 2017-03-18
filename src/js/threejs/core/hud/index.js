@@ -4,10 +4,11 @@ import Vue    from 'vue/dist/vue';
 
 import CONFIG from '../config';
 
-import Loader        from './components/loader';
-import Debug         from './components/debug';
-import Intro         from './components/intro';
-import SpeechOverlay from './components/speechOverlay';
+import Loader            from './components/loader';
+import Debug             from './components/debug';
+import Intro             from './components/intro';
+import SpeechOverlay     from './components/speechOverlay';
+import SceneSpeechHelper from './components/sceneSpeechHelper';
 
 import Log          from '../../utils/log';
 import EventEmitter from '../../classes/EventEmitter';
@@ -20,22 +21,25 @@ const App = Vue.extend({
 
   data: function data() {
     return {
-      debug            : CONFIG.DEBUG,
-      isLoading        : true,
-      loadingPercentage: 0,
-      scenes           : null,
-      currentSceneId   : 0,
-      showIntro        : true,
-      speechOverlayVisible: false,
-      speechOverlayText: '',
+      debug                   : CONFIG.DEBUG,
+      isLoading               : true,
+      loadingPercentage       : 0,
+      scenes                  : null,
+      currentSceneId          : 0,
+      showIntro               : true,
+      speechOverlayVisible    : false,
+      speechOverlayText       : '',
+      sceneSpeechHelperVisible: false,
+      sceneSpeechHelperText   : '',
     };
   },
 
   components: {
-    loader: Loader,
-    debug : Debug,
-    intro : Intro,
-    'speech-overlay': SpeechOverlay,
+    loader               : Loader,
+    debug                : Debug,
+    intro                : Intro,
+    'speech-overlay'     : SpeechOverlay,
+    'scene-speech-helper': SceneSpeechHelper,
   },
 
   mounted() {
@@ -46,9 +50,10 @@ const App = Vue.extend({
 
   methods: {
     bind() {
-      this.addIntroEventListener = this.addIntroEventListener.bind(this);
-      this.handleCloseIntro      = this.handleCloseIntro.bind(this);
-      this.handleSpeech          = this.handleSpeech.bind(this);
+      this.addIntroEventListener        = this.addIntroEventListener.bind(this);
+      this.handleCloseIntro             = this.handleCloseIntro.bind(this);
+      this.handleSpeech                 = this.handleSpeech.bind(this);
+      this.handleCloseSceneSpeechHelper = this.handleCloseSceneSpeechHelper.bind(this);
     },
 
     addEventListener() {
@@ -74,6 +79,21 @@ const App = Vue.extend({
       eventEmitter.eeListen('speech-wind', () => {
         this.handleSpeech('WIND');
       });
+
+      eventEmitter.eeListen('scene-speech-helper-close', this.handleCloseSceneSpeechHelper);
+
+      eventEmitter.eeListen('scene-speech-helper-fire', () => {
+        this.handleSceneSpeechHelper('FIRE');
+      });
+      eventEmitter.eeListen('scene-speech-helper-thunder', () => {
+        this.handleSceneSpeechHelper('THUNDER');
+      });
+      eventEmitter.eeListen('scene-speech-helper-water', () => {
+        this.handleSceneSpeechHelper('WATER');
+      });
+      eventEmitter.eeListen('scene-speech-helper-wind', () => {
+        this.handleSceneSpeechHelper('WIND');
+      });
     },
 
     handleCloseIntro() {
@@ -85,9 +105,18 @@ const App = Vue.extend({
       this.speechOverlayVisible = true;
 
       setTimeout(function() {
-        this.speechOverlayVisible = false;
+        // this.speechOverlayVisible = false;
       }.bind(this), 2000)
-    }
+    },
+
+    handleCloseSceneSpeechHelper() {
+      this.sceneSpeechHelperVisible = false;
+    },
+
+    handleSceneSpeechHelper(txt) {
+      this.sceneSpeechHelperText    = txt;
+      this.sceneSpeechHelperVisible = true;
+    },
   },
 });
 

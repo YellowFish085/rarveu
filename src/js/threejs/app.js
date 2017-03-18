@@ -129,6 +129,9 @@ class App extends EventEmitter {
     const el = document.getElementById('main');
     const tl = new TimelineLite({
       paused: true,
+      onComplete: () => {
+        this.eeEmit('scene-displayed');
+      },
     });
 
     tl.fromTo(el, 1, { opacity: 0 }, { opacity: 1 });

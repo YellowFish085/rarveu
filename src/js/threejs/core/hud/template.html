@@ -13,4 +13,8 @@
   <template v-if="speechOverlayVisible">
     <speech-overlay :text="speechOverlayText"></speech-overlay>
   </template>
+
+  <template v-if="sceneSpeechHelperVisible">
+    <scene-speech-helper :text="sceneSpeechHelperText"></scene-speech-helper>
+  </template>
 </div>
