@@ -8,9 +8,11 @@
 'use strict';
 
 import SceneA from './modules/sceneA';
+import SceneB from './modules/sceneB';
 
 const modules = [
   SceneA,
+  SceneB,
 ];
 
 export default modules;
