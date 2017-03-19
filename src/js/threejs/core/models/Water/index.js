@@ -25,6 +25,8 @@ class Water {
     this._mesh.castShadow           = true;
     this._mesh.material.transparent = true;
     this._mesh.material.opacity     = 0.8;
+
+    this._mesh.geometry.translate(0, this._h / 2, 0);
   }
 
   createGeom() {
