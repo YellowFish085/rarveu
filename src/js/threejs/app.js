@@ -11,6 +11,7 @@ import EventEmitter     from './classes/EventEmitter';
 
 import WebGL            from './core/webGL';
 import Hud              from './core/hud';
+import SoundManager     from './core/sound';
 
 /**
  * Main App
@@ -31,6 +32,7 @@ class App extends EventEmitter {
     this.createGUI();
     this.createStats();
     this.createHUD();
+    this.createSounds();
     this.createWebGL();
 
     this.initGUI();
@@ -48,6 +50,10 @@ class App extends EventEmitter {
     this._hud = new Hud({
       el: '#hud',
     });
+  }
+
+  createSounds() {
+    this._soundsManager = new SoundManager();
   }
 
   /**
@@ -103,18 +109,28 @@ class App extends EventEmitter {
     document.body.appendChild(this._stats.domElement);
   }
 
+  loadSounds() {
+    this._soundsManager.load();
+  }
+
   /**
    * Add events listeners
    */
   addEventListener() {
-    this.eeListen('loading-progress', (percentage) => {
+    this.eeOnce('loading-scenes-end', () => {
+      this.loadSounds();
+    });
+
+    this.eeListen('loading-sounds-progress', (percentage) => {
       this._hud.loadingPercentage = percentage;
     });
 
-    this.eeOnce('loading-end', () => {
-      this._hud.loadingPercentage = 100;
+    this.eeOnce('loading-sounds-end', () => {
       setTimeout(() => {
-        this._hud.isLoading = false;
+        this._hud.loadingPercentage = 100;
+        this._hud.isLoading         = false;
+
+        this._soundsManager.playLoop('bgm');
 
         this.render();
       }, 1000);
