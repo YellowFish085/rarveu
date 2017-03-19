@@ -100,6 +100,8 @@ class SceneController extends EventEmitter {
   }
 
   nextScene() {
+    this._scenes[this._currentSceneIndex].deactivate();
+
     this._currentSceneIndex += 1;
     
     if (this._currentSceneIndex >= this._scenes.length) {
@@ -107,6 +109,7 @@ class SceneController extends EventEmitter {
       this.eeEmit('game-end');
     }
     else {
+      this._scenes[this._currentSceneIndex].activate();
       this.eeEmit('scene-changed', {
         currentSceneId: this._currentSceneIndex,
         scenes        : this._scenes,

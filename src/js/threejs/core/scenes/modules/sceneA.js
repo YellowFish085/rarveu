@@ -43,13 +43,6 @@ class SceneA extends EventEmitter {
     this._loader = new THREE.ObjectLoader(loadingManager);
 
     this.fillScene();
-
-    if (CONFIG.DEBUG) {
-      if (!window.THREE) {
-        window.THREE = THREE;
-      }
-      window.scene = this._scene;
-    }
   }
 
   bind() {
@@ -414,14 +407,21 @@ class SceneA extends EventEmitter {
    * Actions to do before this scene is renderer
    */
   activate() {
-
+    if (CONFIG.DEBUG) {
+      if (!window.THREE) {
+        window.THREE = THREE;
+      }
+      window.scene = this._scene;
+    }
   }
 
   /**
    * Actions to do before scene is removed
    */
   deactivate() {
-
+    if (CONFIG.DEBUG) {
+      window.scene = null;
+    }
   }
 
   /**
