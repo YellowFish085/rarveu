@@ -52,3 +52,6 @@ $ python -m http.server
 
 ## Resources
 * Gulpfile inspired by [this example](http://mikevalstar.com/post/fast-gulp-browserify-babelify-watchify-react-build/)
+
+## Credits
+- Bgm _"Cylinder Four"_ by **[Chris Zabriskie](http://freemusicarchive.org/music/Chris_Zabriskie/2014010103336111/)**
