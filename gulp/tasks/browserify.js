@@ -1,3 +1,4 @@
+// var assign         = require('lodash.assign');
 var babelify       = require('babelify');             // Used to convert ES6 & JSX to ES5
 var browserify     = require('browserify');           // Providers "require" support, CommonJS
 var buffer         = require('vinyl-buffer');         // Vinyl stream support
@@ -44,7 +45,7 @@ gulp.task('browserify', function() {
       .pipe(buffer())                            // Convert to gulp pipeline
       .pipe(rename(config.outputFile))           // Rename the output file
       .pipe(sourcemaps.init({ loadMaps: true })) // Extract the inline sourcemaps
-      .pipe(uglify())
+      // .pipe(uglify()) // VERY SLOW ONLY USE FOR PROD BUILD
       .pipe(sourcemaps.write('./'))           // Set folder for sourcemaps to output to
       .pipe(gulp.dest(config.outputDir))         // Set the output folder
       .pipe(notify({
@@ -59,3 +60,32 @@ gulp.task('browserify', function() {
 
   return rebundle();
 });
+
+// // add custom browserify options here
+// var customOpts = {
+//   entries: ['src/js/main.js'],
+//   debug: true
+// };
+// var opts = assign({}, watchify.args, customOpts);
+// var b = watchify(browserify(opts)); 
+
+// // add transformations here
+// // i.e. b.transform(coffeeify);
+
+// gulp.task('browserify', bundle); // so you can run `gulp js` to build the file
+// b.on('update', bundle); // on any dep update, runs the bundler
+// b.on('log', gutil.log); // output build logs to terminal
+
+// function bundle() {
+//   gutil.log('lou');
+//   var a = b.bundle()
+//     .on('error', gutil.log.bind(gutil, 'Browserify Error')) // log errors if they happen
+//     .pipe(source('main.js'))
+//     .pipe(buffer()) // optional, remove if you don't need to buffer file contents
+//     .pipe(sourcemaps.init({loadMaps: true})) // optional, remove if you dont want sourcemaps, oads map from browserify file
+//      // Add transformation tasks to the pipeline here.
+//     .pipe(sourcemaps.write('./')) // writes .map file
+//     .pipe(gulp.dest('./www/assets/js'));
+//   gutil.log('jkljkl');
+//   return a;
+// }
