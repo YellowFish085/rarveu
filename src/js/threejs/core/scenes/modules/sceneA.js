@@ -356,7 +356,10 @@ class SceneA extends EventEmitter {
 
     if ((obj.object.interactId === 'Rock1' && type === 'wind') || (CONFIG.DEBUG && obj.object.interactId === 'Rock1' && type === 'click')) {
       obj.object.state = 'activated';
+
       this.eeEmit('scene-speech-helper-close');
+      this.eeEmit('play-random-action-sound');
+      
       obj.object.interactCallback();
 
       this.endAnimation();

@@ -251,7 +251,10 @@ class SceneB extends EventEmitter {
 
     if ((obj.object.interactId === 'Water1' && type === 'water') || (CONFIG.DEBUG && obj.object.interactId === 'Water1' && type === 'click')) {
       obj.object.state = 'activated';
+
       this.eeEmit('scene-speech-helper-close');
+      this.eeEmit('play-random-action-sound');
+      
       obj.object.interactCallback();
       this.interactPlank();
 

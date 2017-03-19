@@ -15,11 +15,18 @@ class SoundManager extends EventEmitter {
 
     this.bind();
     this.init();
+
+    this.addEventListener();
   }
 
   bind() {
-    this.handleFileLoad = this.handleFileLoad.bind(this);
-    this.handleComplete = this.handleComplete.bind(this);
+    this.handleFileLoad        = this.handleFileLoad.bind(this);
+    this.handleComplete        = this.handleComplete.bind(this);
+    this.playRandomActionSound = this.playRandomActionSound.bind(this);
+  }
+
+  addEventListener() {
+    this.eeListen('play-random-action-sound', this.playRandomActionSound);
   }
 
   init() {
@@ -80,6 +87,7 @@ class SoundManager extends EventEmitter {
   }
 
   playRandomActionSound() {
+    console.log('nik');
     const actionSounds = this._soundsFiles.filter((i) => { return i.id !== 'bgm' });
     
     if (actionSounds.length <= 0) return;
