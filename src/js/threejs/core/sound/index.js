@@ -48,6 +48,15 @@ class SoundManager extends EventEmitter {
       id : 'bgm',
       src: 'assets/sounds/bgm.mp3'
     });
+
+    this._soundsFiles.push({
+      id : '01',
+      src: 'assets/sounds/01.mp3'
+    });
+    this._soundsFiles.push({
+      id : '02',
+      src: 'assets/sounds/02.mp3'
+    });
   }
 
   load() {
@@ -68,6 +77,14 @@ class SoundManager extends EventEmitter {
 
   playLoop(id) {
     createjs.Sound.play(id, this._playConfigLoop);
+  }
+
+  playRandomActionSound() {
+    const actionSounds = this._soundsFiles.filter((i) => { return i.id !== 'bgm' });
+    
+    if (actionSounds.length <= 0) return;
+
+    this.play(actionSounds[Math.floor(Math.random() * actionSounds.length)].id);
   }
 }
 
