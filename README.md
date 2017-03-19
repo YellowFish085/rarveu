@@ -30,7 +30,10 @@ $ npm install
 
 ### Watch code changes
 ```sh
+$ # To create dev builds (js not minified)
 $ gulp
+$ # To minify js build
+$ gulp browserifyProd
 ```
 
 ### Clean JS with eslint
