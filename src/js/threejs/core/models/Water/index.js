@@ -2,7 +2,7 @@
 
 import * as THREE from 'three';
 
-class Plank {
+class Water {
   constructor(w, h, d) {
     this._mesh = null;
     this._geom = null;
@@ -20,7 +20,7 @@ class Plank {
     this.createGeom();
 
     this._mesh                      = new THREE.Mesh(this._geom, this._mat);
-    this._mesh.name                 = 'plank';
+    this._mesh.name                 = 'Water';
     this._mesh.receiveShadow        = true;
     this._mesh.castShadow           = true;
     this._mesh.material.transparent = true;
@@ -42,4 +42,4 @@ class Plank {
   }
 }
 
-export default Plank;
+export default Water;
