@@ -276,6 +276,8 @@ class SceneC extends EventEmitter {
   interact(obj, type) {
     if (obj.object.state !== 'idle') return; // Can only activate objects that are idle
 
+    this.eeEmit('play-random-action-sound');
+
     if ((obj.object.interactId === 'Water1' && type === 'water') || (CONFIG.DEBUG && obj.object.interactId === 'Water1' && type === 'click')) {
       obj.object.state = 'activated';
       this.eeEmit('scene-speech-helper-close');
