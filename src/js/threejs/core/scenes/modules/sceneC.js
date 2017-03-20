@@ -19,21 +19,17 @@ class SceneC extends EventEmitter {
   constructor() {
     super();
 
-    this.syncLoading = true;
-
     this._objects    = {};
 
     this._scene      = null;
-    this._loader     = null;
     this._step       = 0; // quick counter to check if level is won
   }
 
   /**
    * Will be called when ScenesManager is initialized.
    * Init what's necessary here.
-   * loadingManager is the three.js loading manager used to track assets loading
    */
-  init(loadingManager) {
+  init() {
     this.bind();
 
     this.addEventListener();
@@ -41,7 +37,6 @@ class SceneC extends EventEmitter {
     this._objects.intersects = [];
 
     this._scene  = new THREE.Scene();
-    this._loader = new THREE.ObjectLoader(loadingManager);
 
     this.fillScene();
   }
