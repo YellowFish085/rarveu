@@ -22,7 +22,6 @@ class SceneController extends EventEmitter {
   init() {
     this.bind();
 
-    this.initLoadingManager();
     this.initScenes();
 
     this.addEventListener();
@@ -34,21 +33,8 @@ class SceneController extends EventEmitter {
     this.sceneDisplayed = this.sceneDisplayed.bind(this);
   }
 
-  /**
-   * Initialize three.js LoadingManager
-   */
-  initLoadingManager() {
-    this._loadingManager            = new THREE.LoadingManager();
-
-    this._loadingManager.onProgress = this.onLoadProgress;
-    this._loadingManager.onLoad     = this.onLoadEnd;
-  }
-
-  onLoadProgress(item, loaded, total) {
+  onLoadProgress() {
     this._totalLoaded += 1;
-
-    const percentage = parseInt((this._totalLoaded * 100) / this._scenes.length);
-    this.eeEmit('loading-progress', percentage);
   }
 
   onLoadEnd() {
@@ -63,7 +49,7 @@ class SceneController extends EventEmitter {
       firstCall     : true,
     });
 
-    this.eeEmit('loading-end');
+    this.eeEmit('loading-scenes-end');
   }
 
   /**
@@ -72,20 +58,15 @@ class SceneController extends EventEmitter {
   initScenes() {
     this._scenesList.forEach((Module, index) => {
       this._scenes.push(new Module());
-      this._scenes[this._scenes.length - 1].init(this._loadingManager);
+      this._scenes[this._scenes.length - 1].init();
     });
 
     this._scenes.forEach((Scene, index) => {
       Scene.load();
-
-      if (Scene.syncLoading) {
-        this.onLoadProgress(Scene, this._totalLoaded, this._scenes.length);
-      }
+      this.onLoadProgress();
     });
 
-    if (this._totalLoaded === this._scenes.length) {
-      this.onLoadEnd();
-    }
+    this.onLoadEnd();
   }
 
   /**

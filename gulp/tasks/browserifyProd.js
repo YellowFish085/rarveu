@@ -23,7 +23,7 @@ var config = {
 };
 
 
-gulp.task('browserify', function() {
+gulp.task('browserifyProd', function() {
   var args = merge(watchify.args, { debug: true });
 
   var bundler = watchify(browserify(config.src, args));
@@ -45,7 +45,7 @@ gulp.task('browserify', function() {
       .pipe(buffer())                            // Convert to gulp pipeline
       .pipe(rename(config.outputFile))           // Rename the output file
       .pipe(sourcemaps.init({ loadMaps: true })) // Extract the inline sourcemaps
-      // .pipe(uglify()) // VERY SLOW ONLY USE FOR PROD BUILD
+      .pipe(uglify()) // VERY SLOW ONLY USE FOR PROD BUILD
       .pipe(sourcemaps.write('./'))           // Set folder for sourcemaps to output to
       .pipe(gulp.dest(config.outputDir))         // Set the output folder
       .pipe(notify({
