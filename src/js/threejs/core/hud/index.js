@@ -103,6 +103,9 @@ const App = Vue.extend({
       eventEmitter.eeListen('scene-speech-helper-wind', () => {
         this.handleSceneSpeechHelper('WIND');
       });
+      eventEmitter.eeListen('scene-speech-helper-windwater', () => {
+        this.handleSceneSpeechHelper('WIND AND WATER');
+      });
 
       eventEmitter.eeListen('scene-completed', this.handleEndScene);
       eventEmitter.eeListen('game-end', this.handleEndGame);
