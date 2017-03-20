@@ -110,6 +110,7 @@ const App = Vue.extend({
 
     handleCloseIntro() {
       this.showIntro = false;
+      eventEmitter.eeEmit('play-random-action-sound');
     },
 
     handleSpeech(txt) {
