@@ -87,7 +87,6 @@ class SoundManager extends EventEmitter {
   }
 
   playRandomActionSound() {
-    console.log('nik');
     const actionSounds = this._soundsFiles.filter((i) => { return i.id !== 'bgm' });
     
     if (actionSounds.length <= 0) return;
