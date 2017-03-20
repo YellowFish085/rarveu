@@ -37,6 +37,9 @@ const SceneSpeechHelper = Vue.extend({
     else if (this.text === 'WIND') {
       wrapper.className = 'wind';
     }
+    else if (this.text === 'WIND AND WATER') {
+      wrapper.className = 'water';
+    }
   },
 });
 

@@ -9,11 +9,12 @@
 
 import SceneA from './modules/sceneA';
 import SceneB from './modules/sceneB';
+import SceneC from './modules/sceneC';
 
 const modules = [
   SceneA,
   SceneB,
+  SceneC
 ];
 
 export default modules;
-
