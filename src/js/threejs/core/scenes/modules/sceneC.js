@@ -271,23 +271,29 @@ class SceneC extends EventEmitter {
   interact(obj, type) {
     if (obj.object.state !== 'idle') return; // Can only activate objects that are idle
 
-    this.eeEmit('play-random-action-sound');
-
     if ((obj.object.interactId === 'Water1' && type === 'water') || (CONFIG.DEBUG && obj.object.interactId === 'Water1' && type === 'click')) {
       obj.object.state = 'activated';
+
       this.eeEmit('scene-speech-helper-close');
+      this.eeEmit('play-random-action-sound');
+
       obj.object.interactCallback(false);
       this.interactPlank();
+      
       this._step++
 
       //this.endAnimation();
     }
     if ((obj.object.interactId === 'Rock' && type === 'wind') || (CONFIG.DEBUG && obj.object.interactId === 'Rock' && type === 'click')) {
       obj.object.state = 'activated';
+
       this.eeEmit('scene-speech-helper-close');
+      this.eeEmit('play-random-action-sound');
+
       obj.object.interactCallback();
       this.interactPlank(true);
       this.objects.water.interactCallback(true);
+      
       this._step++;
 
       //this.endAnimation();
